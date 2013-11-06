@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="login_choose">Chosee a way to login</string>
+	<string name="login_title">Authentication</string>
+	<string name="back">Back</string>
+	<string name="back_arrow"></string>
+	<string name="loading">Loading...</string>
+	<string name="format_test">Your name is %s</string>
+    <string name="ordered">Hi %1$s, my name is %2$s</string>
+</resources>

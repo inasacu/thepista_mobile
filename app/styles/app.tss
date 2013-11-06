@@ -1,0 +1,78 @@
+"Window[platform=android]": {
+	navBarHidden: "true"
+},
+".activityIndicatorWhite":{
+	color: "#5da423",
+	top: 0,
+	height: "auto",
+	width: "auto"
+},
+".activityIndicatorWhite[platform=ios]":{
+	font: {fontSize: 15}
+},
+".activityIndicatorWhite[platform=android]":{
+	font: {fontSize: "20dp"}
+},
+".customStatusBar":{
+	backgroundColor: "#5da423"
+},
+".customStatusBar[platform=android]":{
+	height: 80
+},
+".customStatusBar[platform=ios]":{
+	height: 25
+},
+".container": {
+	backgroundColor:"#fff"
+},
+".containerScrollView":{
+	height: "100%",
+	width: "100%"
+},
+".customStatusBarLeftButton":{
+	background: "#5da423",
+	image: "/images/haypista_symbol.png",
+	color: "#fff"
+},
+".customStatusBarLeftButton[platform=android]":{
+	left: 5,
+	width: 50
+},
+".customStatusBarLeftButton[platform=ios]":{
+	left: 2,
+	width: 20
+},
+".customStatusBarTitle[platform=android]":{
+	color:"#fff",
+	font: { fontSize:"20dp"}
+},
+".customStatusBarTitle[platform=ios]":{
+	color:"#fff",
+	font: { fontSize:15}
+},
+".customStatusBarTitleImage[platform=android]":{
+	image:"/images/haypista_logo.png",
+	width: "250"
+},
+".customStatusBarTitleImage[platform=ios]":{
+	image:"/images/haypista_logo.png",
+	width: "70"
+},
+".windowTitleWrapper":{
+	height: 21,
+	top: 0
+},
+".windowTitle":{
+	backgroundColor: "#fff",
+	height: 20
+},
+".windowTitleLabel": {
+	color: "#666",
+	font: {fontSize: 12}
+},
+".windowTitleBorder":{
+	backgroundColor: "#666",
+	height:1
+}
+
+

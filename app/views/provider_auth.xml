@@ -1,0 +1,10 @@
+<Alloy>
+	<Window class="container" layout="vertical">
+		<View class="customStatusBar" layout="composite">
+			<ImageView id="barLeftButton" class="customStatusBarLeftButton"></ImageView>
+			<Label class="customStatusBarTitle" text="L('login_title')"></Label>
+		</View>
+		<ActivityIndicator id="activityIndicator" class="activityIndicatorWhite" message="L('loading')"/>
+		<WebView id="providerWebView"></WebView>
+	</Window>
+</Alloy>

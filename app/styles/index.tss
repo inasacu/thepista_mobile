@@ -1,0 +1,43 @@
+"Label": {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	color: "#fff"
+} ,
+
+"Label[platform=android]": {
+	font: { fontSize:"20dp" }
+} ,
+
+".container": {
+	backgroundColor:"#5da423"
+},
+
+"#hayPistaLogoAuth[platform=android]":{
+	image:"/images/haypista_logo.png",
+	top:150
+},
+
+"#hayPistaLogoAuth[platform=ios]":{
+	image:"/images/haypista_logo.png",
+	width:200,
+	top:100
+},
+
+"#loginChoose":{
+	top:30,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
+},
+
+"#providersView":{
+	width: 210
+},
+".oauthProviderButton[platform=ios]":{
+	width:100,
+	height:30,
+	top:10
+},
+".oauthProviderButton[platform=android]":{
+	width:240,
+	height:100,
+	top:30
+}
