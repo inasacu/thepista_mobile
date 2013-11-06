@@ -3,7 +3,7 @@
 	<Window id="index" class="container">
 		<ScrollView class="containerScrollView" layout="vertical" showVerticalScrollIndicator="true">
 			<ImageView id="hayPistaLogoAuth"/>
-			<Label id="loginChoose" text="L('login_choose')"></Label>
+			<Label id="loginChoose" text="HOLAAA"></Label>
 			<View id="providersView" layout="vertical">
 				<Button id="facebookLogin" class="oauthProviderButton"  title="Facebook"/>
 				<Button id="googleLogin" class="oauthProviderButton"  title="Google"/>

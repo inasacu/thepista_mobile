@@ -11,7 +11,6 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.provider_auth = Ti.UI.createWindow({
-        navBarHidden: "true",
         backgroundColor: "#fff",
         layout: "vertical",
         id: "provider_auth"
@@ -19,36 +18,54 @@ function Controller() {
     $.__views.provider_auth && $.addTopLevelView($.__views.provider_auth);
     $.__views.__alloyId1 = Ti.UI.createView({
         backgroundColor: "#5da423",
-        height: 80,
+        height: 25,
         layout: "composite",
         id: "__alloyId1"
     });
     $.__views.provider_auth.add($.__views.__alloyId1);
-    $.__views.barLeftButton = Ti.UI.createImageView({
+    $.__views.barLeftButton = Ti.UI.createView({
         background: "#5da423",
-        image: "/images/haypista_symbol.png",
         color: "#fff",
-        left: 5,
-        width: 50,
+        layout: "composite",
+        left: 2,
+        width: 25,
         id: "barLeftButton"
     });
     $.__views.__alloyId1.add($.__views.barLeftButton);
-    $.__views.__alloyId2 = Ti.UI.createLabel({
+    $.__views.__alloyId2 = Ti.UI.createImageView({
+        background: "#5da423",
+        image: "/images/back_arrow.png",
         color: "#fff",
-        font: {
-            fontSize: "20dp"
-        },
-        text: L("login_title"),
+        left: 2,
+        width: 5,
         id: "__alloyId2"
     });
-    $.__views.__alloyId1.add($.__views.__alloyId2);
+    $.__views.barLeftButton.add($.__views.__alloyId2);
+    $.__views.__alloyId3 = Ti.UI.createImageView({
+        background: "#5da423",
+        image: "/images/haypista_symbol.png",
+        color: "#fff",
+        left: 2,
+        width: 20,
+        id: "__alloyId3"
+    });
+    $.__views.barLeftButton.add($.__views.__alloyId3);
+    $.__views.__alloyId4 = Ti.UI.createLabel({
+        color: "#fff",
+        font: {
+            fontSize: 15
+        },
+        text: L("login_title"),
+        id: "__alloyId4"
+    });
+    $.__views.__alloyId1.add($.__views.__alloyId4);
     $.__views.activityIndicator = Ti.UI.createActivityIndicator({
         color: "#5da423",
         top: 0,
         height: "auto",
         width: "auto",
         font: {
-            fontSize: "20dp"
+            fontSize: 15
         },
         id: "activityIndicator",
         message: L("loading")

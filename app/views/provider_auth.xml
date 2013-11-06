@@ -1,7 +1,10 @@
 <Alloy>
 	<Window class="container" layout="vertical">
 		<View class="customStatusBar" layout="composite">
-			<ImageView id="barLeftButton" class="customStatusBarLeftButton"></ImageView>
+			<View id="barLeftButton" class="customStatusBarLeftButton">
+				<ImageView class="customStatusBarLeftButtonArrow"></ImageView>
+				<ImageView class="customStatusBarLeftButtonSymbol"></ImageView>
+			</View>
 			<Label class="customStatusBarTitle" text="L('login_title')"></Label>
 		</View>
 		<ActivityIndicator id="activityIndicator" class="activityIndicatorWhite" message="L('loading')"/>

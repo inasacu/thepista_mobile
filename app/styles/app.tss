@@ -31,14 +31,40 @@
 },
 ".customStatusBarLeftButton":{
 	background: "#5da423",
-	image: "/images/haypista_symbol.png",
-	color: "#fff"
+	color: "#fff",
+	layout: "composite"
 },
 ".customStatusBarLeftButton[platform=android]":{
 	left: 5,
-	width: 50
+	width: 60
 },
 ".customStatusBarLeftButton[platform=ios]":{
+	left: 2,
+	width: 25
+},
+".customStatusBarLeftButtonArrow":{
+	background: "#5da423",
+	image: "/images/back_arrow.png",
+	color: "#fff"
+},
+".customStatusBarLeftButtonArrow[platform=android]":{
+	left: 5,
+	width: 10
+},
+".customStatusBarLeftButtonArrow[platform=ios]":{
+	left: 2,
+	width: 5
+},
+".customStatusBarLeftButtonSymbol":{
+	background: "#5da423",
+	image: "/images/haypista_symbol.png",
+	color: "#fff"
+},
+".customStatusBarLeftButtonSymbol[platform=android]":{
+	left: 5,
+	width: 50
+},
+".customStatusBarLeftButtonSymbol[platform=ios]":{
 	left: 2,
 	width: 20
 },

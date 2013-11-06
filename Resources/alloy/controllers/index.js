@@ -13,7 +13,6 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.index = Ti.UI.createWindow({
-        navBarHidden: "true",
         backgroundColor: "#5da423",
         id: "index"
     });
@@ -28,7 +27,8 @@ function Controller() {
     $.__views.index.add($.__views.__alloyId0);
     $.__views.hayPistaLogoAuth = Ti.UI.createImageView({
         image: "/images/haypista_logo.png",
-        top: 150,
+        width: 200,
+        top: 100,
         id: "hayPistaLogoAuth"
     });
     $.__views.__alloyId0.add($.__views.hayPistaLogoAuth);
@@ -36,13 +36,10 @@ function Controller() {
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
-        font: {
-            fontSize: "20dp"
-        },
         top: 30,
         textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
         id: "loginChoose",
-        text: L("login_choose")
+        text: "HOLAAA"
     });
     $.__views.__alloyId0.add($.__views.loginChoose);
     $.__views.providersView = Ti.UI.createView({
@@ -52,25 +49,25 @@ function Controller() {
     });
     $.__views.__alloyId0.add($.__views.providersView);
     $.__views.facebookLogin = Ti.UI.createButton({
-        width: 240,
-        height: 100,
-        top: 30,
+        width: 100,
+        height: 30,
+        top: 10,
         id: "facebookLogin",
         title: "Facebook"
     });
     $.__views.providersView.add($.__views.facebookLogin);
     $.__views.googleLogin = Ti.UI.createButton({
-        width: 240,
-        height: 100,
-        top: 30,
+        width: 100,
+        height: 30,
+        top: 10,
         id: "googleLogin",
         title: "Google"
     });
     $.__views.providersView.add($.__views.googleLogin);
     $.__views.outlookLogin = Ti.UI.createButton({
-        width: 240,
-        height: 100,
-        top: 30,
+        width: 100,
+        height: 30,
+        top: 10,
         id: "outlookLogin",
         title: "Microsoft"
     });
