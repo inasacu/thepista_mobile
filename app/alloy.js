@@ -13,8 +13,8 @@
 // Global properties ---------------------------------------------
 
 // Webapp
-//Ti.App.Properties.setString('webappURL', 'http://thepista.192.168.1.134.xip.io/');
-Ti.App.Properties.setString('webappURL', 'http://thepista.dev/');
+Ti.App.Properties.setString('webappURL', 'http://thepista.192.168.1.134.xip.io/');
+//Ti.App.Properties.setString('webappURL', 'http://thepista.dev/');
 Ti.App.Properties.setString('webappOAuthSuffix', '/mobile/security/?oauth_provider=:oauth_provider');
 
 Ti.App.Properties.setString('facebookProviderIndex', '1');

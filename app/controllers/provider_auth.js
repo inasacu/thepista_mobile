@@ -10,14 +10,17 @@ function getProviderUrl(providerIndex){
 // Initial calls
 Alloy.Globals.cleanCookiesHaypistaWeb();
 
-// Show loading indicator for the webview
-$.activityIndicator.show();
-
 // Set init params
 var firstLoad = true;
 var args = arguments[0] || {};
 $.providerWebView.url = getProviderUrl(args.providerIndex);
 //$.providerWebView.url = "http://google.com";
+
+$.providerWebView.addEventListener("beforeload", function(){
+	// Show loading indicator for the webview
+	$.activityIndicator.show();
+	$.activityIndicator.height = "auto";
+});
 
 // Listeners for events
 $.providerWebView.addEventListener("load", function(){
@@ -48,7 +51,6 @@ $.providerWebView.addEventListener("load", function(){
 	    	
 		}
 		
-		
 		if(cookiesObj.mobile_valid === "true"){
 	    	// get info from the logged user
 	    	Ti.API.info("User: "+cookiesObj.user_data);
@@ -67,7 +69,7 @@ $.providerWebView.addEventListener("load", function(){
 });
 
 // Listeners
-$.barLeftButton.addEventListener("click", function(){
+$.stateBar.barLeftButton.addEventListener("click", function(){
 	Alloy.Globals.backToPreviousWindow();
 	$.provider_auth.close();
 });

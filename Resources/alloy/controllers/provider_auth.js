@@ -16,49 +16,12 @@ function Controller() {
         id: "provider_auth"
     });
     $.__views.provider_auth && $.addTopLevelView($.__views.provider_auth);
-    $.__views.__alloyId1 = Ti.UI.createView({
-        backgroundColor: "#5da423",
-        height: 25,
-        layout: "composite",
-        id: "__alloyId1"
+    $.__views.stateBar = Alloy.createController("includes/custom_state_bar", {
+        id: "stateBar",
+        title: L("login_title"),
+        __parentSymbol: $.__views.provider_auth
     });
-    $.__views.provider_auth.add($.__views.__alloyId1);
-    $.__views.barLeftButton = Ti.UI.createView({
-        background: "#5da423",
-        color: "#fff",
-        layout: "composite",
-        left: 2,
-        width: 25,
-        id: "barLeftButton"
-    });
-    $.__views.__alloyId1.add($.__views.barLeftButton);
-    $.__views.__alloyId2 = Ti.UI.createImageView({
-        background: "#5da423",
-        image: "/images/back_arrow.png",
-        color: "#fff",
-        left: 2,
-        width: 5,
-        id: "__alloyId2"
-    });
-    $.__views.barLeftButton.add($.__views.__alloyId2);
-    $.__views.__alloyId3 = Ti.UI.createImageView({
-        background: "#5da423",
-        image: "/images/haypista_symbol.png",
-        color: "#fff",
-        left: 2,
-        width: 20,
-        id: "__alloyId3"
-    });
-    $.__views.barLeftButton.add($.__views.__alloyId3);
-    $.__views.__alloyId4 = Ti.UI.createLabel({
-        color: "#fff",
-        font: {
-            fontSize: 15
-        },
-        text: L("login_title"),
-        id: "__alloyId4"
-    });
-    $.__views.__alloyId1.add($.__views.__alloyId4);
+    $.__views.stateBar.setParent($.__views.provider_auth);
     $.__views.activityIndicator = Ti.UI.createActivityIndicator({
         color: "#5da423",
         top: 0,
@@ -78,10 +41,13 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     Alloy.Globals.cleanCookiesHaypistaWeb();
-    $.activityIndicator.show();
     var firstLoad = true;
     var args = arguments[0] || {};
     $.providerWebView.url = getProviderUrl(args.providerIndex);
+    $.providerWebView.addEventListener("beforeload", function() {
+        $.activityIndicator.show();
+        $.activityIndicator.height = "auto";
+    });
     $.providerWebView.addEventListener("load", function() {
         $.activityIndicator.hide();
         $.activityIndicator.height = 0;
@@ -109,7 +75,7 @@ function Controller() {
             }
         }
     });
-    $.barLeftButton.addEventListener("click", function() {
+    $.stateBar.barLeftButton.addEventListener("click", function() {
         Alloy.Globals.backToPreviousWindow();
         $.provider_auth.close();
     });

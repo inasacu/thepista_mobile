@@ -1,6 +1,3 @@
-// Load texts
-$.loginChoose.text = L('login_choose');
-
 function showLogin(providerIndexValue) {
 	var provider_auth_window = Alloy.createController("provider_auth", 
 						       {providerIndex: providerIndexValue}).getView();

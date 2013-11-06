@@ -39,7 +39,7 @@ function Controller() {
         top: 30,
         textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
         id: "loginChoose",
-        text: "HOLAAA"
+        text: L("login_choose")
     });
     $.__views.__alloyId0.add($.__views.loginChoose);
     $.__views.providersView = Ti.UI.createView({
@@ -74,7 +74,6 @@ function Controller() {
     $.__views.providersView.add($.__views.outlookLogin);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.loginChoose.text = L("login_choose");
     $.facebookLogin.addEventListener("click", function() {
         showLogin(Ti.App.Properties.getString("facebookProviderIndex"));
     });
