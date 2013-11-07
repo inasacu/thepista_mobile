@@ -1,7 +1,7 @@
 <Alloy>
 	<View id="statusBar" class="customStatusBar" layout="composite">
 		<View id="barLeftButton" class="customStatusBarLeftButton">
-			<ImageView class="customStatusBarLeftButtonArrow"></ImageView>
+			<ImageView id="barBackIcon" class="customStatusBarLeftButtonArrow"></ImageView>
 			<ImageView class="customStatusBarLeftButtonSymbol"></ImageView>
 		</View>
 		<Label id="barTitle" class="customStatusBarTitle"></Label>

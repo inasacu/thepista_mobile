@@ -28,6 +28,10 @@ Ti.App.Properties.setString('user_data_property', 'user_data');
 // Mobile app specific
 Ti.App.Properties.setString('SETTING_LANGUAGE','es');
 
+// Activity indicator visibility codes
+Ti.App.Properties.setString('AIshowCode', '1');
+Ti.App.Properties.setString('AIhideCode', '0');
+
 // Global functions
 Alloy.Globals.cleanCookiesHaypistaWeb = function(){
 	Ti.Network.createHTTPClient().clearCookies(Ti.App.Properties.getString("webappURL"));
@@ -39,6 +43,18 @@ Alloy.Globals.backToPreviousWindow = function(){
 Alloy.Globals.removeWhiteSpace = function(s) {
 	if(s!='undefined' && s!=null){
 		return s.replace(/\s/g, '');	
+	}
+};
+Alloy.Globals.toogleActivityIndicator = function(activityIndicator, code) {
+	switch(code){
+		case Ti.App.Properties.getString('AIhideCode'):
+			activityIndicator.hide();
+			activityIndicator.height = 0;
+		break;
+		case Ti.App.Properties.getString('AIshowCode'):
+			activityIndicator.show();
+			activityIndicator.height = "auto";
+		break;
 	}
 };
 

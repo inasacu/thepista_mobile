@@ -1,0 +1,3 @@
+".tabContainer":{
+	height: Titanium.UI.FILL
+}

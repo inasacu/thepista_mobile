@@ -17,7 +17,7 @@ function L(text) {
 
 var Alloy = require("alloy"), _ = Alloy._, Backbone = Alloy.Backbone;
 
-Ti.App.Properties.setString("webappURL", "http://thepista.dev/");
+Ti.App.Properties.setString("webappURL", "http://thepista.192.168.1.134.xip.io/");
 
 Ti.App.Properties.setString("webappOAuthSuffix", "/mobile/security/?oauth_provider=:oauth_provider");
 
@@ -33,6 +33,10 @@ Ti.App.Properties.setString("user_data_property", "user_data");
 
 Ti.App.Properties.setString("SETTING_LANGUAGE", "es");
 
+Ti.App.Properties.setString("AIshowCode", "1");
+
+Ti.App.Properties.setString("AIhideCode", "0");
+
 Alloy.Globals.cleanCookiesHaypistaWeb = function() {
     Ti.Network.createHTTPClient().clearCookies(Ti.App.Properties.getString("webappURL"));
 };
@@ -44,6 +48,19 @@ Alloy.Globals.backToPreviousWindow = function() {
 
 Alloy.Globals.removeWhiteSpace = function(s) {
     if ("undefined" != s && null != s) return s.replace(/\s/g, "");
+};
+
+Alloy.Globals.toogleActivityIndicator = function(activityIndicator, code) {
+    switch (code) {
+      case Ti.App.Properties.getString("AIhideCode"):
+        activityIndicator.hide();
+        activityIndicator.height = 0;
+        break;
+
+      case Ti.App.Properties.getString("AIshowCode"):
+        activityIndicator.show();
+        activityIndicator.height = "auto";
+    }
 };
 
 Alloy.createController("index");

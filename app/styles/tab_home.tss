@@ -1,0 +1,30 @@
+"#tabIndicator":{
+	backgroundColor: "#000",
+	bottom: 0
+},
+"#tabIndicator[platform=android]":{
+	height: 100
+},
+"#tabIndicator[platform=ios]":{
+	height: 40
+},
+"#scrollableView":{
+	top:0,
+	height: Titanium.UI.SIZE
+},
+".tabButton":{
+	borderColor: "#ccc",
+	borderWidth: "1",
+	width: "50%",
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
+},
+".horizontalSeparator":{
+	backgroundColor: "#ccc",
+	width: 2
+},
+".tabIndicatorLabel":{
+	color: "#fff"
+},
+"#vista":{
+	height: Titanium.UI.Fill
+}

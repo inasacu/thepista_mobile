@@ -14,11 +14,12 @@
 	font: {fontSize: "20dp"}
 },
 ".container": {
-	backgroundColor:"#fff"
+	backgroundColor:"#fff",
+	width: Titanium.UI.FILL,
+	height: Titanium.UI.FILL
 },
 ".containerScrollView":{
-	height: "100%",
-	width: "100%"
+	height: Titanium.UI.FILL
 },
 ".windowTitleWrapper":{
 	height: 21,

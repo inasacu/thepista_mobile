@@ -11,13 +11,17 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.provider_auth = Ti.UI.createWindow({
+        navBarHidden: "true",
         backgroundColor: "#fff",
+        width: Titanium.UI.FILL,
+        height: Titanium.UI.FILL,
         layout: "vertical",
         id: "provider_auth"
     });
     $.__views.provider_auth && $.addTopLevelView($.__views.provider_auth);
     $.__views.stateBar = Alloy.createController("includes/custom_state_bar", {
         id: "stateBar",
+        back: "true",
         title: L("login_title"),
         __parentSymbol: $.__views.provider_auth
     });
@@ -28,7 +32,7 @@ function Controller() {
         height: "auto",
         width: "auto",
         font: {
-            fontSize: 15
+            fontSize: "20dp"
         },
         id: "activityIndicator",
         message: L("loading")
@@ -40,38 +44,47 @@ function Controller() {
     $.__views.provider_auth.add($.__views.providerWebView);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var alloyString = require("alloy/string");
     Alloy.Globals.cleanCookiesHaypistaWeb();
     var firstLoad = true;
     var args = arguments[0] || {};
     $.providerWebView.url = getProviderUrl(args.providerIndex);
     $.providerWebView.addEventListener("beforeload", function() {
-        $.activityIndicator.show();
-        $.activityIndicator.height = "auto";
+        Alloy.Globals.toogleActivityIndicator($.activityIndicator, Ti.App.Properties.getString("AIshowCode"));
     });
     $.providerWebView.addEventListener("load", function() {
-        $.activityIndicator.hide();
-        $.activityIndicator.height = 0;
+        Alloy.Globals.toogleActivityIndicator($.activityIndicator, Ti.App.Properties.getString("AIhideCode"));
         if (firstLoad) firstLoad = false; else {
-            var cookies = $.providerWebView.evalJS("document.cookie").split(";");
-            var cookiesObj = {};
-            for (i = 0; cookies.length - 1 >= i; i++) {
-                cookieArray = cookies[i].split("=");
-                cookieKey = Alloy.Globals.removeWhiteSpace(cookieArray[0]);
-                cookieValue = Alloy.Globals.removeWhiteSpace(cookieArray[1]);
-                Ti.API.info("Cookie: " + cookieKey + " " + cookieValue);
-                switch (cookieKey) {
-                  case Ti.App.Properties.getString("mobile_valid_property"):
-                    cookiesObj.mobile_valid = cookieValue;
-                    break;
+            cookiesString = $.providerWebView.evalJS("document.cookie");
+            if ("" != cookiesString) {
+                var cookies = cookiesString.split(";");
+                var cookiesObj = {};
+                for (i = 0; cookies.length - 1 >= i; i++) {
+                    cookieArray = cookies[i].split("=");
+                    cookieKey = Alloy.Globals.removeWhiteSpace(cookieArray[0]);
+                    cookieValue = alloyString.urlDecode(Alloy.Globals.removeWhiteSpace(cookieArray[1]));
+                    Ti.API.info("Cookie: " + cookieKey + " " + cookieValue);
+                    switch (cookieKey) {
+                      case Ti.App.Properties.getString("mobile_valid_property"):
+                        cookiesObj.mobileValid = cookieValue;
+                        break;
 
-                  case Ti.App.Properties.getString("user_data_property"):
-                    cookiesObj.user_data = cookieValue;
+                      case Ti.App.Properties.getString("user_data_property"):
+                        cookiesObj.userData = cookieValue;
+                    }
                 }
-            }
-            if ("true" === cookiesObj.mobile_valid) Ti.API.info("User: " + cookiesObj.user_data); else if ("false" === cookiesObj.mobile_valid) {
-                Ti.API.info("User permission not granted");
-                $.provider_auth.close();
-                Alloy.createController("index").getView().open();
+                if ("true" === cookiesObj.mobileValid) {
+                    userData = JSON.parse(cookiesObj.userData);
+                    var currentUser = Alloy.Models.instance("user");
+                    currentUser.setFromJson(userData.mobile_token);
+                    var tab_home_window = Alloy.createController("tab_home").getView();
+                    tab_home_window.open();
+                    $.provider_auth.close();
+                } else if ("false" === cookiesObj.mobile_valid) {
+                    Ti.API.info("User permission not granted");
+                    $.provider_auth.close();
+                    Alloy.createController("index").getView().open();
+                }
             }
         }
     });

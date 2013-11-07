@@ -1,0 +1,18 @@
+<Alloy>
+    <Window class="container" layout="vertical">
+        <View id="vista">
+        	<ScrollableView id="scrollableView" showPagingControl="false">
+	            <Require src="resume_home"></Require>
+	            <Require src="events_home"></Require>
+	        </ScrollableView>
+    		<View id="tabIndicator" layout="horizontal">
+	        	<View id="tab1" class="tabButton">
+	        		<Label class="tabIndicatorLabel">Tab 1</Label>
+	        	</View>
+	        	<View id="tab2" class="tabButton">
+	        		<Label class="tabIndicatorLabel">Tab 2</Label>
+	        	</View>
+	        </View>
+    	</View>
+    </Window>
+</Alloy>

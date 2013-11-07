@@ -20,7 +20,7 @@
 "#hayPistaLogoAuth[platform=ios]":{
 	image:"/images/haypista_logo.png",
 	width:200,
-	top:100
+	top:50
 },
 
 "#loginChoose":{
@@ -29,7 +29,8 @@
 },
 
 "#providersView":{
-	width: 210
+	width: 210,
+	height: Titanium.UI.SIZE
 },
 ".oauthProviderButton[platform=ios]":{
 	width:100,

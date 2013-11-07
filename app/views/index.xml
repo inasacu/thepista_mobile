@@ -1,6 +1,5 @@
 <Alloy>
-	
-	<Window id="index" class="container">
+	<Window id="index" class="container" >
 		<ScrollView class="containerScrollView" layout="vertical" showVerticalScrollIndicator="true">
 			<ImageView id="hayPistaLogoAuth"/>
 			<Label id="loginChoose" text="L('login_choose')"></Label>
@@ -11,5 +10,4 @@
 			</View>
 		</ScrollView>
 	</Window>
-	
 </Alloy>

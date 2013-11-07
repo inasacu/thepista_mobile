@@ -5,6 +5,12 @@
 	<string name="back">Atras</string>
 	<string name="back_arrow"></string>
 	<string name="loading">Cargando...</string>
+	<string name="home_title">Inicio</string>
+	<string name="events_title">Eventos</string>
+	<string name="groups_title">Grupos</string>
+	<string name="installations_title">Instalaciones</string>
+	<string name="messages_title">Mensajes</string>
+	<string name="account_title">Mi Cuenta</string>
     <string name="format_test">Your name is %s</string>
     <string name="ordered">Hi %1$s, my name is %2$s</string>
 </resources>
