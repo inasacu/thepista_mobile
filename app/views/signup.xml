@@ -1,0 +1,40 @@
+<Alloy>
+	<Window class="container" layout="vertical">
+		<Require id="stateBar" type="view" src="includes/custom_state_bar" back="true" title="L('signup_title')"/>
+		<ActivityIndicator id="activityIndicator" class="activityIndicatorWhite" message="L('loading')"/>
+		
+		<ScrollView class="containerScrollView" layout="vertical" showVerticalScrollIndicator="true">
+			<Label class="leftAlignedLabel littlePaddedView" text="L('signup_text')"></Label>
+			<View class="horizontalBorder"></View>
+			
+			<Label top="10" class="leftAlignedLabel littlePaddedView" text="L('name')"></Label>
+			<TextField class="roundedTextField littlePaddedView"></TextField>
+			<Label class="leftAlignedLabel littlePaddedView" text="L('email')"></Label>
+			<TextField class="roundedTextField littlePaddedView"></TextField>
+			<Label class="leftAlignedLabel littlePaddedView" text="L('telephone')"></Label>
+			<TextField class="roundedTextField littlePaddedView"></TextField>
+			
+			<View class="switchTextView littlePaddedView">
+				<Switch id="waSwitch" class="smallSwitch" value="false"/>
+				<Label class="switchText" text="L('use_wa')"></Label>
+			</View>
+			
+			<Label class="leftAlignedLabel littlePaddedView" text="L('city')"></Label>
+			<Picker id="cityPicker" top="0" selectionIndicator="true">
+	            <PickerColumn id="column1">
+	                <PickerRow title="Madrid"/>
+	                <PickerRow title="Malaga"/>
+	                <PickerRow title="Barcelona"/>
+	            </PickerColumn>
+	        </Picker>
+	        
+	        <View layout="horizontal" height="Titanium.UI.SIZE" width="Titanium.UI.SIZE">
+	        	<Require id="button1" type="view" isAccept="true" text="Aceptar" src="includes/custom_button"/>
+	        	<Require id="button2" type="view" isCancel="true" text="Cancelar" src="includes/custom_button"/>
+	        </View>
+	        
+		</ScrollView>
+		
+		
+	</Window>
+</Alloy>

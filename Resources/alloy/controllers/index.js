@@ -73,8 +73,8 @@ function Controller() {
     $.__views.providersView.add($.__views.outlookLogin);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var tabs_home_window = Alloy.createController("tab_home").getView();
-    tabs_home_window.open();
+    var signup_home_window = Alloy.createController("signup").getView();
+    signup_home_window.open();
     _.extend($, exports);
 }
 

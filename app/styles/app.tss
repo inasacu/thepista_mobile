@@ -20,22 +20,42 @@
 },
 ".containerScrollView":{
 	height: Titanium.UI.FILL
-},
-".windowTitleWrapper":{
-	height: 21,
-	top: 0
-},
-".windowTitle":{
-	backgroundColor: "#fff",
-	height: 20
-},
-".windowTitleLabel": {
-	color: "#666",
-	font: {fontSize: 12}
-},
-".windowTitleBorder":{
-	backgroundColor: "#666",
-	height:1
+}, 
+".horizontalBorder":{
+	backgroundColor: "#ccc",
+	height: 1,
+	width: Titanium.UI.Fill
 }
+
+// Signup styles --------------
+".littlePaddedView":{
+	width: "98%"
+},
+".roundedTextField":{
+	borderStyle: Titanium.UI.INPUT_BORDERSTYLE_ROUNDED
+},
+".leftAlignedLabel":{
+	color: "#555",
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	font:{fontSize: Alloy.Globals.UI.FONT_REGULAR_SIZE_BODY}
+},
+"Picker":{
+	width: Titanium.UI.FILL
+},
+
+// Switch with text styles ---------
+".switchTextView":{
+	height: Titanium.UI.SIZE,
+	layout: "horizontal"
+},
+".switchText":{
+	color: "#555",
+	left: Alloy.Globals.UI.VIEW_REGULAR_MARGIN,
+	font:{fontSize: Alloy.Globals.UI.FONT_REGULAR_SIZE_BODY}
+},
+"Switch[platform=android]":{
+	style: Ti.UI.Android.SWITCH_STYLE_CHECKBOX
+}
+
 
 

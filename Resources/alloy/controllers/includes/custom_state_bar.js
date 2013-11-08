@@ -31,15 +31,15 @@ function Controller() {
         id: "barBackIcon"
     });
     $.__views.barLeftButton.add($.__views.barBackIcon);
-    $.__views.__alloyId8 = Ti.UI.createImageView({
+    $.__views.__alloyId25 = Ti.UI.createImageView({
         background: "#5da423",
         image: "/images/haypista_symbol.png",
         color: "#fff",
         left: 30,
         width: 45,
-        id: "__alloyId8"
+        id: "__alloyId25"
     });
-    $.__views.barLeftButton.add($.__views.__alloyId8);
+    $.__views.barLeftButton.add($.__views.__alloyId25);
     $.__views.barTitle = Ti.UI.createLabel({
         color: "#fff",
         font: {

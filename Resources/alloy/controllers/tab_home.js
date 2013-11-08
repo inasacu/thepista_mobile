@@ -20,23 +20,23 @@ function Controller() {
         id: "vista"
     });
     $.__views.tab_home.add($.__views.vista);
-    var __alloyId3 = [];
-    $.__views.__alloyId4 = Alloy.createController("resume_home", {
-        id: "__alloyId4"
+    var __alloyId20 = [];
+    $.__views.__alloyId21 = Alloy.createController("resume_home", {
+        id: "__alloyId21"
     });
-    __alloyId3.push($.__views.__alloyId4.getViewEx({
+    __alloyId20.push($.__views.__alloyId21.getViewEx({
         recurse: true
     }));
-    $.__views.__alloyId5 = Alloy.createController("events_home", {
-        id: "__alloyId5"
+    $.__views.__alloyId22 = Alloy.createController("events_home", {
+        id: "__alloyId22"
     });
-    __alloyId3.push($.__views.__alloyId5.getViewEx({
+    __alloyId20.push($.__views.__alloyId22.getViewEx({
         recurse: true
     }));
     $.__views.scrollableView = Ti.UI.createScrollableView({
         top: 0,
         height: Titanium.UI.SIZE,
-        views: __alloyId3,
+        views: __alloyId20,
         id: "scrollableView",
         showPagingControl: "false"
     });
@@ -57,12 +57,12 @@ function Controller() {
         id: "tab1"
     });
     $.__views.tabIndicator.add($.__views.tab1);
-    $.__views.__alloyId6 = Ti.UI.createLabel({
+    $.__views.__alloyId23 = Ti.UI.createLabel({
         color: "#fff",
         text: "Tab 1",
-        id: "__alloyId6"
+        id: "__alloyId23"
     });
-    $.__views.tab1.add($.__views.__alloyId6);
+    $.__views.tab1.add($.__views.__alloyId23);
     $.__views.tab2 = Ti.UI.createView({
         borderColor: "#ccc",
         borderWidth: "1",
@@ -71,12 +71,12 @@ function Controller() {
         id: "tab2"
     });
     $.__views.tabIndicator.add($.__views.tab2);
-    $.__views.__alloyId7 = Ti.UI.createLabel({
+    $.__views.__alloyId24 = Ti.UI.createLabel({
         color: "#fff",
         text: "Tab 2",
-        id: "__alloyId7"
+        id: "__alloyId24"
     });
-    $.__views.tab2.add($.__views.__alloyId7);
+    $.__views.tab2.add($.__views.__alloyId24);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var viewNumber = -1;
@@ -84,10 +84,10 @@ function Controller() {
         var tabOptions = $.tabIndicator.getChildren();
         for (var i = 0; tabOptions.length > i; i++) {
             tabOptionView = tabOptions[i];
-            tabOptionView.backgroundColor = "#5da423";
+            tabOptionView.backgroundColor = "#000";
             tabOptionView.color = "#000";
         }
-        tabOptions[this.currentPage].backgroundColor = "#000";
+        tabOptions[this.currentPage].backgroundColor = "#5da423";
     });
     $.scrollableView.addEventListener("checkCurrentPage", function() {
         if (viewNumber != this.currentPage) {

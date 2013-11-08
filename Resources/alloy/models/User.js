@@ -4,12 +4,14 @@ exports.definition = {
             legacy_id: "Integer",
             token: "String",
             email: "String",
+            name: "String",
             active: "Integer"
         },
         defaults: {
             legacy_id: "0",
             token: "",
             email: "",
+            name: "",
             active: "0"
         },
         adapter: {
@@ -23,6 +25,7 @@ exports.definition = {
                 this.set("legacy_id", jsonObject.legacy_id);
                 this.set("token", jsonObject.token);
                 this.set("email", jsonObject.email);
+                this.set("name", jsonObject.email);
                 this.set("active", jsonObject.active);
             }
         });

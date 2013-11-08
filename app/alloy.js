@@ -37,8 +37,14 @@ Alloy.Globals.cleanCookiesHaypistaWeb = function(){
 	Ti.Network.createHTTPClient().clearCookies(Ti.App.Properties.getString("webappURL"));
 };
 Alloy.Globals.backToPreviousWindow = function(){
-	var parent = Alloy.Globals.parent;
-	parent.open();
+	// Alloy.Globals.parent should be setted properly
+	var previous = Alloy.Globals.previousWindow;
+	if(previous!=null && previous!="undefined"){
+		previous.open();	
+	}
+	else{
+		Ti.API.info("BackToPreviousWindow: No previous in the global scope");
+	}
 };
 Alloy.Globals.removeWhiteSpace = function(s) {
 	if(s!='undefined' && s!=null){
@@ -57,6 +63,30 @@ Alloy.Globals.toogleActivityIndicator = function(activityIndicator, code) {
 		break;
 	}
 };
+
+// Global UI properties
+Alloy.Globals.UI = {};
+Alloy.Globals.UI.FONT_REGULAR_SIZE_BODY = function(){
+	if(OS_IOS){
+		return 12;
+	}else if(OS_ANDROID){
+		return "15dp";
+	}
+}();
+Alloy.Globals.UI.FONT_SMALL_SIZE_BODY = function(){
+	if(OS_IOS){
+		return 10;
+	}else if(OS_ANDROID){
+		return "12dp";
+	}
+}();
+Alloy.Globals.UI.VIEW_REGULAR_MARGIN = function(){
+	if(OS_IOS){
+		return 5;
+	}else if(OS_ANDROID){
+		return 10;
+	}
+}();
 
 // Global no-namespace functions - override
 function L(text) {

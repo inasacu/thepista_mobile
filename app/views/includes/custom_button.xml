@@ -1,0 +1,9 @@
+<Alloy>
+	<View id="buttonView" class="buttonView">
+		<View id="buttonInnerView" class="buttonInnerView">
+			<Label id="buttonViewLabel" class="buttonViewLabel"></Label>
+		</View>
+		<View id="buttonShadowView" class="buttonShadowView">
+		</View>
+	</View>
+</Alloy>
