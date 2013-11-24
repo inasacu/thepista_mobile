@@ -25,9 +25,6 @@
 // // Set parent for next window
 // Alloy.Globals.previousWindow = $.index;
 
-// var tabs_home_window = Alloy.createController("tab_home").getView();
-// tabs_home_window.open();
-
-var signup_home_window = Alloy.createController("signup").getView();
-signup_home_window.open();
+var first_window = Alloy.createController("tab_home").getView();
+first_window.open();
 

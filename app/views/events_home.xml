@@ -1,7 +1,12 @@
 <Alloy>
-	<Window class="tabContainer" layout="vertical">
+	<Window id="events_home_win" class="tabContainer" layout="vertical">
 		<Require id="stateBar" type="view" src="includes/custom_state_bar" back="false" title="L('events_title')"/>
 		<ActivityIndicator id="activityIndicator" class="activityIndicatorWhite" message="L('loading')"/>
-		<Label text="HOla eventos"></Label>
+		<Label text="Hola eventos"></Label>
+		
+		<View layout="horizontal" height="Titanium.UI.SIZE" width="Titanium.UI.SIZE">
+        	<Require id="button1" type="view" isAccept="true" text="Ir a evento" src="includes/custom_button"/>
+        </View>
+		
 	</Window>
 </Alloy>

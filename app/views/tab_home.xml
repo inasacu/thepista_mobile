@@ -7,10 +7,10 @@
 	        </ScrollableView>
     		<View id="tabIndicator" layout="horizontal">
 	        	<View id="tab1" class="tabButton">
-	        		<Label class="tabIndicatorLabel">Tab 1</Label>
+	        		<Label class="tabIndicatorLabel">Inicio</Label>
 	        	</View>
 	        	<View id="tab2" class="tabButton">
-	        		<Label class="tabIndicatorLabel">Tab 2</Label>
+	        		<Label class="tabIndicatorLabel">Eventos</Label>
 	        	</View>
 	        </View>
     	</View>
