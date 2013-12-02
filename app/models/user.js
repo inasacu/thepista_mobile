@@ -1,32 +1,28 @@
 exports.definition = {
 	config: {
-		"columns": {
-            "legacy_id": "Integer",
-            "token": "String",
-            "email": "String",
-            "name": "String",
-            "active": "Integer"
-        },
-        "defaults": {
-            "legacy_id": "0",
-            "token": "",
-            "email": "",
-            "name": "",
-            "active": "0"
-        },
 		adapter: {
-			type: "sql",
-			collection_name: "user"
+			type: "restapi"
+		},
+		headers:{
+			"HayPistaMobile-API-Key": Ti.App.Properties.getString('restAPIKey')
 		}
 	},
 	extendModel: function(Model) {
 		_.extend(Model.prototype, {
            setFromJson: function(jsonObject){
-           		this.set('legacy_id', jsonObject.legacy_id);
+           		this.set('legacyId', jsonObject.legacy_id);
            		this.set('token', jsonObject.token);
            		this.set('email', jsonObject.email);
            		this.set('name', jsonObject.email);
            		this.set('active', jsonObject.active);
+           },
+           getGroups: function(callbacks){
+           		requestOptions = {
+           			type: 'GET',
+           			url: Ti.App.Properties.getString('webappRestAPI')+'/user/my_groups/'+this.get('legacyId'),
+           			callbackFunctions: callbacks
+           		};
+           		this.sync("", this, requestOptions);
            }
 		});
 

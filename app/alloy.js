@@ -13,9 +13,10 @@
 // Global properties ---------------------------------------------
 
 // Webapp
-Ti.App.Properties.setString('webappURL', 'http://thepista.192.168.1.134.xip.io/');
+Ti.App.Properties.setString('webappURL', 'http://thepista.192.168.1.133.xip.io/');
 //Ti.App.Properties.setString('webappURL', 'http://thepista.dev/');
 Ti.App.Properties.setString('webappOAuthSuffix', '/mobile/security/?oauth_provider=:oauth_provider');
+Ti.App.Properties.setString('webappRestAPI', Ti.App.Properties.getString('webappURL')+'mobile');
 
 Ti.App.Properties.setString('facebookProviderIndex', '1');
 Ti.App.Properties.setString('googleProviderIndex', '2');
@@ -45,6 +46,28 @@ Alloy.Globals.backToPreviousWindow = function(){
 	else{
 		Ti.API.info("BackToPreviousWindow: No previous in the global scope");
 	}
+};
+Alloy.Globals.openWindow = function(currentView, nextViewId){
+	if(!Alloy.Globals.navStack){
+		Alloy.Globals.navStack = [];
+	}
+	// enters the window in the stack
+	Alloy.Globals.navStack.push = currentView;
+	
+	// gets next window
+	var next_view = Alloy.createController(nextViewId).getView();
+	
+	// listener for closing the window
+	next_view.addEventListener('close', function(){
+		Alloy.Globals.navStack.pop();
+	});
+	
+	// opens next window
+	next_view.open();
+};
+Alloy.Globals.showView = function(nextViewId){
+	var next_view = Alloy.createController(nextViewId).getView();
+	next_view.show();
 };
 Alloy.Globals.removeWhiteSpace = function(s) {
 	if(s!='undefined' && s!=null){
