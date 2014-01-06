@@ -4,3 +4,12 @@ build
 npm-debug.log
 tmp
 .map
+Resources/alloy/*
+Resources/android/*
+Resources/blackberry/*
+Resources/images/*
+Resources/iphone/*
+Resources/mobileweb/*
+Resources/tizen/*
+Resources/alloy.js
+Resources/app.js
