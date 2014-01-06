@@ -8,7 +8,7 @@ function Controller() {
     var exports = {};
     $.__views.statusBar = Ti.UI.createView({
         backgroundColor: "#5da423",
-        height: 80,
+        height: 25,
         id: "statusBar",
         layout: "composite"
     });
@@ -18,7 +18,7 @@ function Controller() {
         color: "#fff",
         layout: "composite",
         left: 0,
-        width: 85,
+        width: 27,
         id: "barLeftButton"
     });
     $.__views.statusBar.add($.__views.barLeftButton);
@@ -26,24 +26,24 @@ function Controller() {
         background: "#5da423",
         image: "/images/back_arrow.png",
         color: "#fff",
-        left: 5,
-        width: 20,
+        left: 2,
+        width: 5,
         id: "barBackIcon"
     });
     $.__views.barLeftButton.add($.__views.barBackIcon);
-    $.__views.__alloyId25 = Ti.UI.createImageView({
+    $.__views.__alloyId53 = Ti.UI.createImageView({
         background: "#5da423",
         image: "/images/haypista_symbol.png",
         color: "#fff",
-        left: 30,
-        width: 45,
-        id: "__alloyId25"
+        left: 10,
+        width: 10,
+        id: "__alloyId53"
     });
-    $.__views.barLeftButton.add($.__views.__alloyId25);
+    $.__views.barLeftButton.add($.__views.__alloyId53);
     $.__views.barTitle = Ti.UI.createLabel({
         color: "#fff",
         font: {
-            fontSize: "20dp"
+            fontSize: 15
         },
         id: "barTitle"
     });
@@ -54,7 +54,7 @@ function Controller() {
     $.barTitle.text = args.title || "Title";
     if ("true" === args.back) {
         $.barBackIcon.show();
-        $.barBackIcon.width = 20;
+        $.barBackIcon.width = 5;
     } else {
         $.barBackIcon.hide();
         $.barBackIcon.width = 0;

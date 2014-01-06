@@ -21,27 +21,39 @@ function apiCall(_options) {
                 success = false;
                 error = e.message;
             }
-
-            _options.callbackFunctions.success({
-                success : success,
-                status : success ? (xhr.status == 200 ? "ok" : xhr.status) : 'error',
-                code : xhr.status,
-                data : error,
-                responseText : xhr.responseText || null,
-                responseJSON : responseJSON || null
-            });
+			
+			if(success){
+				_options.callbackFunctions.success({
+	                success : success,
+	                status : success ? (xhr.status == 200 ? "ok" : xhr.status) : 'error',
+	                code : xhr.status,
+	                data : error,
+	                responseText : xhr.responseText || null,
+	                responseJSON : responseJSON || null
+	            });	
+			}
+			else{
+				 _options.callbackFunctions.error({
+	                success : false,
+	                status : "error",
+	                code : xhr.status,
+	                data : e.error,
+	                responseText : xhr.responseText,
+	                responseJSON : responseJSON || null
+	            });
+			}
         };
 
             //Handle error
         xhr.onerror = function(e) {
             var responseJSON;
 
-            try {
-                responseJSON = JSON.parse(xhr.responseText);
-            } catch (e) {
-            }
+            // try {
+                // responseJSON = JSON.parse(xhr.responseText);
+            // } catch (e) {
+            // }
 
-            _options.callbackFunctions.success({
+            _options.callbackFunctions.error({
                 success : false,
                 status : "error",
                 code : xhr.status,

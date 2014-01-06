@@ -34,3 +34,7 @@ _.each($.tabIndicator.getChildren(), function(tabIndexView, index, list){
 		$.scrollableView.scrollToView(index);
 	});
 });
+
+$.tab_home.addEventListener('close', function() {
+    $.destroy();
+});

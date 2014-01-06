@@ -1,0 +1,24 @@
+<Alloy>
+	<Window id="groups_home_win" class="tabContainer" layout="vertical">
+		 <Require id="stateBar" type="view" src="includes/custom_state_bar" back="false" title="L('groups_title')"/>		
+		 <ListView id="listView" defaultItemTemplate="template">
+
+            <Templates>
+
+                <ItemTemplate name="template">
+                    <ImageView bindId="pic" class="list1-icon" />
+                    <Label bindId="name" class="list1-title" />
+                </ItemTemplate>
+
+            </Templates>
+
+            <ListSection id="myGroupsListSection" headerTitle="Tus grupos">
+            </ListSection>
+            
+            <ListSection id="starredGroupsListSection" headerTitle="Grupos destacados">
+            </ListSection>
+            
+        </ListView>
+        
+	</Window>
+</Alloy>

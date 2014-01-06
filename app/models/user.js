@@ -1,7 +1,8 @@
 exports.definition = {
 	config: {
 		adapter: {
-			type: "restapi"
+			type: "restapi",
+			collection_name: "user"
 		},
 		headers:{
 			"HayPistaMobile-API-Key": Ti.App.Properties.getString('restAPIKey')
@@ -20,6 +21,22 @@ exports.definition = {
            		requestOptions = {
            			type: 'GET',
            			url: Ti.App.Properties.getString('webappRestAPI')+'/user/my_groups/'+this.get('legacyId'),
+           			callbackFunctions: callbacks
+           		};
+           		this.sync("", this, requestOptions);
+           },
+           getMyGroupsEvents: function(callbacks){
+           		requestOptions = {
+           			type: 'GET',
+           			url: Ti.App.Properties.getString('webappRestAPI')+'/user/my_groups_events/'+this.get('legacyId'),
+           			callbackFunctions: callbacks
+           		};
+           		this.sync("", this, requestOptions);
+           },
+           getMyActiveEvents: function(callbacks){
+           		requestOptions = {
+           			type: 'GET',
+           			url: Ti.App.Properties.getString('webappRestAPI')+'/user/my_active_events/'+this.get('legacyId'),
            			callbackFunctions: callbacks
            		};
            		this.sync("", this, requestOptions);

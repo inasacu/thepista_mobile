@@ -4,13 +4,17 @@
         	<ScrollableView id="scrollableView" showPagingControl="false">
 	            <Require src="resume_home"></Require>
 	            <Require src="events_home"></Require>
+	            <Require src="groups_home"></Require>
 	        </ScrollableView>
-    		<View id="tabIndicator" layout="horizontal">
+    		<View id="tabIndicator" layout="horizontal" horizontalWrap="false">
 	        	<View id="tab1" class="tabButton">
 	        		<Label class="tabIndicatorLabel">Inicio</Label>
 	        	</View>
 	        	<View id="tab2" class="tabButton">
 	        		<Label class="tabIndicatorLabel">Eventos</Label>
+	        	</View>
+	        	<View id="tab3" class="tabButton">
+	        		<Label class="tabIndicatorLabel">Grupos</Label>
 	        	</View>
 	        </View>
     	</View>

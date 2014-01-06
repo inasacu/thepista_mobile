@@ -11,7 +11,6 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.provider_auth = Ti.UI.createWindow({
-        navBarHidden: "true",
         backgroundColor: "#fff",
         width: Titanium.UI.FILL,
         height: Titanium.UI.FILL,
@@ -32,7 +31,7 @@ function Controller() {
         height: "auto",
         width: "auto",
         font: {
-            fontSize: "20dp"
+            fontSize: 15
         },
         id: "activityIndicator",
         message: L("loading")

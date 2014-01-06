@@ -13,9 +13,7 @@
 	height: Titanium.UI.SIZE
 },
 ".tabButton":{
-	borderColor: "#ccc",
-	borderWidth: "1",
-	width: "50%",
+	width: "33%",
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
 },
 ".horizontalSeparator":{

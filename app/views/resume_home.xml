@@ -1,7 +1,26 @@
 <Alloy>
 	<Window id="resume_home_win" class="tabContainer" layout="vertical">
-		<Require id="stateBar" type="view" src="includes/custom_state_bar" back="false" title="L('home_title')"/>
-		<ActivityIndicator id="activityIndicator" class="activityIndicatorWhite" message="L('loading')"/>
-		<Label text="Hola resumen"></Label>
+		 <Require id="stateBar" type="view" src="includes/custom_state_bar" back="false" title="L('home_title')"/>		
+		 <ListView id="listView" defaultItemTemplate="template">
+
+            <Templates>
+
+                <ItemTemplate name="template">
+                    <ImageView bindId="pic" class="list1-icon" />
+                    <Label bindId="name" class="list1-title" />
+                    <Label bindId="group" class="list1-subtitle1" />
+                    <Label bindId="date" class="list1-subtitle2" />
+                </ItemTemplate>
+
+            </Templates>
+
+            <ListSection id="myEventsListSection" headerTitle="Tus eventos">
+            </ListSection>
+            
+            <ListSection id="myGroupsEventsListSection" headerTitle="De tu interes">
+            </ListSection>
+            
+        </ListView>
+        
 	</Window>
 </Alloy>

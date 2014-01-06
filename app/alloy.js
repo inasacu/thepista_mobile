@@ -13,8 +13,8 @@
 // Global properties ---------------------------------------------
 
 // Webapp
-Ti.App.Properties.setString('webappURL', 'http://thepista.192.168.1.133.xip.io/');
-//Ti.App.Properties.setString('webappURL', 'http://thepista.dev/');
+//Ti.App.Properties.setString('webappURL', 'http://thepista.192.168.1.133.xip.io/');
+Ti.App.Properties.setString('webappURL', 'http://thepista.dev/');
 Ti.App.Properties.setString('webappOAuthSuffix', '/mobile/security/?oauth_provider=:oauth_provider');
 Ti.App.Properties.setString('webappRestAPI', Ti.App.Properties.getString('webappURL')+'mobile');
 
@@ -32,6 +32,9 @@ Ti.App.Properties.setString('SETTING_LANGUAGE','es');
 // Activity indicator visibility codes
 Ti.App.Properties.setString('AIshowCode', '1');
 Ti.App.Properties.setString('AIhideCode', '0');
+
+// API Call codes
+Ti.App.Properties.setString('okCode', '00');
 
 // Global functions
 Alloy.Globals.cleanCookiesHaypistaWeb = function(){
@@ -86,7 +89,17 @@ Alloy.Globals.toogleActivityIndicator = function(activityIndicator, code) {
 		break;
 	}
 };
-
+Alloy.Globals.verifyAPICall = function(code) {
+	switch(code){
+		case Ti.App.Properties.getString('okCode'):
+			return true;
+		break;
+		default:
+			alert("Problema contactando servidor");
+			return false;
+		break;
+	}
+};
 // Global UI properties
 Alloy.Globals.UI = {};
 Alloy.Globals.UI.FONT_REGULAR_SIZE_BODY = function(){

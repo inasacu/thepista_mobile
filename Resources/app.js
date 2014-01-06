@@ -17,9 +17,11 @@ function L(text) {
 
 var Alloy = require("alloy"), _ = Alloy._, Backbone = Alloy.Backbone;
 
-Ti.App.Properties.setString("webappURL", "http://thepista.192.168.1.134.xip.io/");
+Ti.App.Properties.setString("webappURL", "http://thepista.dev/");
 
 Ti.App.Properties.setString("webappOAuthSuffix", "/mobile/security/?oauth_provider=:oauth_provider");
+
+Ti.App.Properties.setString("webappRestAPI", Ti.App.Properties.getString("webappURL") + "mobile");
 
 Ti.App.Properties.setString("facebookProviderIndex", "1");
 
@@ -37,6 +39,8 @@ Ti.App.Properties.setString("AIshowCode", "1");
 
 Ti.App.Properties.setString("AIhideCode", "0");
 
+Ti.App.Properties.setString("okCode", "00");
+
 Alloy.Globals.cleanCookiesHaypistaWeb = function() {
     Ti.Network.createHTTPClient().clearCookies(Ti.App.Properties.getString("webappURL"));
 };
@@ -44,6 +48,21 @@ Alloy.Globals.cleanCookiesHaypistaWeb = function() {
 Alloy.Globals.backToPreviousWindow = function() {
     var previous = Alloy.Globals.previousWindow;
     null != previous && "undefined" != previous ? previous.open() : Ti.API.info("BackToPreviousWindow: No previous in the global scope");
+};
+
+Alloy.Globals.openWindow = function(currentView, nextViewId) {
+    Alloy.Globals.navStack || (Alloy.Globals.navStack = []);
+    Alloy.Globals.navStack.push = currentView;
+    var next_view = Alloy.createController(nextViewId).getView();
+    next_view.addEventListener("close", function() {
+        Alloy.Globals.navStack.pop();
+    });
+    next_view.open();
+};
+
+Alloy.Globals.showView = function(nextViewId) {
+    var next_view = Alloy.createController(nextViewId).getView();
+    next_view.show();
 };
 
 Alloy.Globals.removeWhiteSpace = function(s) {
@@ -63,18 +82,29 @@ Alloy.Globals.toogleActivityIndicator = function(activityIndicator, code) {
     }
 };
 
+Alloy.Globals.verifyAPICall = function(code) {
+    switch (code) {
+      case Ti.App.Properties.getString("okCode"):
+        return true;
+
+      default:
+        alert("Problema contactando servidor");
+        return false;
+    }
+};
+
 Alloy.Globals.UI = {};
 
 Alloy.Globals.UI.FONT_REGULAR_SIZE_BODY = function() {
-    return "15dp";
+    return 12;
 }();
 
 Alloy.Globals.UI.FONT_SMALL_SIZE_BODY = function() {
-    return "12dp";
+    return 10;
 }();
 
 Alloy.Globals.UI.VIEW_REGULAR_MARGIN = function() {
-    return 10;
+    return 5;
 }();
 
 Alloy.createController("index");

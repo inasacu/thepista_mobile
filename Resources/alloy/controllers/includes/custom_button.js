@@ -1,9 +1,9 @@
 function Controller() {
     function defaultHeight() {
-        return 80;
+        return 40;
     }
     function defaultWidth() {
-        return 250;
+        return 80;
     }
     function setColor(stateCode) {
         var notClickedColor;

@@ -13,7 +13,7 @@
 	<string name="back">Back</string>
 	<string name="loading">Loading...</string>
 	<string name="home_title">Home</string>
-	<string name="events_title">events</string>
+	<string name="events_title">Events</string>
 	<string name="groups_title">Groups</string>
 	<string name="installations_title">Installations</string>
 	<string name="messages_title">Messages</string>
