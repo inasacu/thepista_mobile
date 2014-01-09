@@ -6,8 +6,8 @@
             <Templates>
 
                 <ItemTemplate name="template">
-                    <ImageView bindId="pic" class="list1-icon" />
-                    <Label bindId="name" class="list1-title" />
+                    <ImageView bindId="pic" class="list1Icon" />
+                    <Label bindId="name" class="list1Title" />
                 </ItemTemplate>
 
             </Templates>

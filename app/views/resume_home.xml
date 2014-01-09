@@ -6,10 +6,10 @@
             <Templates>
 
                 <ItemTemplate name="template">
-                    <ImageView bindId="pic" class="list1-icon" />
-                    <Label bindId="name" class="list1-title" />
-                    <Label bindId="group" class="list1-subtitle1" />
-                    <Label bindId="date" class="list1-subtitle2" />
+                    <ImageView bindId="pic" class="list1Icon" />
+                    <Label bindId="name" class="list1Title" />
+                    <Label bindId="group" class="list1Subtitle1" />
+                    <Label bindId="date" class="list1Subtitle2" />
                 </ItemTemplate>
 
             </Templates>

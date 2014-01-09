@@ -22,7 +22,4 @@
 },
 ".tabIndicatorLabel":{
 	color: "#fff"
-},
-"#vista":{
-	height: Titanium.UI.Fill
 }

@@ -5,7 +5,7 @@ function InitAdapter(config) {
 function apiCall(_options) {
     if (Ti.Network.online) {
         var xhr = Ti.Network.createHTTPClient({
-            timeout : _options.timeout || 7000
+            timeout : _options.timeout || 10000
         });
 
         //Prepare the request
@@ -85,7 +85,7 @@ function apiCall(_options) {
     }
 }
 
-function customSync(method, model, options) {
+function customSync(model, options) {
 	var params = _.extend({}, options);
 
     //set default headers

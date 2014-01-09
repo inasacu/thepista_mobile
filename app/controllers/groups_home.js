@@ -1,4 +1,4 @@
-Ti.App.Properties.setString('restAPIKey', 'hOMXEuoZRU09Ij4WG9IZ4A');
+Ti.App.Properties.setString('restAPIKey', 'GdMMwgi-W1FstqlqJ56Lgg');
 
 var user = Alloy.createModel("user");
 user.set("legacyId", 3130);

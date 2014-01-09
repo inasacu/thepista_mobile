@@ -18,28 +18,22 @@ exports.definition = {
            		this.set('active', jsonObject.active);
            },
            getGroups: function(callbacks){
-           		requestOptions = {
-           			type: 'GET',
-           			url: Ti.App.Properties.getString('webappRestAPI')+'/user/my_groups/'+this.get('legacyId'),
-           			callbackFunctions: callbacks
-           		};
-           		this.sync("", this, requestOptions);
+           		var restProxy = require('RestProxy');
+           		restProxy.get(this, 
+           			Ti.App.Properties.getString('webappRestAPI')+'/user/my_groups/'+this.get('legacyId'),
+           			callbacks);
            },
            getMyGroupsEvents: function(callbacks){
-           		requestOptions = {
-           			type: 'GET',
-           			url: Ti.App.Properties.getString('webappRestAPI')+'/user/my_groups_events/'+this.get('legacyId'),
-           			callbackFunctions: callbacks
-           		};
-           		this.sync("", this, requestOptions);
+           		var restProxy = require('RestProxy');
+           		restProxy.get(this, 
+           			Ti.App.Properties.getString('webappRestAPI')+'/user/my_groups_events/'+this.get('legacyId'),
+           			callbacks);
            },
            getMyActiveEvents: function(callbacks){
-           		requestOptions = {
-           			type: 'GET',
-           			url: Ti.App.Properties.getString('webappRestAPI')+'/user/my_active_events/'+this.get('legacyId'),
-           			callbackFunctions: callbacks
-           		};
-           		this.sync("", this, requestOptions);
+           		var restProxy = require('RestProxy');
+           		restProxy.get(this, 
+           			Ti.App.Properties.getString('webappRestAPI')+'/user/my_active_events/'+this.get('legacyId'),
+           			callbacks);
            }
 		});
 

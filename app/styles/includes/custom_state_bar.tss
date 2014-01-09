@@ -5,7 +5,7 @@
 	height: 80
 },
 ".customStatusBar[platform=ios]":{
-	height: 25
+	height: 40
 },
 ".customStatusBarLeftButton":{
 	background: "#5da423",
@@ -18,7 +18,7 @@
 },
 ".customStatusBarLeftButton[platform=ios]":{
 	left: 0,
-	width: 27
+	width: 50
 },
 ".customStatusBarLeftButtonArrow":{
 	background: "#5da423",
@@ -31,7 +31,7 @@
 },
 ".customStatusBarLeftButtonArrow[platform=ios]":{
 	left: 2,
-	width: 5
+	width: 10
 },
 ".customStatusBarLeftButtonSymbol":{
 	background: "#5da423",
@@ -43,8 +43,8 @@
 	width: 45
 },
 ".customStatusBarLeftButtonSymbol[platform=ios]":{
-	left: 10,
-	width: 10
+	left: 12,
+	width: 25
 },
 ".customStatusBarTitle[platform=android]":{
 	color:"#fff",

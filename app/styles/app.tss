@@ -2,7 +2,7 @@
 	navBarHidden: "true"
 },
 ".activityIndicatorWhite":{
-	color: "#5da423",
+	color: "#fff",
 	top: 0,
 	height: "auto",
 	width: "auto"
@@ -14,7 +14,7 @@
 	font: {fontSize: "20dp"}
 },
 ".container": {
-	backgroundColor:"#fff",
+	backgroundColor:"#5da423",
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL
 },
@@ -57,21 +57,42 @@
 	style: Ti.UI.Android.SWITCH_STYLE_CHECKBOX
 },
 
+// Common sub container styles
+"#subView":{
+	backgroundColor:"#5da423"
+},
+".subContainer":{
+	backgroundColor:"#fff"
+},
+
+
+// Common styles for tabs in home,
+
+".tabContainer":{
+	height: Titanium.UI.FILL,
+	top:20
+},
+
+// ListView styles
+
+"ListView":{
+},
+
 // Events listitem styles ------------
-".list1-icon" : {
+".list1Icon" : {
     width: '50dp', height: '50dp', left: 0
 },
-".list1-title" : {
-    color: 'black',
+".list1Title" : {
+    color: '#2795b6',
     font: { fontWeight:'bold' },
     left: '60dp', top: 0
 },
-".list1-subtitle1" : {
+".list1Subtitle1" : {
     color: 'black',
     font: { fontFamily:'Arial', fontSize: '12dp' },
     left: '60dp', top: '15dp'
 },
-".list1-subtitle2" : {
+".list1Subtitle2" : {
     color: 'gray',
     font: { fontFamily:'Arial', fontSize: '12dp' },
     left: '60dp', top: '28dp'

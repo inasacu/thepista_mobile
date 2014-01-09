@@ -1,5 +1,5 @@
 <Alloy>
-	<Window id="events_home_win" class="tabContainer" layout="vertical">
+	<Window id="events_home_win" class="tabContainer subContainer" layout="vertical">
 		<Require id="stateBar" type="view" src="includes/custom_state_bar" back="false" title="L('events_title')"/>
 		<ActivityIndicator id="activityIndicator" class="activityIndicatorWhite" message="L('loading')"/>
 				
