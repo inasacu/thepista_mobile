@@ -65,6 +65,17 @@
 	backgroundColor:"#fff"
 },
 
+// Common for body
+
+".buttonHolderBody":{
+	layout:"horizontal",
+	width:"90%",
+	height: Titanium.UI.SIZE
+},
+".buttonHolderContainer":{
+	height: Titanium.UI.SIZE,
+	top: 5
+},
 
 // Common styles for tabs in home,
 
@@ -72,10 +83,24 @@
 	height: Titanium.UI.FILL,
 	top:20
 },
+".tabImage":{
+	height: "80%"
+}
 
 // ListView styles
-
+".listContainer":{
+	top: 5
+},
 "ListView":{
+},
+".itemInfoMessage":{
+	
+}
+".bodyInfoMessage":{
+	
+},
+".labelBodyInfoMessage":{
+	color: "#ccc"
 },
 
 // Events listitem styles ------------

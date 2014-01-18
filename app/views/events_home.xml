@@ -1,10 +1,31 @@
 <Alloy>
 	<Window id="events_home_win" class="tabContainer subContainer" layout="vertical">
 		<Require id="stateBar" type="view" src="includes/custom_state_bar" back="false" title="L('events_title')"/>
-		<ActivityIndicator id="activityIndicator" class="activityIndicatorWhite" message="L('loading')"/>
-				
-		<View layout="horizontal" height="Titanium.UI.SIZE" width="Titanium.UI.SIZE">
-        	<Require id="button1" type="view" isAccept="true" text="Ir a evento" src="includes/custom_button"/>
+		<View class="buttonHolderContainer">
+			<View class="buttonHolderBody">
+				<Require type="view" isAccept="true" text="Crear tu evento" width="50%" src="includes/custom_button"/>
+        		<Require type="view" isAccept="true" text="Buscar" width="50%" src="includes/custom_button"/>
+			</View>
+        </View>
+        
+        <View class="listContainer">
+        	<ListView id="listViewEvents" defaultItemTemplate="templateEvents">
+
+	            <Templates>
+	
+	                <ItemTemplate name="templateEvents">
+	                    <ImageView bindId="pic" class="list1Icon" />
+	                    <Label bindId="name" class="list1Title" />
+	                    <Label bindId="group" class="list1Subtitle1" />
+	                    <Label bindId="date" class="list1Subtitle2" />
+	                </ItemTemplate>
+	
+	            </Templates>
+	
+	            <ListSection id="myHistoryListSection" headerTitle="Tus ultimo eventos">
+	            </ListSection>
+	            
+	        </ListView>
         </View>
 		
 	</Window>

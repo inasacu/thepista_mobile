@@ -18,20 +18,23 @@ function defaultWidth(){
 function setColor(stateCode){
 	var notClickedColor;
 	var clickedColor;
+	var fontColor;
+	
+	notClickedColor = "#f8f8f8";
+    clickedColor = "#ccc";
 	
 	if(args.isAccept==="true"){
-		notClickedColor = "#5da423";
-		clickedColor = "#457a1a";
+		fontColor = "#2795b6";
 	}else{
 		if(args.isCancel==="true"){
-			notClickedColor = "#ccc";
-			clickedColor = "#666";
+			fontColor = "red";
 		}
 		else{
-			notClickedColor = "#5da423";
-			clickedColor = "#457a1a";
+			fontColor = "#2795b6";
 		}
 	}
+	
+	$.buttonViewLabel.color = fontColor;
 	
 	if(stateCode==0){
 		$.buttonInnerView.backgroundColor = notClickedColor;
@@ -60,5 +63,9 @@ $.buttonView.addEventListener('touchstart', function(e) {
 });
 
 $.buttonView.addEventListener('touchend', function(e) {
+   setColor(2);
+});
+
+$.buttonView.addEventListener('swipe', function(e) {
    setColor(2);
 });

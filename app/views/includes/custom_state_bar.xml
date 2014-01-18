@@ -5,5 +5,8 @@
 			<ImageView class="customStatusBarLeftButtonSymbol"></ImageView>
 		</View>
 		<Label id="barTitle" class="customStatusBarTitle"></Label>
+		<View id="barRightButton" class="customStatusBarRightButton">
+			<ImageView class="customStatusBarRightButtonSymbol"></ImageView>
+		</View>
 	</View>
 </Alloy>

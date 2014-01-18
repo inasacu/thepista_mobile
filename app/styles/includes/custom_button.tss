@@ -1,10 +1,10 @@
 ".buttonView":{
-	borderRadius: 5,
+	borderRadius: 3,
 	height: 40,
 	width:80
 },
 ".buttonInnerView":{
-	borderRadius: 5,
+	borderRadius: 3,
 	height: "92%",
 	width: "95%",
 	left:0,
@@ -13,7 +13,7 @@
 	zIndex: 2,
 },
 ".buttonShadowView":{
-	borderRadius: 5,
+	borderRadius: 3,
 	height: "92%",
 	width: "95%",
 	left:2,

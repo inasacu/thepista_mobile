@@ -16,11 +16,33 @@ else{
 	$.barBackIcon.width = 0;
 }
 
+if(args.reload==="true"){
+	$.barRightButton.show();
+}
+else{
+	$.barRightButton.hide();
+}
+
 // Listeners
+function touchStartFunction(e){
+	 e.backgroundColor = '#ff9900';
+}
+function touchEndFunction(e){
+	e.backgroundColor = '#5da423';
+}
+
 $.barLeftButton.addEventListener('touchstart', function(e) {
-    this.backgroundColor = '#ff9900';
+    touchStartFunction(this);
 });
 
 $.barLeftButton.addEventListener('touchend', function(e) {
-   this.backgroundColor = '#5da423';
+   touchEndFunction(this);
+});
+
+$.barRightButton.addEventListener('touchstart', function(e) {
+    touchStartFunction(this);
+});
+
+$.barRightButton.addEventListener('touchend', function(e) {
+   touchEndFunction(this);
 });

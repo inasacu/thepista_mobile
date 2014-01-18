@@ -12,12 +12,26 @@
 	color: "#fff",
 	layout: "composite"
 },
+".customStatusBarRightButton":{
+	background: "#5da423",
+	color: "#fff",
+	layout: "composite"
+},
+
 ".customStatusBarLeftButton[platform=android]":{
 	left: 0,
 	width: 85
 },
 ".customStatusBarLeftButton[platform=ios]":{
 	left: 0,
+	width: 50
+},
+".customStatusBarRightButton[platform=android]":{
+	right: 0,
+	width: 85
+},
+".customStatusBarRightButton[platform=ios]":{
+	right: 0,
 	width: 50
 },
 ".customStatusBarLeftButtonArrow":{
@@ -46,6 +60,21 @@
 	left: 12,
 	width: 25
 },
+
+".customStatusBarRightButtonSymbol":{
+	background: "#5da423",
+	image: "/images/download.png",
+	color: "#fff"
+},
+".customStatusBarRightButtonSymbol[platform=android]":{
+	right: 30,
+	width: 45
+},
+".customStatusBarRightButtonSymbol[platform=ios]":{
+	right: 12,
+	width: 25
+},
+
 ".customStatusBarTitle[platform=android]":{
 	color:"#fff",
 	font: { fontSize:"20dp"}

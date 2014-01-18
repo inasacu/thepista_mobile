@@ -17,6 +17,7 @@
 	<string name="events_title">Eventos</string>
 	<string name="groups_title">Grupos</string>
 	<string name="installations_title">Instalaciones</string>
+	<string name="venues_title">Instalaciones</string>
 	<string name="messages_title">Mensajes</string>
 	<string name="account_title">Mi Cuenta</string>
 	<string name="signup_text">Solo unos pasos más para completar tu registro en HayPista</string>

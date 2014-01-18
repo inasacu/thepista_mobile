@@ -1,6 +1,6 @@
 <Alloy>
-	<Window id="index" class="container" >
-		<ScrollView class="containerScrollView" layout="vertical" showVerticalScrollIndicator="true">
+	<Window id="index" class="container">
+		<ScrollView class="containerScrollView" layout="vertical">
 			<ImageView id="hayPistaLogoAuth"/>
 			<Label id="loginChoose" text="L('login_choose')"></Label>
 			<View id="providersView" layout="vertical">
