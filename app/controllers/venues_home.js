@@ -12,8 +12,7 @@ function starredVenues(){
 				var message = responseObj.message;
 				var starredVenuesDataArray = [];
 				for(i=0;i<message.length;i++){
-					var obj = message[i];
-					Titanium.API.info("DATA"+JSON.stringify(obj));	
+					var obj = message[i];	
 					var temp = {name: {text: obj.name}, pic: {image: '/test.png'}};
 					starredVenuesDataArray.push(temp);
 				}

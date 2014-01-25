@@ -15,6 +15,7 @@
 	                <ItemTemplate name="templateGroups">
 	                    <ImageView bindId="gpic" class="list1Icon" />
 	                    <Label bindId="gname" class="list1Title" />
+	                    <Label bindId="gsize" class="list1Subtitle1" />
 	                </ItemTemplate>
 	
 	            </Templates>

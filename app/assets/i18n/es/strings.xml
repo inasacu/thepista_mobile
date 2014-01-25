@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<resources>
-    <string name="login_choose">Escoge como autenticarte</string>
-    <string name="format_test">Your name is %s</string>
-    <string name="ordered">Hi %1$s, my name is %2$s</string>
-</resources>

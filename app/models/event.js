@@ -2,7 +2,7 @@ exports.definition = {
 	config: {
 		adapter: {
 			type: "restapi",
-			collection_name: "group"
+			collection_name: "event"
 		},
 		headers:{
 			"HayPistaMobile-API-Key": Ti.App.Properties.getString('restAPIKey')
@@ -12,16 +12,16 @@ exports.definition = {
 		_.extend(Model.prototype, {
            setFromJson: function(jsonObject){
            },
-           getStarred: function(callbacks){
+           getActiveByUserGroups: function(userId, callbacks){
            		var restProxy = require('RestProxy');
            		restProxy.get(this, 
-           			Ti.App.Properties.getString('webappRestAPI')+'/group/starred',
+           			Ti.App.Properties.getString('webappRestAPI')+'/event/active_by_user_groups/'+userId,
            			callbacks);
            },
-           getByUser: function(userId, callbacks){
+           getActiveByUser: function(userId, callbacks){
            		var restProxy = require('RestProxy');
            		restProxy.get(this, 
-           			Ti.App.Properties.getString('webappRestAPI')+'/group/by_user/'+userId,
+           			Ti.App.Properties.getString('webappRestAPI')+'/event/active_by_user/'+userId,
            			callbacks);
            }
 		});

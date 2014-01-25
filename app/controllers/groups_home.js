@@ -1,8 +1,6 @@
 Ti.App.Properties.setString('restAPIKey', 'Ip4Q7-MXv43syXL98vn1hA');
 
-var user = Alloy.createModel("user");
-user.set("legacyId", 3130);
-
+var currentUserId = 3130;
 var group = Alloy.createModel("group");
 
 function starredGroups(){
@@ -16,7 +14,9 @@ function starredGroups(){
 				var starredGroupsDataArray = [];
 				for(i=0;i<message.length;i++){
 					var obj = message[i];
-					var temp = {gname: {text: obj.name}, gpic: {image: '/test.png'}};
+					var temp = {gname: {text: obj.description.name},
+								gsize: {text: obj.size+" Miembros"}, 
+							    gpic: {image: '/test.png'}};
 					starredGroupsDataArray.push(temp);
 				}
 				
@@ -34,7 +34,7 @@ function starredGroups(){
 }
 
 function userGroups(){
-	user.getGroups({
+	group.getByUser(currentUserId, {
 		success: function(data){
 			var responseObj = data.responseJSON;
 			
@@ -44,7 +44,9 @@ function userGroups(){
 				var myGroupsDataArray = [];
 				for(i=0;i<message.length;i++){
 					var obj = message[i];
-					var temp = {gname: {text: obj.name}, gpic: {image: '/test.png'}};
+					var temp = {gname: {text: obj.description.name},
+								gsize: {text: obj.size+" Miembros"}, 
+							    gpic: {image: '/test.png'}};
 					myGroupsDataArray.push(temp);
 				}
 				

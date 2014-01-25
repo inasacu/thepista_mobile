@@ -1,9 +1,9 @@
-#appname: HayPistaMobile
-#appid: com.haypista.mobile
-#type: mobile
-#guid: 0a985ed8-f7ec-4dab-87df-790b196a8a05
-#version: 1.0
-#publisher: not specified
-#url: not specified
-#image: appicon.png
-#desc: not specified
+#appname:HayPistaMobile
+#appid:com.haypista.mobile
+#type:mobile
+#guid:0a985ed8-f7ec-4dab-87df-790b196a8a05
+#version:1.0
+#publisher:johnny
+#url:http://
+#image:appicon.png
+#desc:not specified

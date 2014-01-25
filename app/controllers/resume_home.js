@@ -1,10 +1,10 @@
 Ti.App.Properties.setString('restAPIKey', 'Ip4Q7-MXv43syXL98vn1hA');
 
-var user = Alloy.createModel("user");
-user.set("legacyId", 3130);
+var currentUserId = 3130;
+var event = Alloy.createModel("event");
 
 function activeEvents(){
-	user.getMyActiveEvents({
+	event.getActiveByUser(currentUserId, {
 		success: function(data){
 			var responseObj = data.responseJSON;
 			
@@ -33,7 +33,7 @@ function activeEvents(){
 }
 
 function groupEvents(){
-	user.getMyGroupsEvents({
+	event.getActiveByUserGroups(currentUserId, {
 		success: function(data){
 			var responseObj = data.responseJSON;
 			

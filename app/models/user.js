@@ -16,24 +16,6 @@ exports.definition = {
            		this.set('email', jsonObject.email);
            		this.set('name', jsonObject.email);
            		this.set('active', jsonObject.active);
-           },
-           getGroups: function(callbacks){
-           		var restProxy = require('RestProxy');
-           		restProxy.get(this, 
-           			Ti.App.Properties.getString('webappRestAPI')+'/user/my_groups/'+this.get('legacyId'),
-           			callbacks);
-           },
-           getMyGroupsEvents: function(callbacks){
-           		var restProxy = require('RestProxy');
-           		restProxy.get(this, 
-           			Ti.App.Properties.getString('webappRestAPI')+'/user/my_groups_events/'+this.get('legacyId'),
-           			callbacks);
-           },
-           getMyActiveEvents: function(callbacks){
-           		var restProxy = require('RestProxy');
-           		restProxy.get(this, 
-           			Ti.App.Properties.getString('webappRestAPI')+'/user/my_active_events/'+this.get('legacyId'),
-           			callbacks);
            }
 		});
 
