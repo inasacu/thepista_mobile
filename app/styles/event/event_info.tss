@@ -1,0 +1,34 @@
+".labelDesc":{
+	layout: "horizontal",
+	height: Titanium.UI.SIZE
+},
+".regularLabel":{
+	font:{fontWeight: "bold", fontSize:"14dp"},
+	width: "30%"
+},
+".regularLabelDesc":{
+	left: 5
+},
+".viewVerticalContent":{
+	layout: "vertical",
+	width:"90%"
+},
+".statusInfo":{
+	borderRadius: 3,
+	height: 30
+},
+".statusInfoLabel":{
+	color: "#fff",
+	font: {fontSize:"14dp"}
+},
+
+// text colors
+".green":{
+	color: "#5da423"
+},
+".blue":{
+	color: "#2795b6"
+},
+".yellow":{
+	color: "#ff9933"
+}

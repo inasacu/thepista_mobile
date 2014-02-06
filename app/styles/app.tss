@@ -1,3 +1,7 @@
+"Label":{
+	color: "#000",
+	font:{fontSize:"14dp"}
+},
 "Window[platform=android]": {
 	navBarHidden: "true"
 },
@@ -17,6 +21,11 @@
 	backgroundColor:"#5da423",
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL
+},
+".container2": {
+	backgroundColor:"#fff",
+	width: Titanium.UI.FILL,
+	height: Titanium.UI.SIZE
 },
 ".containerScrollView":{
 	height: Titanium.UI.FILL
@@ -59,11 +68,10 @@
 
 // Common sub container styles
 "#subView":{
-	backgroundColor:"#5da423"
-},
-".subContainer":{
-	backgroundColor:"#fff"
-},
+	//backgroundColor:"#5da423"
+	backgroundColor:"#fff",
+	top: 40
+}
 
 // Common for body
 
@@ -79,18 +87,11 @@
 
 // Common styles for tabs in home,
 
-".tabContainer":{
-	height: Titanium.UI.FILL,
-	top:20
-},
 ".tabImage":{
 	height: "80%"
 }
 
 // ListView styles
-".listContainer":{
-	top: 5
-},
 "ListView":{
 },
 ".itemInfoMessage":{
@@ -121,7 +122,17 @@
     color: 'gray',
     font: { fontFamily:'Arial', fontSize: '12dp' },
     left: '60dp', top: '28dp'
+},
+
+// Body of a view
+".viewSubtitle":{
+	backgroundColor: "#5da423",
+	height: 30
+},
+".viewSubtitleLabel":{
+	color: "#fff",
+	font: {fontFamily:'Arial', fontSize: '14dp' },
+	left: 10,
+	width: "50%"
 }
-
-
 

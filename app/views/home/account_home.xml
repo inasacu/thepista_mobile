@@ -1,0 +1,7 @@
+<Alloy>
+	<View id="account_home_win" class="container2">
+		<View top="0" layout="vertical">
+			<Require id="stateBar" type="view" src="includes/custom_state_bar" back="false" title="L('account_title')"/>
+		</View>
+	</View>
+</Alloy>

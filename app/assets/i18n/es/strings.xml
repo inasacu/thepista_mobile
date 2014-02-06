@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+	<string name="of">de</string>
     <string name="login_choose">Escoge como autenticarte</string>
 	<string name="login_title">Autenticación</string>
 	<string name="signup_title">Registro</string>
@@ -21,6 +22,25 @@
 	<string name="messages_title">Mensajes</string>
 	<string name="account_title">Mi Cuenta</string>
 	<string name="signup_text">Solo unos pasos más para completar tu registro en HayPista</string>
+    <string name="sunday">Domingo</string>
+    <string name="monday">Lunes</string>
+    <string name="tuesday">Martes</string>
+    <string name="wednesday">Miercoles</string>
+    <string name="thursday">Jueves</string>
+    <string name="friday">Viernes</string>
+    <string name="saturday">Sabado</string>
+    <string name="january">Enero</string>
+    <string name="february">Febrero</string>
+    <string name="march">Marzo</string>
+    <string name="april">Abril</string>
+    <string name="may">Mayo</string>
+    <string name="june">Junio</string>
+    <string name="july">Julio</string>
+    <string name="august">Agosto</string>
+    <string name="september">Septiembre</string>
+    <string name="october">Octubre</string>
+    <string name="november">Noviembre</string>
+    <string name="december">Diciembre</string>
     <string name="format_test">Your name is %s</string>
     <string name="ordered">Hi %1$s, my name is %2$s</string>
 </resources>

@@ -1,0 +1,35 @@
+
+<Alloy>
+    <Window class="container" layout="vertical" fullscreen="true">
+    	<View id="iphoneStatusFix" layout="composite">
+			<View id="subView" top="20" layout="composite">
+				<View bottom="0">
+					<ScrollableView id="scrollableView" showPagingControl="false">
+			            <Require src="home/resume_home"></Require>
+			            <Require src="home/events_home"></Require>
+			            <Require src="home/groups_home"></Require>
+			            <Require src="home/venues_home"></Require>
+			            <Require src="home/account_home"></Require>
+			        </ScrollableView>
+		    		<View id="tabIndicator" layout="horizontal">
+			        	<View id="tab1" class="tabButton">
+			        		<ImageView class="tabImage" image="/images/home.png"></ImageView>
+			        	</View>
+			        	<View id="tab2" class="tabButton">
+			        		<ImageView class="tabImage" image="/images/event.png"></ImageView>
+			        	</View>
+			        	<View id="tab3" class="tabButton">
+			        		<ImageView class="tabImage" image="/images/group.png"></ImageView>
+			        	</View>
+			        	<View id="tab4" class="tabButton">
+			        		<ImageView class="tabImage" image="/images/venue.png"></ImageView>
+			        	</View>
+			        	<View id="tab5" class="tabButton">
+			        		<ImageView class="tabImage" image="/images/account.png"></ImageView>
+			        	</View>
+			        </View>
+				</View>
+			</View>
+		</View>
+    </Window>
+</Alloy>

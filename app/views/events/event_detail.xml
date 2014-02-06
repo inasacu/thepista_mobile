@@ -1,7 +1,0 @@
-<Alloy>
-	<Window id="event_detail_win" class="container" layout="vertical">
-		<Require id="stateBar" type="view" src="includes/custom_state_bar" back="true" title="Detalle Evento"/>
-		<ActivityIndicator id="activityIndicator" class="activityIndicatorWhite" message="L('loading')"/>
-		<Label text="Detalle de un evento"></Label>
-	</Window>
-</Alloy>

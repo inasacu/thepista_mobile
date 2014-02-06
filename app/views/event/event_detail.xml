@@ -1,0 +1,41 @@
+<Alloy>
+	<Window id="event_detail_win" class="container">
+		<View id="iphoneStatusFix" layout="composite">
+			<View id="subView" top="20" layout="vertical">
+				<Require id="stateBar" type="view" src="includes/custom_state_bar" back="true" title="Evento"/>
+				<View id="tabIndicator" layout="horizontal">
+			    	<View id="tab1" class="tabButton">
+			    		<View class="tabImageContainer">
+			    			<ImageView class="tabImage" image="/images/info.png"></ImageView>
+			    		</View>
+			    		<View class="tabBorder"></View>
+			    	</View>
+			    	<View id="tab2" class="tabButton" layout="vertical">
+			    		<View class="tabImageContainer">
+			    			<ImageView class="tabImage" image="/images/team.png"></ImageView>
+			    		</View>
+			    		<View class="tabBorder"></View>
+			    	</View>
+			    	<View id="tab3" class="tabButton">
+			    		<View class="tabImageContainer">
+			    			<ImageView class="tabImage" image="/images/forum.png"></ImageView>
+			    		</View>
+			    		<View class="tabBorder"></View>
+			    	</View>
+			    	<View id="tab4" class="tabButton">
+			    		<View class="tabImageContainer">
+			    			<ImageView class="tabImage" image="/images/group.png"></ImageView>
+			    		</View>
+			    		<View class="tabBorder"></View>
+			    	</View>
+			    </View>
+				<ScrollableView id="scrollableView" showPagingControl="false">
+			        <Require src="event/event_info"></Require>
+			        <Require src="event/event_team"></Require>
+			        <Require src="event/event_forum"></Require>
+			        <Require src="event/event_people"></Require>
+			    </ScrollableView>
+			</View>
+		</View>
+	</Window>
+</Alloy>

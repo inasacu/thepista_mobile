@@ -50,7 +50,7 @@ Alloy.Globals.backToPreviousWindow = function(){
 		Ti.API.info("BackToPreviousWindow: No previous in the global scope");
 	}
 };
-Alloy.Globals.openWindow = function(currentView, nextViewId){
+Alloy.Globals.openWindow = function(currentView, nextViewId, args){
 	if(!Alloy.Globals.navStack){
 		Alloy.Globals.navStack = [];
 	}
@@ -58,7 +58,7 @@ Alloy.Globals.openWindow = function(currentView, nextViewId){
 	Alloy.Globals.navStack.push = currentView;
 	
 	// gets next window
-	var next_view = Alloy.createController(nextViewId).getView();
+	var next_view = Alloy.createController(nextViewId, args).getView();
 	
 	// listener for closing the window
 	next_view.addEventListener('close', function(){
@@ -123,10 +123,57 @@ Alloy.Globals.UI.VIEW_REGULAR_MARGIN = function(){
 		return 10;
 	}
 }();
+Alloy.Globals.UI.showActivityIndicator = function(currentWindow){
+	var actInd = Titanium.UI.createActivityIndicator({
+		id:"actInd",
+		height:50,
+		message:"Requesting..",
+		width:10
+	}); 
+	currentWindow.add(actInd);
+	return actInd;
+};
+
+// Authentication, Authorization, User profile
+Ti.App.Properties.setString('restAPIKey', 'Ip4Q7-MXv43syXL98vn1hA');
+
+Alloy.Globals.UI.getLoggedUser = function(){
+	var user = {legacyId: 3130};
+	return user;
+};
+
+// Utils
+Alloy.Globals.weekdayToString = function(wday){
+	var array = ["sunday", "monday","tuesday","wednesday","thursday","friday","saturday"];
+	return L(array[wday]);
+};
+Alloy.Globals.monthToString = function(mday){
+	// mday should be 1...12
+	var array = ["january", "february","march","april","may","june","july",
+				"august", "september","october","november","december"];
+	return L(array[mday-1]);
+};
+Alloy.Globals.longDateFormat = function(wday, date){
+	// Date should come in the form d/m/y and wday 0...6
+	var dayString = Alloy.Globals.weekdayToString(wday);
+	var dateArray = date.split("/");
+	var monthString = Alloy.Globals.monthToString(parseInt(dateArray[1]));
+	
+	var formattedDate = dayString+", "+dateArray[0]+" "+L("of")+" "+monthString;
+	return formattedDate;
+};
+
+// Global object for cached locale strings 
+// if the languange changes this should be flushed
+Alloy.Globals.localeStrings = {};
 
 // Global no-namespace functions - override
 function L(text) {
-	  if (Ti.App.languageXML === undefined || Ti.App.languageXML === null) {
+	// Looks if the text is cached
+	if (text in Alloy.Globals.localeStrings) {
+	   return Alloy.Globals.localeStrings[text];
+	} else {
+	   if (Ti.App.languageXML === undefined || Ti.App.languageXML === null) {
 		    var langFile = Ti.App.Properties.getString('SETTING_LANGUAGE'); // We should store user's language setting in SETTING_LANGUAGE
 		  
 		    var file = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'i18n/' + langFile + '/strings.xml'); // Get the corresponding file from i18n
@@ -143,10 +190,12 @@ function L(text) {
 	  var result = Ti.App.languageXML.evaluate(xpath).item(0);
 	  	  
 	  if (result) {
+	  	Alloy.Globals.localeStrings[text] = result.text;
 	    return result.text;
 	  } else {
 	    return text; // Return the text if localised version not found
 	  }
+	}
 };
 
 

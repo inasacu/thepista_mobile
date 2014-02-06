@@ -1,0 +1,31 @@
+<Alloy>
+	<View id="venues_home_win" class="container2">
+		<View top="0" layout="vertical">
+			<Require id="stateBar" type="view" src="includes/custom_state_bar" reload="true" back="false" title="L('venues_title')"/>	
+			 <View class="buttonHolderContainer">
+				<View class="buttonHolderBody" width="45%">
+	        		<Require type="view" width="100%" isAccept="true" text="Buscar" src="includes/custom_button"/>
+				</View>
+	         </View>	
+         	 <ListView id="listViewVenues" defaultItemTemplate="templateVenues">
+	
+	            <Templates>
+	
+	                <ItemTemplate name="templateVenues">
+	                    <ImageView bindId="pic" class="list1Icon" />
+	                    <Label bindId="name" class="list1Title" />
+	                </ItemTemplate>
+	                
+	                <ItemTemplate name="messageTemplate">
+	                    <Label bindId="info" />
+	                </ItemTemplate>
+	
+	            </Templates>
+	            
+	            <ListSection id="starredVenuesListSection" headerTitle="Instalaciones destacadas">
+	            </ListSection>
+	            
+	         </ListView>
+		</View>
+	</View>
+</Alloy>
