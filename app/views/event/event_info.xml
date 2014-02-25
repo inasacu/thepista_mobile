@@ -5,17 +5,17 @@
 				<Label class="viewSubtitleLabel" text="Información"></Label>
 			</View>
 			<View class="viewVerticalContent">
-				<View class="labelDesc">
+				<View class="labelDesc" top="10">
 					<Label class="regularLabel">Nombre</Label>
-					<Label class="regularLabelDesc" id="eventName">Jornada 4</Label>
+					<Label class="regularLabelDesc" id="eventName"></Label>
 				</View>
 				<View class="labelDesc">
 					<Label class="regularLabel">Grupo</Label>
-					<Label class="regularLabelDesc" id="eventName">Los Pepos</Label>
+					<Label class="regularLabelDesc" id="eventGroup"></Label>
 				</View>
 				<View class="labelDesc">
 					<Label class="regularLabel">Fecha</Label>
-					<Label class="regularLabelDesc" id="eventDate">Lunes, 13 de Enero</Label>
+					<Label class="regularLabelDesc" id="eventDate"></Label>
 				</View>
 				<View class="labelDesc">
 					<Label class="regularLabel">Lugar</Label>
@@ -23,7 +23,7 @@
 				</View>
 				<View class="labelDesc">
 					<Label class="regularLabel">Precio</Label>
-					<Label class="regularLabelDesc" id="eventPrice">1,00 \u20ac</Label>
+					<Label class="regularLabelDesc" id="eventFee"></Label>
 				</View>
 				<View class="labelDesc">
 					<Label class="regularLabel blue">Convocados</Label>
@@ -33,10 +33,12 @@
 					<Label class="regularLabel yellow">Faltan</Label>
 					<Label class="regularLabelDesc" id="roosterMissing">17</Label>
 				</View>
-				<View>
-					<View top="20" class="statusInfo" backgroundColor="#5da423">
-						<Label class="statusInfoLabel">Estas convocado</Label>				
-					</View>
+				<View id="userEventStatusBar" top="10" class="statusInfo" backgroundColor="#5da423">
+					<Label id="userEventStatusLabel" class="statusInfoLabel">Estas convocado</Label>				
+				</View>
+				<View top="10" class="wrapperContainer" layout="horizontal">
+					<Require id="stateOneButton" type="view" isAccept="true" width="50%" src="includes/custom_button"/>
+	        		<Require id="stateTwoButton" type="view" isAccept="true" width="50%" src="includes/custom_button"/>
 				</View>
 			</View>
 		</View>

@@ -1,44 +1,40 @@
+// Modules and namepspaces
+var Global = {};
+var UI = {};
+
 // Initial
-var loggedUser = Alloy.Globals.UI.getLoggedUser();
-var venue = Alloy.createModel("venue");
-var starredVenuesCollection = [];
+Global.venueModel = Alloy.createModel("venue");
+Global.starredVenuesCollection = [];
+
+UI = function(){
+	return {
+		pushDataIntoSection: function(collection, section, data){
+			for(i=0;i<data.length;i++){
+				var tempVenue = data[i];
+				var temp = {name: {text: tempVenue.get("name")}, pic: {image: '/test.png'}};
+				Global[collection].push(temp);
+			}
+			$[section].setItems(Global[collection]);
+		},
+		pushMessageIntoSection: function(section, message){
+			msg = {template: "messageTemplate", info: {text: message}};
+			$[section].setItems([msg]);
+		}
+	};
+}();
 
 function starredVenues(){
-	venue.getStarred({
+	Global.venueModel.getStarred({
 		success: function(data){
-			var responseObj = data.responseJSON;
-			
-			if(Alloy.Globals.verifyAPICall(responseObj.code)){
-				
-				var message = responseObj.message;
-				starredVenuesCollection = [];
-				
-				for(i=0;i<message.length;i++){
-					var obj = message[i];	
-					var temp = {name: {text: obj.name}, pic: {image: '/test.png'}};
-					starredVenuesCollection.push(temp);
-				}
-				
+			Global.starredVenuesCollection = [];
+			if(_.isEmpty(data)){
+				UI.pushMessageIntoSection("starredVenuesListSection", "No hay instalaciones disponibles");
+			}else{
+				UI.pushDataIntoSection("starredVenuesCollection", "starredVenuesListSection", data);
 			}
-			else{
-				Titanium.API.info("SUCCESS WITH ERRORS"+JSON.stringify(data));	
-			}
-			
-			if(_.isEmpty(starredVenuesCollection)){
-				var msg = {template: "messageTemplate", info: {text: "No hay instalaciones destacadas disponibles"}};
-				starredVenuesCollection.push(msg);	
-			}
-			
-			$.starredVenuesListSection.setItems(starredVenuesCollection);	
 		},
 		error: function(data){
-			alert("No se pudieron obtener los venues");
-			
-			var msg = {template: "messageTemplate", info: {text: "No hay instalaciones destacadas disponibles"}};
-			starredVenuesCollection.push(msg);	
-			$.starredVenuesListSection.setItems(starredVenuesCollection);	
-			
-			Titanium.API.info("ERROR "+JSON.stringify(data));
+			UI.pushMessageIntoSection("starredVenuesListSection", "No se pudieron obtener las instalaciones destacadas, intenta de nuevo");
 		}
 	});	
 }

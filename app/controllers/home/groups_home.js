@@ -1,89 +1,60 @@
 
-// Initial
-var loggedUser = Alloy.Globals.UI.getLoggedUser();
-var group = Alloy.createModel("group");
-var starredGroupsCollection = [];
-var myGroupsCollection = [];
+// Modules and namespaces
+var UI = {};
+var Global = {};
 
+// Initial
+Global.groupModel = Alloy.createModel("group");
+Global.starredGroupsCollection = [];
+Global.myGroupsCollection = [];
+
+UI = function(){
+	return {
+		pushDataIntoSection: function(collection, section, data){
+			for(i=0;i<data.length;i++){
+				var tempGroup = data[i];
+				var temp = {gname: {text: tempGroup.get("name")},
+									gsize: {text: tempGroup.get("memberQ")+" Miembros"}, 
+								    gpic: {image: '/test.png'}};
+				Global[collection].push(temp);
+			}
+			$[section].setItems(Global[collection]);
+		},
+		pushMessageIntoSection: function(section, message){
+			msg = {template: "messageTemplate", info: {text: message}};
+			$[section].setItems([msg]);
+		}
+	};
+}();
 
 function starredGroups(){
-	group.getStarred({
+	Global.groupModel.getStarred({
 		success: function(data){
-			var responseObj = data.responseJSON;
-			
-			if(Alloy.Globals.verifyAPICall(responseObj.code)){
-				
-				var message = responseObj.message;
-				starredGroupsCollection = [];
-				
-				for(i=0;i<message.length;i++){
-					var obj = message[i];
-					var temp = {gname: {text: obj.description.name},
-								gsize: {text: obj.size+" Miembros"}, 
-							    gpic: {image: '/test.png'}};
-					starredGroupsCollection.push(temp);
-				}
-				
+			Global.starredGroupsCollection = [];
+			if(_.isEmpty(data)){
+				UI.pushMessageIntoSection("starredGroupsListSection", "No hay grupos destacados disponibles");
+			}else{
+				UI.pushDataIntoSection("starredGroupsCollection", "starredGroupsListSection", data);
 			}
-			else{
-				Titanium.API.info("SUCCESS WITH ERRORS"+JSON.stringify(data));	
-			}
-			
-			if(_.isEmpty(starredGroupsCollection)){
-				var msg = {template: "messageTemplate", info: {text: "No hay grupos destacados disponibles"}};
-				starredGroupsCollection.push(msg);	
-			}
-			
-			$.starredGroupsListSection.setItems(starredGroupsCollection);
 		},
 		error: function(data){
-			alert("No se pudieron obtener los grupos, intenta de nuevo");
-			
-			var msg = {template: "messageTemplate", info: {text: "No hay grupos destacados disponibles"}};
-			starredGroupsCollection.push(msg);	
-			$.starredGroupsListSection.setItems(starredGroupsCollection);
-			
-			Titanium.API.info("ERROR "+JSON.stringify(data));
+			UI.pushMessageIntoSection("starredGroupsListSection", "No se pudieron obtener los grupos destacados, intenta de nuevo");
 		}
 	});	
 }
 
 function userGroups(){
-	group.getByUser(loggedUser.legacyId, {
+	Global.groupModel.getByUser(Alloy.Globals.getLoggedUser().get("legacyId"), {
 		success: function(data){
-			var responseObj = data.responseJSON;
-			
-			if(Alloy.Globals.verifyAPICall(responseObj.code)){
-				
-				var message = responseObj.message;
-				myGroupsCollection = [];
-				
-				for(i=0;i<message.length;i++){
-					var obj = message[i];
-					var temp = {gname: {text: obj.description.name},
-								gsize: {text: obj.size+" Miembros"}, 
-							    gpic: {image: '/test.png'}};
-					myGroupsCollection.push(temp);
-				}
-						
+			Global.myGroupsCollection = [];
+			if(_.isEmpty(data)){
+				UI.pushMessageIntoSection("myGroupsListSection", "No estas inscrito en ningún grupo");
+			}else{
+				UI.pushDataIntoSection("myGroupsCollection", "myGroupsListSection", data);
 			}
-			else{
-				Titanium.API.info("SUCCESS WITH ERRORS"+JSON.stringify(data));	
-			}
-			
-			if(_.isEmpty(myGroupsCollection)){
-				var msg = {template: "messageTemplate", info: {text: "No te has unido a ningún grupo"}};
-				myGroupsCollection.push(msg);	
-			}
-			
-			$.myGroupsListSection.setItems(myGroupsCollection);		
 		},
 		error: function(data){
-			alert("No se pudieron tus grupos, intenta de nuevo");
-			var msg = {template: "messageTemplate", info: {text: "No te has unido a ningún grupo"}};
-			myGroupsCollection.push(msg);
-			$.myGroupsListSection.setItems(myGroupsCollection);		
-			Titanium.API.info("ERROR "+JSON.stringify(data));
+			UI.pushMessageIntoSection("myGroupsListSection", "No se pudieron obtener tus grupos, intenta de nuevo");
 		}
 	});	
 }

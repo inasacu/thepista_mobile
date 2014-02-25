@@ -1,10 +1,10 @@
 
 ".leftAlignedLabel":{
-	top: Alloy.Globals.UI.VIEW_REGULAR_MARGIN
+	top: 5
 }
 ".switchTextView":{
-	top: Alloy.Globals.UI.VIEW_REGULAR_MARGIN
+	top: 5
 },
 ".horizontalBorder":{
-	top: Alloy.Globals.UI.VIEW_REGULAR_MARGIN
+	top: 5
 }

@@ -1,96 +1,118 @@
+// Modules and Namespaces
+var Global = {};
+var Imported = {};
+var Util = {};
+
 // Require of modules
-var alloyString = require('alloy/string');
+Imported.alloyString = require('alloy/string');
+
+// Set init params
+Global.firstLoad = true;
+Global.args = arguments[0] || {};
 
 // Functions
-function getProviderUrl(providerIndex){
-	providerUrl = Ti.App.Properties.getString('webappURL') 
-				  + Ti.App.Properties.getString('webappOAuthSuffix')
-				  	.replace(":oauth_provider", providerIndex);
-
-	return providerUrl;
-}
+Util = function(){
+	return {
+		getProviderUrl: function(providerIndex){
+			var providerUrl = Ti.App.Properties.getString('webappURL') 
+						    + Ti.App.Properties.getString('webappOAuthSuffix')
+						  	.replace(":oauth_provider", providerIndex);
+			return providerUrl;
+		},
+		closeAndBack: function(){
+			$.provider_auth.close();
+		}
+	};
+}(); 
 
 // Initial calls
 Alloy.Globals.cleanCookiesHaypistaWeb();
+$.providerWebView.url = Util.getProviderUrl(Global.args.providerIndex);
 
-// Set init params
-var firstLoad = true;
-var args = arguments[0] || {};
-$.providerWebView.url = getProviderUrl(args.providerIndex);
-//$.providerWebView.url = "http://google.com";
-
+// Listeners for events
 $.providerWebView.addEventListener("beforeload", function(){
 	Alloy.Globals.toogleActivityIndicator($.activityIndicator, 
 		Ti.App.Properties.getString('AIshowCode'));
 });
 
-// Listeners for events
 $.providerWebView.addEventListener("load", function(){
 	
 	Alloy.Globals.toogleActivityIndicator($.activityIndicator, 
 		Ti.App.Properties.getString('AIhideCode'));
 				
-	if(!firstLoad){
-		cookiesString = $.providerWebView.evalJS("document.cookie");
+	
+	var cookiesString = $.providerWebView.evalJS("document.cookie");
+	
+	if(cookiesString!=""){
+		var cookies = cookiesString.split(";"); 
+		var cookiesObj = {};
 		
-		if(cookiesString!=""){
-			var cookies = cookiesString.split(";"); 
-			var cookiesObj = {};
-			
-			for (i = 0; i <= cookies.length - 1; i++) {
-				cookieArray = cookies[i].split("=");
-		    	cookieKey = Alloy.Globals.removeWhiteSpace(cookieArray[0]);
-		    	cookieValue = alloyString.urlDecode(Alloy.Globals.removeWhiteSpace(cookieArray[1])); 
-		    	
-		    	Ti.API.info("Cookie: "+cookieKey+" "+cookieValue);
-		    	
-		    	switch(cookieKey){
-		    		case Ti.App.Properties.getString('mobile_valid_property'):
-		    			cookiesObj.mobileValid = cookieValue;
-		    		break;
-		    		case Ti.App.Properties.getString('user_data_property'):
-		    			cookiesObj.userData = cookieValue;
-		    		break;
-		    	}
-		    	
-			}
-			
-			if(cookiesObj.mobileValid === "true"){
-				// get info from the logged user
-		    	userData = JSON.parse(cookiesObj.userData);
-		    	
-		    	// Populate singleton user object
-		    	var currentUser = Alloy.Models.instance("user");
-		    	currentUser.setFromJson(userData.mobile_token);
-		    	
-		    	var tab_home_window = Alloy.createController("tab_home").getView();
-				tab_home_window.open();
-				
-				$.provider_auth.close();
-		    	
-			}else if(cookiesObj.mobile_valid === "false"){
-				// get info from the logged user
-		    	Ti.API.info("User permission not granted");
-		    					   
-				$.provider_auth.close();
-			    Alloy.createController("index").getView().open();
-			}	
+		for (i = 0; i <= cookies.length - 1; i++) {
+			var cookieArray = cookies[i].split("=");
+	    	var cookieKey = Alloy.Globals.removeWhiteSpace(cookieArray[0]);
+	    	var cookieValue = Imported.alloyString.urlDecode(Alloy.Globals.removeWhiteSpace(cookieArray[1])); 
+	    	
+	    	Ti.API.info("Cookie: "+cookieKey+" "+cookieValue);
+	    	
+	    	switch(cookieKey){
+	    		case Ti.App.Properties.getString('mobile_valid_property'):
+	    			cookiesObj.mobileValid = cookieValue;
+	    		break;
+	    		case Ti.App.Properties.getString('user_data_property'):
+	    			cookiesObj.userData = cookieValue;
+	    		break;
+	    		case Ti.App.Properties.getString('oauth_data_property'):
+	    			cookiesObj.oauthData = cookieValue;
+	    		break;
+	    	}
+	    	
 		}
 		
-	}else{
-		firstLoad = false;
+		switch(cookiesObj.mobileValid){
+			case Ti.App.Properties.getString('loginRegistered'):
+				// get info from the logged user
+		    	var userData = JSON.parse(cookiesObj.userData);
+		    	
+		    	// Populate singleton user object
+		    	Alloy.Globals.setLoggedUser(userData.mobile_token);
+		    	
+		    	var tab_home_window = Alloy.createController("home/tab_home");
+				tab_home_window.getView().open();
+			break;
+			case Ti.App.Properties.getString('loginShouldSignup'):
+				// get info from user
+		    	var userData = JSON.parse(cookiesObj.userData);
+		    	var tempUser = Alloy.createModel("user");
+		    	tempUser.setFromMobileTokenJson(userData.mobile_token);
+		    	
+		    	// only for signup
+		    	var oauthData = JSON.parse(cookiesObj.oauthData);
+		    	tempUser.set("provider", oauthData.provider);
+		    	tempUser.set("uid", oauthData.uid);
+		    	
+		    	var signup_home_window = Alloy.createController("signup", {info: tempUser}).getView();
+				signup_home_window.open();
+				$.provider_auth.close();
+			break;
+			case Ti.App.Properties.getString('loginFailure'):
+				Util.closeAndBack();
+			break;
+			default:
+				//alert("Error en el proceso de registro, intentalo de nuevo");
+				//Util.closeAndBack();
+			break;
+		};
+
 	}
 	    
 });
 
 // Listeners
 $.stateBar.barLeftButton.addEventListener("click", function(){
-	Alloy.Globals.backToPreviousWindow();
-	$.provider_auth.close();
+	Util.closeAndBack();
 });
 $.provider_auth.addEventListener('android:back', function(){
-    Alloy.Globals.backToPreviousWindow();
-    $.provider_auth.close();
+    Util.closeAndBack();
 });
 
 

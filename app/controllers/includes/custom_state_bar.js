@@ -39,10 +39,18 @@ $.barLeftButton.addEventListener('touchend', function(e) {
    touchEndFunction(this);
 });
 
+$.barLeftButton.addEventListener('touchcancel', function(e) {
+   touchEndFunction(this);
+});
+
 $.barRightButton.addEventListener('touchstart', function(e) {
     touchStartFunction(this);
 });
 
 $.barRightButton.addEventListener('touchend', function(e) {
+   touchEndFunction(this);
+});
+
+$.barRightButton.addEventListener('touchcancel', function(e) {
    touchEndFunction(this);
 });

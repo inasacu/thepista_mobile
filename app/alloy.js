@@ -25,6 +25,7 @@ Ti.App.Properties.setString('outlookProviderIndex', '3');
 // Cookies object preferences
 Ti.App.Properties.setString('mobile_valid_property', 'mobile_valid');
 Ti.App.Properties.setString('user_data_property', 'user_data');
+Ti.App.Properties.setString('oauth_data_property', 'oauth_data');
 
 // Mobile app specific
 Ti.App.Properties.setString('SETTING_LANGUAGE','es');
@@ -35,10 +36,38 @@ Ti.App.Properties.setString('AIhideCode', '0');
 
 // API Call codes
 Ti.App.Properties.setString('okCode', '00');
+Ti.App.Properties.setString('operationErrorCode', '88');
+Ti.App.Properties.setString('authorizationErrorCode', '99');
+Ti.App.Properties.setString('connectionErrorCode', '77');
+
+// LOGIN Codes
+/*
+ MOBILE_LOGIN_REGISTERED=11
+MOBILE_LOGIN_SHOULD_SIGNUP=12
+MOBILE_LOGIN_FAILURE=13
+ * */
+Ti.App.Properties.setString('loginRegistered', '11');
+Ti.App.Properties.setString('loginShouldSignup', '12');
+Ti.App.Properties.setString('loginFailure', '13');
+
+// User event states
+/*
+ * 	  1;"convocado"
+      2;"ultima_hora"
+      3;"ausente"
+      4;"no_jugado"
+      5;"Ultima_Hora"
+ * 
+ */
+Ti.App.Properties.setInt('UGOING', 1);
+Ti.App.Properties.setInt('ULAST', 2);
+Ti.App.Properties.setInt('UMISSING', 3);
 
 // Global functions
 Alloy.Globals.cleanCookiesHaypistaWeb = function(){
 	Ti.Network.createHTTPClient().clearCookies(Ti.App.Properties.getString("webappURL"));
+	Ti.Network.createHTTPClient().clearCookies("http://google.com");
+	Ti.Network.createHTTPClient().clearCookies("http://facebook.com");
 };
 Alloy.Globals.backToPreviousWindow = function(){
 	// Alloy.Globals.parent should be setted properly
@@ -89,40 +118,38 @@ Alloy.Globals.toogleActivityIndicator = function(activityIndicator, code) {
 		break;
 	}
 };
-Alloy.Globals.verifyAPICall = function(code) {
-	switch(code){
-		case Ti.App.Properties.getString('okCode'):
-			return true;
+Alloy.Globals.verifyAPICall = function(responseObj) {
+	switch(responseObj.code){
+		case Ti.App.Properties.getString('okCode'):	
+			return {good: true, message: responseObj.message};
 		break;
+		case Ti.App.Properties.getString('operationErrorCode'):
+			// If an error with the operation ocurred handling should be done by caller
+			return {good: false, message: responseObj.message};
+		break;
+		case Ti.App.Properties.getString('authorizationErrorCode'):
+			// Probably inform user with alert and log off
+			return {good: false, message: responseObj.message};
 		default:
-			alert("Problema contactando servidor");
-			return false;
+			return {good: false, message: "Problem contacting the server"};
 		break;
 	}
 };
+Alloy.Globals.successCallback = function(callback, data) {
+	if(callback && callback.success){
+		var tempData = (data || {});
+		callback.success(tempData);
+	}
+};
+Alloy.Globals.errorCallback = function(callback, data) {
+	if(callback && callback.error){
+		var tempData = (data || {});
+		callback.error(tempData);
+	}
+};
+
 // Global UI properties
 Alloy.Globals.UI = {};
-Alloy.Globals.UI.FONT_REGULAR_SIZE_BODY = function(){
-	if(OS_IOS){
-		return 12;
-	}else if(OS_ANDROID){
-		return "15dp";
-	}
-}();
-Alloy.Globals.UI.FONT_SMALL_SIZE_BODY = function(){
-	if(OS_IOS){
-		return 10;
-	}else if(OS_ANDROID){
-		return "12dp";
-	}
-}();
-Alloy.Globals.UI.VIEW_REGULAR_MARGIN = function(){
-	if(OS_IOS){
-		return 5;
-	}else if(OS_ANDROID){
-		return 10;
-	}
-}();
 Alloy.Globals.UI.showActivityIndicator = function(currentWindow){
 	var actInd = Titanium.UI.createActivityIndicator({
 		id:"actInd",
@@ -134,12 +161,24 @@ Alloy.Globals.UI.showActivityIndicator = function(currentWindow){
 	return actInd;
 };
 
-// Authentication, Authorization, User profile
-Ti.App.Properties.setString('restAPIKey', 'Ip4Q7-MXv43syXL98vn1hA');
+Alloy.Globals.getLoggedUser = function(){
+	//Alloy.Globals.currentLoggedUser = {legacyId: 3130};
+	return Alloy.Globals.loggedUser;
+};
+Alloy.Globals.setLoggedUser = function(userData){
+	Alloy.Globals.loggedUser = Alloy.createModel('user');
+	Alloy.Globals.loggedUser.setFromMobileTokenJson(userData);
+	
+	// Authentication, Authorization, User profile
+	Ti.App.Properties.setString('restAPIKey', Alloy.Globals.loggedUser.get("token"));
 
-Alloy.Globals.UI.getLoggedUser = function(){
-	var user = {legacyId: 3130};
-	return user;
+	return Alloy.Globals.loggedUser;
+};
+Alloy.Globals.testBootstrap = function(){
+	var userData = {"mobile_token":{"_id":"53012177ca3ad81d86000024","_type":"null",
+									 "active":1,"email":"jonathan.aradu@gmail.com","generated_time":"2014-02-16T20:37:11+00:00",
+									 "legacy_id":3130,"name":"Jonathan Araujo GMAIL","token":"XXUjwqY45axtpaOakj39ag"}};
+ 	Alloy.Globals.setLoggedUser(userData.mobile_token);
 };
 
 // Utils
@@ -162,10 +201,25 @@ Alloy.Globals.longDateFormat = function(wday, date){
 	var formattedDate = dayString+", "+dateArray[0]+" "+L("of")+" "+monthString;
 	return formattedDate;
 };
+Alloy.Globals.longDateTimeFormat = function(wday, date, time){
+	// Date should come in the form d/m/y and wday 0...6
+	var dayString = Alloy.Globals.weekdayToString(wday);
+	var dateArray = date.split("/");
+	var monthString = Alloy.Globals.monthToString(parseInt(dateArray[1]));
+	
+	var formattedDate = dayString+", "+dateArray[0]+" "+L("of")+" "+monthString+" - "+time+"h";
+	return formattedDate;
+};
+
+// Global object with cached city list
+Alloy.Globals.cityList = [];
 
 // Global object for cached locale strings 
 // if the languange changes this should be flushed
 Alloy.Globals.localeStrings = {};
+
+// Global for children event views
+Alloy.Globals.eventViewsControllers = {};
 
 // Global no-namespace functions - override
 function L(text) {

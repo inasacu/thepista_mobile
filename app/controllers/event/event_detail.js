@@ -1,3 +1,5 @@
+//	TAB CHANGE LOGIC 
+
 // The current visible view
 var viewNumber = -1; 
 Alloy.Globals.parentWindow = $.tab_home;
@@ -40,6 +42,23 @@ _.each($.tabIndicator.getChildren(), function(tabIndexView, index, list){
 
 $.event_detail_win.addEventListener('close', function() {
     $.destroy();
+    // Set global controllers for children views to blank
+    Alloy.Globals.eventViewsControllers = {};
+});
+
+// ----------------------------------------------------------------
+
+// OTHER LOGIC
+
+// received arguments
+//var args = arguments[0] || {eventId: 427};
+var args = {eventId: 427};
+
+// Listener for reload
+$.stateBar.barRightButton.addEventListener("click", function(){
+	var children = $.scrollableView.getChildren();
+	var page = $.scrollableView.currentPage;
+	Alloy.Globals.eventViewsControllers["event_info"].reload(args);
 });
 
 // Listeners for back buttons

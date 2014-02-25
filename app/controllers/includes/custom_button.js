@@ -22,6 +22,20 @@ function setColor(stateCode){
 	
 	notClickedColor = "#f8f8f8";
     clickedColor = "#ccc";
+    
+    var backgroundGradientNotClicked = {
+        type: 'linear',
+        startPoint: { x: '50%', y: '100%' },
+        endPoint: { x: '50%', y: '0%' },
+        colors: [ { color: notClickedColor, offset: 0.95}, { color: '#fff', offset: 0.0 }],
+    };
+    
+    var backgroundGradientClicked = {
+        type: 'linear',
+        startPoint: { x: '50%', y: '100%' },
+        endPoint: { x: '50%', y: '0%' },
+        colors: [ { color: clickedColor, offset: 0.95}, { color: '#fff', offset: 0.0 }],
+    };
 	
 	if(args.isAccept==="true"){
 		fontColor = "#2795b6";
@@ -37,12 +51,13 @@ function setColor(stateCode){
 	$.buttonViewLabel.color = fontColor;
 	
 	if(stateCode==0){
-		$.buttonInnerView.backgroundColor = notClickedColor;
+		//$.buttonInnerView.backgroundColor = notClickedColor;
+	    $.buttonInnerView.backgroundGradient = backgroundGradientNotClicked;
 	}
 	else if(stateCode==1){
-		$.buttonInnerView.backgroundColor = clickedColor;
+		$.buttonInnerView.backgroundGradient = backgroundGradientClicked;
 	}else if(stateCode==2){
-		$.buttonInnerView.backgroundColor = notClickedColor;
+		$.buttonInnerView.backgroundGradient = backgroundGradientNotClicked;
 	}
 }
 
@@ -66,6 +81,6 @@ $.buttonView.addEventListener('touchend', function(e) {
    setColor(2);
 });
 
-$.buttonView.addEventListener('swipe', function(e) {
+$.buttonView.addEventListener('touchcancel', function(e) {
    setColor(2);
 });

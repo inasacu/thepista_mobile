@@ -31,4 +31,7 @@
 },
 ".yellow":{
 	color: "#ff9933"
+},
+".red":{
+	color: "red"
 }

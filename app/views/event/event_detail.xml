@@ -2,7 +2,7 @@
 	<Window id="event_detail_win" class="container">
 		<View id="iphoneStatusFix" layout="composite">
 			<View id="subView" top="20" layout="vertical">
-				<Require id="stateBar" type="view" src="includes/custom_state_bar" back="true" title="Evento"/>
+				<Require id="stateBar" type="view" src="includes/custom_state_bar" back="true" reload="true" title="Evento"/>
 				<View id="tabIndicator" layout="horizontal">
 			    	<View id="tab1" class="tabButton">
 			    		<View class="tabImageContainer">
