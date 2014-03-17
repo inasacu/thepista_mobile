@@ -11,7 +11,8 @@ UI = function(){
 		pushDataIntoSection: function(collection, section, data){
 			for(i=0;i<data.length;i++){
 				var tempVenue = data[i];
-				var temp = {name: {text: tempVenue.get("name")}, pic: {image: '/test.png'}};
+				var imageFile = tempVenue.get("imageURL") || Ti.App.Properties.getString('imageNA');
+				var temp = {name: {text: tempVenue.get("name")}, pic: {image: imageFile}};
 				Global[collection].push(temp);
 			}
 			$[section].setItems(Global[collection]);

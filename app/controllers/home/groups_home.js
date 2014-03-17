@@ -13,9 +13,10 @@ UI = function(){
 		pushDataIntoSection: function(collection, section, data){
 			for(i=0;i<data.length;i++){
 				var tempGroup = data[i];
+				var imageFile = tempGroup.get("imageURL") || Ti.App.Properties.getString('imageNA');
 				var temp = {gname: {text: tempGroup.get("name")},
 									gsize: {text: tempGroup.get("memberQ")+" Miembros"}, 
-								    gpic: {image: '/test.png'}};
+								    gpic: {image: imageFile}};
 				Global[collection].push(temp);
 			}
 			$[section].setItems(Global[collection]);
@@ -63,6 +64,10 @@ function userGroups(){
 $.stateBar.barRightButton.addEventListener("click", function(){
 	starredGroups();
 	userGroups();
+});
+
+$.groupCreationButton.buttonView.addEventListener("click", function(){
+	Alloy.Globals.openWindow($.groups_home_win, "group/group_creation");
 });
 
 userGroups();

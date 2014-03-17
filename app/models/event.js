@@ -107,6 +107,32 @@ exports.definition = {
            		restProxy.get(this, 
            			Ti.App.Properties.getString('webappRestAPI')+'/event/user_data/'+eventId+'/'+userId,
            			myCallbacks);
+           },
+           create: function(eventInfo, userId, extCallbacks){
+           		
+           		var myCallbacks = {
+					success: function(message){
+						Alloy.Globals.successCallback(extCallbacks,message);	
+					},
+					error: function(verificationError){
+						Alloy.Globals.errorCallback(extCallbacks,verificationError);
+					}
+				}; 
+				
+				var restDTO = {
+					event_name: eventInfo.name,
+					event_player_limit: eventInfo.playerLimit,
+					event_fee: eventInfo.fee,
+					event_date: eventInfo.date,
+					event_time: eventInfo.time,
+					event_group: eventInfo.groupId,
+					user_id: userId
+				};
+           		
+           		var restProxy = require('RestProxy');
+           		restProxy.post(this, 
+           			Ti.App.Properties.getString('webappRestAPI')+'/event/create_new',
+           			myCallbacks, restDTO);
            }
 		});
 

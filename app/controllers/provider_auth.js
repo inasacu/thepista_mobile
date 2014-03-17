@@ -70,14 +70,18 @@ $.providerWebView.addEventListener("load", function(){
 		
 		switch(cookiesObj.mobileValid){
 			case Ti.App.Properties.getString('loginRegistered'):
+				Titanium.API.info("Entered");
 				// get info from the logged user
 		    	var userData = JSON.parse(cookiesObj.userData);
 		    	
 		    	// Populate singleton user object
 		    	Alloy.Globals.setLoggedUser(userData.mobile_token);
 		    	
-		    	var tab_home_window = Alloy.createController("home/tab_home");
-				tab_home_window.getView().open();
+		    	var tab_home_window = Alloy.createController("home/tab_home").getView();
+				tab_home_window.open();
+				$.provider_auth.close();
+				
+				Titanium.API.info("Finished");
 			break;
 			case Ti.App.Properties.getString('loginShouldSignup'):
 				// get info from user

@@ -3,7 +3,6 @@
 						       // {providerIndex: providerIndexValue}).getView();
 // 						   
 	// provider_auth_window.open();
-	// $.index.close();
 // }
 // 
 // // Listeners for the buttons

@@ -1,0 +1,26 @@
+<Alloy>
+	<Window class="container" layout="vertical">
+		<View id="subView" top="20" layout="vertical">
+			<Require id="stateBar" type="view" src="includes/custom_state_bar" back="true" title="Opciones"/>
+			
+			<ScrollView class="containerScrollView" height="90%" layout="vertical" showVerticalScrollIndicator="true">
+				
+				<View layout="vertical" width="95%">
+					<Label top="10" class="formElement" text="Escoja una fecha"></Label>
+					<Picker id="datePicker" type="Titanium.UI.PICKER_TYPE_DATE" selectionIndicator="true" useSpinner="true">
+			       </Picker>
+			        
+			        <Label top="10" class="formElement" text="Escoja una hora"></Label>
+					<Picker id="timePicker" type="Titanium.UI.PICKER_TYPE_TIME " selectionIndicator="true" useSpinner="true">
+			        </Picker>
+			        
+			        <View layout="horizontal" height="Titanium.UI.SIZE" width="Titanium.UI.SIZE">
+			        	<Require id="submitButton" type="view" isAccept="true" text="Aceptar" src="includes/custom_button"/>
+			        	<Require id="cancelButton" type="view" isCancel="true" text="Cancelar" src="includes/custom_button"/>
+			        </View>
+				</View>
+				
+			</ScrollView>
+		</View>
+	</Window>
+</Alloy>

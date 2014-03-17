@@ -87,11 +87,12 @@ $.submitButton.buttonView.addEventListener("click", function(){
 	UI.validateForm(function(){
 		UI.setUserFormInfo();
 		Global.userModel.register(Global.userFormInfo, {
-			success: function(data){
-				if(data){
-					alert("Usuario registrado, espere un correo de confirmación");
-					$.signup.close();
-				}
+			success: function(){
+				alert("Usuario registrado, espere un correo de confirmación");
+				$.signup.close();
+			},
+			error: function(error){
+				alert(error);
 			}
 		});	
 	});

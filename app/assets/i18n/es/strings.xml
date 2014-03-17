@@ -41,6 +41,11 @@
     <string name="october">Octubre</string>
     <string name="november">Noviembre</string>
     <string name="december">Diciembre</string>
+    <string name="pick_sport">Escoge un deporte</string>
+    <string name="pick_city">Escoge una ciudad</string>
+    <string name="sport">Deporte</string>
+    <string name="group_creation_title">Creación de grupo</string>
+    <string name="event_creation_title">Creación de evento</string>
     <string name="format_test">Your name is %s</string>
     <string name="ordered">Hi %1$s, my name is %2$s</string>
 </resources>

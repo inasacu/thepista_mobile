@@ -12,8 +12,10 @@ exports.definition = {
 		_.extend(Model.prototype, {
            setFromJson: function(jsonObject){
            		this.set('legacyId', jsonObject.legacy_id);
-           		this.set('name', jsonObject.description.name);
-           		this.set('memberQ', jsonObject.size);	
+           		this.set('name', jsonObject.name);
+           		this.set('sportId', jsonObject.sport_id);
+           		this.set('sportName', jsonObject.sport_desc);
+           		this.set('memberQ', jsonObject.number_of_members);	
            },
            getStarred: function(extCallbacks){
            		var myCallbacks = {
@@ -58,6 +60,51 @@ exports.definition = {
            		restProxy.get(this, 
            			Ti.App.Properties.getString('webappRestAPI')+'/group/by_user/'+userId,
            			myCallbacks);
+           },
+           create: function(groupInfo, extCallbacks){
+           		
+           		var myCallbacks = {
+					success: function(message){
+						Alloy.Globals.successCallback(extCallbacks,message);	
+					},
+					error: function(verificationError){
+						Alloy.Globals.errorCallback(extCallbacks,verificationError);
+					}
+				}; 
+				
+				var restDTO = {
+					group_name: groupInfo.name,
+					group_sport: groupInfo.sportId,
+					group_creator: groupInfo.creatorId
+				};
+           		
+           		var restProxy = require('RestProxy');
+           		restProxy.post(this, 
+           			Ti.App.Properties.getString('webappRestAPI')+'/group/create_new',
+           			myCallbacks, restDTO);
+           },
+           getGroupDetail: function(groupId, userId, extCallbacks){
+           	
+	           	var myCallbacks = {
+					success: function(message){
+						Alloy.Globals.successCallback(extCallbacks,message);	
+					},
+					error: function(verificationError){
+						Alloy.Globals.errorCallback(extCallbacks,verificationError);
+					}
+				}; 
+				
+				var restDTO = {
+					group_name: groupInfo.name,
+					group_sport: groupInfo.sportId,
+					group_creator: groupInfo.creatorId
+				};
+	       		
+	       		var restProxy = require('RestProxy');
+	       		restProxy.post(this, 
+	       			Ti.App.Properties.getString('webappRestAPI')+'/group/create_new',
+	       			myCallbacks, restDTO);
+           	
            }
 		});
 

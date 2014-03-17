@@ -1,0 +1,22 @@
+<Alloy>
+	<Window class="container" layout="vertical">
+		<View id="subView" top="20" layout="vertical">
+			<Require id="stateBar" type="view" src="includes/custom_state_bar" back="true" title="L('group_creation_title')"/>
+			
+			<ScrollView class="containerScrollView" layout="vertical" showVerticalScrollIndicator="true">
+				
+				<Label top="10" class="leftAlignedLabel littlePaddedView" text="L('name')"></Label>
+				<TextField id="groupName" class="roundedTextField littlePaddedView"></TextField>
+				
+				<Label class="leftAlignedLabel littlePaddedView" text="L('sport')"></Label>
+				<Require id="optionListButton" src="includes/option_list_button" title="L('pick_sport')"/>
+		        
+		        <View layout="horizontal" height="Titanium.UI.SIZE" width="Titanium.UI.SIZE" top="20">
+		        	<Require id="submitButton" type="view" isAccept="true" text="Aceptar" src="includes/custom_button"/>
+		        	<Require id="cancelButton" type="view" isCancel="true" text="Cancelar" src="includes/custom_button"/>
+		        </View>
+		        
+			</ScrollView>
+		</View>
+	</Window>
+</Alloy>

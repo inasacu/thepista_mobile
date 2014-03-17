@@ -32,6 +32,29 @@ exports.definition = {
            		restProxy.get(this, 
            			Ti.App.Properties.getString('webappRestAPI')+'/util/cities/',
            			myCallbacks);
+           },
+           getSports: function(extCallbacks){
+           		var myCallbacks = {
+					success: function(message){
+						var sportsCollection = [];
+						
+						for(i=0;i<message.length;i++){
+							var obj = message[i];
+							var tempSport = {legacyId: obj.id, name: obj.name};
+							sportsCollection.push(tempSport);
+						}
+						
+						Alloy.Globals.successCallback(extCallbacks, sportsCollection);	
+					},
+					error: function(verificationError){
+						Alloy.Globals.errorCallback(extCallbacks, verificationError);
+					}
+				}; 
+           		
+           		var restProxy = require('RestProxy');
+           		restProxy.get(this, 
+           			Ti.App.Properties.getString('webappRestAPI')+'/util/sports/',
+           			myCallbacks);
            }
 		});
 

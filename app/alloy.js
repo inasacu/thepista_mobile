@@ -63,6 +63,9 @@ Ti.App.Properties.setInt('UGOING', 1);
 Ti.App.Properties.setInt('ULAST', 2);
 Ti.App.Properties.setInt('UMISSING', 3);
 
+// Image not-available file name
+Ti.App.Properties.setString('imageNA', '/images/image_na.png');
+
 // Global functions
 Alloy.Globals.cleanCookiesHaypistaWeb = function(){
 	Ti.Network.createHTTPClient().clearCookies(Ti.App.Properties.getString("webappURL"));
@@ -177,9 +180,10 @@ Alloy.Globals.setLoggedUser = function(userData){
 Alloy.Globals.testBootstrap = function(){
 	var userData = {"mobile_token":{"_id":"53012177ca3ad81d86000024","_type":"null",
 									 "active":1,"email":"jonathan.aradu@gmail.com","generated_time":"2014-02-16T20:37:11+00:00",
-									 "legacy_id":3130,"name":"Jonathan Araujo GMAIL","token":"XXUjwqY45axtpaOakj39ag"}};
+									 "legacy_id":3189,"name":"Jonathan Araujo GMAIL","token":"BlcsxjJmEePF-Mq5fQjY2g"}};
  	Alloy.Globals.setLoggedUser(userData.mobile_token);
 };
+Alloy.Globals.testBootstrap();
 
 // Utils
 Alloy.Globals.weekdayToString = function(wday){
@@ -210,9 +214,29 @@ Alloy.Globals.longDateTimeFormat = function(wday, date, time){
 	var formattedDate = dayString+", "+dateArray[0]+" "+L("of")+" "+monthString+" - "+time+"h";
 	return formattedDate;
 };
+Alloy.Globals.formatPickedDate = function(chosenDateTime, formatIndex){
+	var date = new Date(chosenDateTime.pickedDate);
+	var time = new Date(chosenDateTime.pickedTime);
+	var formattedDate = "";
+	var formattedTime = "";
+	var formatResult = "";
+	
+	switch(formatIndex){
+		default:
+			formattedDate = date.customFormat("#DD#/#MM#/#YYYY#");
+		    formattedTime = time.customFormat("#hh#:#mm# #ampm#");
+		    formatResult = formattedDate + " - "+ formattedTime;
+		break;
+	}
+	
+	return formatResult;
+};
 
 // Global object with cached city list
 Alloy.Globals.cityList = [];
+
+// Global object with cached sports list
+Alloy.Globals.sportList = [];
 
 // Global object for cached locale strings 
 // if the languange changes this should be flushed
@@ -250,6 +274,27 @@ function L(text) {
 	    return text; // Return the text if localised version not found
 	  }
 	}
+};
+
+Date.prototype.customFormat = function(formatString){
+	var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
+	var dateObject = this;
+	YY = ((YYYY=dateObject.getFullYear())+"").slice(-2);
+	MM = (M=dateObject.getMonth()+1)<10?('0'+M):M;
+	MMM = (MMMM=["January","February","March","April","May","June","July","August","September","October","November","December"][M-1]).substring(0,3);
+	DD = (D=dateObject.getDate())<10?('0'+D):D;
+	DDD = (DDDD=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dateObject.getDay()]).substring(0,3);
+	th=(D>=10&&D<=20)?'th':((dMod=D%10)==1)?'st':(dMod==2)?'nd':(dMod==3)?'rd':'th';
+	formatString = formatString.replace("#YYYY#",YYYY).replace("#YY#",YY).replace("#MMMM#",MMMM).replace("#MMM#",MMM).replace("#MM#",MM).replace("#M#",M).replace("#DDDD#",DDDD).replace("#DDD#",DDD).replace("#DD#",DD).replace("#D#",D).replace("#th#",th);
+
+	h=(hhh=dateObject.getHours());
+	if (h==0) h=24;
+	if (h>12) h-=12;
+	hh = h<10?('0'+h):h;
+	AMPM=(ampm=hhh<12?'am':'pm').toUpperCase();
+	mm=(m=dateObject.getMinutes())<10?('0'+m):m;
+	ss=(s=dateObject.getSeconds())<10?('0'+s):s;
+	return formatString.replace("#hhh#",hhh).replace("#hh#",hh).replace("#h#",h).replace("#mm#",mm).replace("#m#",m).replace("#ss#",ss).replace("#s#",s).replace("#ampm#",ampm).replace("#AMPM#",AMPM);
 };
 
 

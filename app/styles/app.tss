@@ -43,6 +43,17 @@
 ".littlePaddedView":{
 	width: "95%"
 },
+".formElement":{
+	color: "#555",
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	width: "100%"
+},
+".formLittleInput":{
+	color: "#555",
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	left:0,
+	width: 50
+},
 ".roundedTextField":{
 	borderStyle: Titanium.UI.INPUT_BORDERSTYLE_ROUNDED
 },
@@ -72,7 +83,7 @@
 "#subView":{
 	//backgroundColor:"#5da423"
 	backgroundColor:"#fff",
-	top: 40
+	top: 20
 }
 
 // Common for body
@@ -118,12 +129,12 @@
 ".list1Subtitle1" : {
     color: 'black',
     font: { fontFamily:'Arial', fontSize: '12dp' },
-    left: '60dp', top: '15dp'
+    left: '60dp', top: '20dp'
 },
 ".list1Subtitle2" : {
     color: 'gray',
     font: { fontFamily:'Arial', fontSize: '12dp' },
-    left: '60dp', top: '28dp'
+    left: '60dp', top: '30dp'
 },
 
 // Body of a view

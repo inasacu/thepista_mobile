@@ -10,11 +10,12 @@ UI = function(){
 		pushDataIntoSection: function(collection, section, data){
 			for(i=0;i<data.length;i++){
 				var tempEvent = data[i];
+				var imageFile = tempEvent.get("imageURL") || Ti.App.Properties.getString('imageNA');
 				var temp = {name: {text: tempEvent.get("name")}, 
 						    group: {text: tempEvent.get("groupName")},
 						    date: {text: Alloy.Globals.longDateTimeFormat(tempEvent.get("weekDay"), 
 						    	  tempEvent.get("startDate"), tempEvent.get("startTime"))}, 
-						    pic: {image: '/test.png'},
+						    pic: {image: imageFile},
 						    extData: {id: tempEvent.get("legacyId")}};
 				Global[collection].push(temp);
 			}

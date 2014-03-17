@@ -17,6 +17,16 @@ UI = function(){
 				}
 				$.optionsSection.setItems(Globals.optionCollection);
 			}
+		},
+		fillSports: function(sportsCollection){
+			if(sportsCollection){
+				for(i=0;i<sportsCollection.length;i++){
+					var tempSport = sportsCollection[i];
+					var temp = {desc: {text: tempSport.name}, dataExt: {id: tempSport.legacyId, name: tempSport.name}};
+					Globals.optionCollection.push(temp);
+				}
+				$.optionsSection.setItems(Globals.optionCollection);
+			}
 		}
 	};
 }();
@@ -36,6 +46,23 @@ switch(Globals.inputArgs.showOption){
 			});
 		}else{
 			UI.fillCities(Alloy.Globals.cityList);
+		}
+		
+	break;
+	case "sport":
+		// Set title of status bar
+		$.stateBar.barTitle.text = "Deportes";
+		
+		if(Alloy.Globals.sportList.length==0){
+			var utilModel = Alloy.createModel('util');
+			utilModel.getSports({
+				success: function(data){
+					Alloy.Globals.sportList = data;
+					UI.fillSports(data);
+				}
+			});
+		}else{
+			UI.fillSports(Alloy.Globals.sportList);
 		}
 		
 	break;	

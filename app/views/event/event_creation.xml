@@ -1,0 +1,36 @@
+<Alloy>
+	<Window class="container" layout="vertical">
+		<View id="subView" top="20" layout="vertical">
+			<Require id="stateBar" type="view" src="includes/custom_state_bar" back="true" title="L('event_creation_title')"/>
+			
+			<ScrollView class="containerScrollView" height="90%" layout="vertical" showVerticalScrollIndicator="true">
+				
+				<View layout="vertical" width="95%">
+					<Label top="10" class="formElement" text="Grupo"></Label>
+					<Label id="groupName" top="10" class="formElement" color="#000"></Label>
+					
+					<Label top="10" class="formElement" text="L('name')"></Label>
+					<TextField id="eventName" class="formElement roundedTextField"></TextField>
+					
+					<Label top="10" class="formElement" text="Fecha de inicio"></Label>
+					<Require id="dateOptionButton1" src="includes/option_list_button" title="Escoge una fecha"/>
+					
+					<Label top="10" class="formElement" text="Cuanto cuesta jugar por persona?"></Label>
+					<View height="Titanium.UI.SIZE" layout="horizontal">
+						<TextField id="eventFee" class="formLittleInput roundedTextField" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>
+						<Label top="10" class="formLittleInput" text="\u20ac"></Label>
+					</View>
+					
+					<Label top="10" class="formElement" text="Limite de jugadores?"></Label>
+					<TextField id="playerLimit" class="formLittleInput roundedTextField" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>
+			        
+			        <View layout="horizontal" height="Titanium.UI.SIZE" width="Titanium.UI.SIZE" top="20">
+			        	<Require id="submitButton" type="view" isAccept="true" text="Aceptar" src="includes/custom_button"/>
+			        	<Require id="cancelButton" type="view" isCancel="true" text="Cancelar" src="includes/custom_button"/>
+			        </View>	
+				</View>
+				
+			</ScrollView>
+		</View>
+	</Window>
+</Alloy>

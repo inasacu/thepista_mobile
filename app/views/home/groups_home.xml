@@ -4,8 +4,8 @@
 			<Require id="stateBar" type="view" src="includes/custom_state_bar" reload="true" back="false" title="L('groups_title')"/>	
 			 <View class="buttonHolderContainer">
 				<View class="buttonHolderBody">
-					<Require type="view" isAccept="true" text="Crear tu grupo" width="50%" src="includes/custom_button"/>
-	        		<Require type="view" isAccept="true" text="Buscar" width="50%" src="includes/custom_button"/>
+					<Require id="groupCreationButton" type="view" isAccept="true" text="Crear tu grupo" width="50%" src="includes/custom_button"/>
+	        		<Require id="groupSearchButton" type="view" isAccept="true" text="Buscar" width="50%" src="includes/custom_button"/>
 				</View>
 	         </View>	
          	 <ListView id="listViewGroups" defaultItemTemplate="templateGroups">

@@ -18,10 +18,10 @@ exports.definition = {
            		this.set('active', jsonObject.active);
            },
            register: function(regInfo, extCallbacks){
-           		var userRegData = {};
+           		
            		var myCallbacks = {
 					success: function(message){
-						Alloy.Globals.successCallback(extCallbacks,userRegData);	
+						Alloy.Globals.successCallback(extCallbacks,message);	
 					},
 					error: function(verificationError){
 						Alloy.Globals.errorCallback(extCallbacks,verificationError);
