@@ -13,15 +13,29 @@ exports.definition = {
            setFromJson: function(jsonObject){
            		this.set('legacyId', jsonObject.legacy_id);
            		this.set('name', jsonObject.name);
-           		this.set('groupId', jsonObject.group_id);
-           		this.set('groupName', jsonObject.group_name);
            		this.set('startDate', jsonObject.start_date);
            		this.set('startTime', jsonObject.start_time);
            		this.set('endDate', jsonObject.end_date);
            		this.set('endTime', jsonObject.end_time);
            		this.set('weekDay', jsonObject.week_day);
            		this.set('fee', jsonObject.fee);
-           		//this.set('active', jsonObject.active);
+           		
+           		if(jsonObject.group){
+           			this.set('group', {id: jsonObject.group.id, 
+           							  name: jsonObject.group.name});
+           		}
+           		
+           		if(jsonObject.people_info){
+           			this.set('peopleInfo', {comming: jsonObject.people_info.comming,
+					           				missing: jsonObject.people_info.missing,
+					           				lastMinute: jsonObject.people_info.last_minute});	
+           		}
+           		
+           		if(jsonObject.place){
+           			this.set('place', {name: jsonObject.place.name,
+				           			  location: {latitude: jsonObject.place.latitude, 
+				           			  			longitude: jsonObject.place.longitude}});	
+           		}           		
            },
            getActiveByUserGroups: function(userId, extCallbacks){
            		var myCallbacks = {
@@ -47,11 +61,29 @@ exports.definition = {
            			Ti.App.Properties.getString('webappRestAPI')+'/event/active_by_user_groups/'+userId,
            			myCallbacks);
            },
-           getActiveByUser: function(userId, callbacks){
+           getActiveByUser: function(userId, extCallbacks){
+           		var myCallbacks = {
+					success: function(message){
+						var activeEventsCollection = [];
+						
+						for(i=0;i<message.length;i++){
+							var obj = message[i];
+							var tempEvent = Alloy.createModel("event");
+							tempEvent.setFromJson(obj);
+							activeEventsCollection.push(tempEvent);
+						}
+						
+						Alloy.Globals.successCallback(extCallbacks, activeEventsCollection);	
+					},
+					error: function(verificationError){
+						Alloy.Globals.errorCallback(extCallbacks, verificationError);
+					}
+				}; 
+				
            		var restProxy = require('RestProxy');
            		restProxy.get(this, 
            			Ti.App.Properties.getString('webappRestAPI')+'/event/active_by_user/'+userId,
-           			callbacks);
+           			myCallbacks);
            },
            getById: function(eventId, extCallbacks){
            		var myCallbacks = {
@@ -68,6 +100,31 @@ exports.definition = {
            		var restProxy = require('RestProxy');
            		restProxy.get(this, 
            			Ti.App.Properties.getString('webappRestAPI')+'/event/by_id/'+eventId,
+           			myCallbacks);
+           },
+           getUserHistory: function(userId, offsetFactor, extCallbacks){
+           		var myCallbacks = {
+					success: function(message){
+						
+						var eventsCollection = [];
+						
+						for(i=0;i<message.length;i++){
+							var obj = message[i];
+							var tempEvent = Alloy.createModel("event");
+							tempEvent.setFromJson(obj);
+							eventsCollection.push(tempEvent);
+						}
+						
+						Alloy.Globals.successCallback(extCallbacks, eventsCollection);	
+					},
+					error: function(verificationError){
+						Alloy.Globals.errorCallback(extCallbacks,verificationError);
+					}
+				}; 
+           		
+           		var restProxy = require('RestProxy');
+           		restProxy.get(this, 
+           			Ti.App.Properties.getString('webappRestAPI')+'/event/user_history/'+userId+"/"+offsetFactor,
            			myCallbacks);
            },
            changeUserState: function(eventId, userId, newState, extCallbacks){
@@ -112,7 +169,9 @@ exports.definition = {
            		
            		var myCallbacks = {
 					success: function(message){
-						Alloy.Globals.successCallback(extCallbacks,message);	
+						var tempEvent = Alloy.createModel("event");
+						tempEvent.setFromJson(message);
+						Alloy.Globals.successCallback(extCallbacks, tempEvent);	
 					},
 					error: function(verificationError){
 						Alloy.Globals.errorCallback(extCallbacks,verificationError);

@@ -1,6 +1,7 @@
 
 // Initial
 var Global = {};
+var UI = {};
 Global.eventModel = Alloy.createModel("event");
 Global.activeEventsCollection = [];
 Global.groupEventsCollection = [];
@@ -12,7 +13,7 @@ UI = function(){
 				var tempEvent = data[i];
 				var imageFile = tempEvent.get("imageURL") || Ti.App.Properties.getString('imageNA');
 				var temp = {name: {text: tempEvent.get("name")}, 
-						    group: {text: tempEvent.get("groupName")},
+						    group: {text: tempEvent.get("group").name},
 						    date: {text: Alloy.Globals.longDateTimeFormat(tempEvent.get("weekDay"), 
 						    	  tempEvent.get("startDate"), tempEvent.get("startTime"))}, 
 						    pic: {image: imageFile},
@@ -51,6 +52,7 @@ function groupEvents(){
 			if(_.isEmpty(data)){
 				UI.pushMessageIntoSection("myGroupsEventsListSection", "Tus grupos no tienen eventos");
 			}else{
+				Titanium.API.info("OIGA GROUP ");
 				UI.pushDataIntoSection("groupEventsCollection", "myGroupsEventsListSection", data);
 			}
 		},
@@ -69,15 +71,16 @@ $.stateBar.barRightButton.addEventListener("click", function(){
 $.listViewResume.addEventListener("itemclick", function(e){
 	switch(e.sectionIndex){
 		case 0:
-			temp = activeEventsCollection[e.itemIndex];
+			temp = Global.activeEventsCollection[e.itemIndex];
 		break;
 		case 1:
-			temp = groupEventsCollection[e.itemIndex];
+			temp = Global.groupEventsCollection[e.itemIndex];
 		break;
 	}
 	var tempEvent = temp.extData;
 	if(!_.isEmpty(tempEvent) && !isNaN(tempEvent.id)){
-		Alloy.Globals.openWindow($.resume_home_win, "event/event_detail", {eventId: tempEvent.id});
+		Alloy.Globals.eventDetail = {eventId: tempEvent.id};
+		Alloy.Globals.openWindow($.resume_home_win, "event/event_detail");
 	}
 });
 

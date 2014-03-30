@@ -18,6 +18,8 @@
 			        	<Require id="submitButton" type="view" isAccept="true" text="Aceptar" src="includes/custom_button"/>
 			        	<Require id="cancelButton" type="view" isCancel="true" text="Cancelar" src="includes/custom_button"/>
 			        </View>
+			        
+			        <View height="20"></View>
 				</View>
 				
 			</ScrollView>

@@ -7,6 +7,7 @@ Global.utilModel = Alloy.createModel('util');
 Global.groupModel = Alloy.createModel('group');
 Global.groupFormInfo = {};
 Global.chosenSport = {};
+Global.createdGroup = undefined;
 
 // validation
 Global.validate = require('hdjs.validate');
@@ -64,8 +65,9 @@ $.submitButton.buttonView.addEventListener("click", function(){
 	UI.validateForm(function(){
 		UI.setGroupFormInfo();
 		Global.groupModel.create(Global.groupFormInfo, {
-			success: function(){
-				alert("El grupo ha sido creado");
+			success: function(group){
+				Global.createdGroup = group;
+				$.successDialog.show();
 			},
 			error: function(error){
 				alert(error);
@@ -85,5 +87,17 @@ $.group_creation.addEventListener('android:back', function(){
     $.group_creation.close();
 });
  
+// functions
+function successDialogClick(e){
+	switch(e.index){
+		case 0:
+			// yes, go and create event button
+			Alloy.Globals.openWindow($.group_list, "event/event_creation", 
+			{group: {id: Global.createdGroup.get("legacyId"), name: Global.createdGroup.get("name")}});
+			$.group_creation.close();
+		break;	
+	}
+}
+
 // Init call
 UI.initCall();

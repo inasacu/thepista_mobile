@@ -1,0 +1,63 @@
+<Alloy>
+	<Window class="container" layout="vertical">
+		<View id="subView" top="20" layout="vertical">
+			<Require id="stateBar" type="view" src="includes/custom_state_bar" back="true" title="L('group')"/>
+			
+			<ScrollView class="containerScrollView" layout="vertical" showVerticalScrollIndicator="true">
+		        
+		        <View class="buttonHolderContainer">
+					<View id="buttonsBody" class="buttonHolderBody" width="45%">
+		        		<Require id="createEventButton" type="view" width="100%" isAccept="true" text="Crear evento" src="includes/custom_button"/>
+					</View>
+		        </View>
+		        
+		        <ListView borderColor="#ccc" top="10" id="listView" height="105" defaultItemTemplate="options">
+		
+		            <Templates>
+		                <ItemTemplate height="35" name="options">
+					        <View left="10" top="5">
+					        	<View layout="horizontal" left="0" width="Titanium.UI.SIZE">
+					        		<Label left="0" color="#484848" bindId="pre"></Label>
+									<Label left="5" color="#484848" bindId="desc"></Label>
+					        	</View>
+								<Label right="10" color="#484848" bindId="icon"> > </Label>
+							</View>
+		                </ItemTemplate>
+		            </Templates>
+		
+		            <ListSection id="optionSection">
+		            </ListSection>
+		            
+		        </ListView>
+		        
+				<View class="viewVerticalContent">
+					<View class="labelDesc" top="10">
+						<Label class="regularLabel">Nombre</Label>
+						<Label class="regularLabelDesc" id="groupName"></Label>
+					</View>
+					<View class="labelDesc" top="10">
+						<Label class="regularLabel">Segundo equipo</Label>
+						<Label class="regularLabelDesc" id="groupSecondTeam"></Label>
+					</View>
+					<View class="labelDesc" top="10">
+						<Label class="regularLabel">Organizador(es)</Label>
+						<Label class="regularLabelDesc" id="groupOrganizer"></Label>
+					</View>
+					<View class="labelDesc" top="10">
+						<Label class="regularLabel">Deporte</Label>
+						<Label class="regularLabelDesc" id="groupSports"></Label>
+					</View>
+					<View class="labelDesc" top="10">
+						<Label class="regularLabel">Limite de jugadores</Label>
+						<Label class="regularLabelDesc" id="groupPlayerLimit"></Label>
+					</View>
+					<View class="labelDesc" top="10">
+						<Label class="regularLabel">Condiciones</Label>
+						<Label class="regularLabelDesc" id="groupConditions"></View>
+				</View>
+		        
+		        <View height="50"></View>
+			</ScrollView>
+		</View>
+	</Window>
+</Alloy>

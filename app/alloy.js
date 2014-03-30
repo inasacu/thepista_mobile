@@ -72,16 +72,6 @@ Alloy.Globals.cleanCookiesHaypistaWeb = function(){
 	Ti.Network.createHTTPClient().clearCookies("http://google.com");
 	Ti.Network.createHTTPClient().clearCookies("http://facebook.com");
 };
-Alloy.Globals.backToPreviousWindow = function(){
-	// Alloy.Globals.parent should be setted properly
-	var previous = Alloy.Globals.previousWindow;
-	if(previous!=null && previous!="undefined"){
-		previous.open();	
-	}
-	else{
-		Ti.API.info("BackToPreviousWindow: No previous in the global scope");
-	}
-};
 Alloy.Globals.openWindow = function(currentView, nextViewId, args){
 	if(!Alloy.Globals.navStack){
 		Alloy.Globals.navStack = [];
@@ -99,10 +89,6 @@ Alloy.Globals.openWindow = function(currentView, nextViewId, args){
 	
 	// opens next window
 	next_view.open();
-};
-Alloy.Globals.showView = function(nextViewId){
-	var next_view = Alloy.createController(nextViewId).getView();
-	next_view.show();
 };
 Alloy.Globals.removeWhiteSpace = function(s) {
 	if(s!='undefined' && s!=null){
@@ -165,17 +151,21 @@ Alloy.Globals.UI.showActivityIndicator = function(currentWindow){
 };
 
 Alloy.Globals.getLoggedUser = function(){
-	//Alloy.Globals.currentLoggedUser = {legacyId: 3130};
 	return Alloy.Globals.loggedUser;
 };
 Alloy.Globals.setLoggedUser = function(userData){
-	Alloy.Globals.loggedUser = Alloy.createModel('user');
-	Alloy.Globals.loggedUser.setFromMobileTokenJson(userData);
+	if(userData){
+		Alloy.Globals.loggedUser = Alloy.createModel('user');
+		Alloy.Globals.loggedUser.setFromMobileTokenJson(userData);
+		
+		// Authentication, Authorization, User profile
+		Ti.App.Properties.setString('restAPIKey', Alloy.Globals.loggedUser.get("token"));
 	
-	// Authentication, Authorization, User profile
-	Ti.App.Properties.setString('restAPIKey', Alloy.Globals.loggedUser.get("token"));
-
-	return Alloy.Globals.loggedUser;
+		return Alloy.Globals.loggedUser;	
+	}else{
+		Alloy.Globals.loggedUser = {};
+		return true;
+	}
 };
 Alloy.Globals.testBootstrap = function(){
 	var userData = {"mobile_token":{"_id":"53012177ca3ad81d86000024","_type":"null",

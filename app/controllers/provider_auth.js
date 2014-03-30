@@ -70,7 +70,6 @@ $.providerWebView.addEventListener("load", function(){
 		
 		switch(cookiesObj.mobileValid){
 			case Ti.App.Properties.getString('loginRegistered'):
-				Titanium.API.info("Entered");
 				// get info from the logged user
 		    	var userData = JSON.parse(cookiesObj.userData);
 		    	
@@ -79,9 +78,7 @@ $.providerWebView.addEventListener("load", function(){
 		    	
 		    	var tab_home_window = Alloy.createController("home/tab_home").getView();
 				tab_home_window.open();
-				$.provider_auth.close();
-				
-				Titanium.API.info("Finished");
+				$.provider_auth.close();				
 			break;
 			case Ti.App.Properties.getString('loginShouldSignup'):
 				// get info from user

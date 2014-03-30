@@ -1,33 +1,35 @@
 <Alloy>
 	<View id="events_home_win" class="container2">
 		<View top="0" layout="vertical">
-			<Require id="stateBar" type="view" src="includes/custom_state_bar" back="false" title="L('events_title')"/>
+			<Require id="stateBar" type="view" src="includes/custom_state_bar" reload="true" back="false" title="L('events_title')"/>
 			
 			<View class="buttonHolderContainer">
 				<View class="buttonHolderBody">
-					<Require type="view" isAccept="true" text="Crear tu evento" width="50%" src="includes/custom_button"/>
-	        		<Require type="view" isAccept="true" text="Buscar" width="50%" src="includes/custom_button"/>
+					<Require id="createEventButton" type="view" isAccept="true" text="Crear tu evento" width="50%" src="includes/custom_button"/>
+	        		<Require id="searchEventButton" type="view" isAccept="true" text="Buscar" width="50%" src="includes/custom_button"/>
 				</View>
 	        </View>
 	        
-	        <ListView id="listViewEvents" defaultItemTemplate="templateEvents">
+	        <ListView id="listViewHistoricalEvents" defaultItemTemplate="templateEvents">
 	            <Templates>
-	
-	                <ItemTemplate name="templateEvents">
-	                    <ImageView bindId="pic" class="list1Icon" />
-	                    <Label bindId="name" class="list1Title" />
-	                    <Label bindId="group" class="list1Subtitle1" />
-	                    <Label bindId="date" class="list1Subtitle2" />
-	                </ItemTemplate>
-	                
-	                <ItemTemplate name="messageTemplate">
-	                    <Label bindId="info" />
-	                </ItemTemplate>
-	
-	            </Templates>
-	
-	            <ListSection id="myHistoryListSection" headerTitle="Tus ultimo eventos">
-	            </ListSection>
+				
+				    <ItemTemplate name="templateEvents">
+				    	<View class="listItemContainer">
+				    		<ImageView bindId="pic" class="list1Icon" />
+					        <Label bindId="name" class="list1Title" />
+					        <Label bindId="group" class="list1Subtitle1" />
+					        <Label bindId="date" class="list1Subtitle2" />
+				    	</View>
+				    </ItemTemplate>
+				    
+				    <ItemTemplate name="messageTemplate">
+				        <Label bindId="info" />
+				    </ItemTemplate>
+				    
+				</Templates>
+				
+				<ListSection id="historicalEventsListSection" headerTitle="Tus ultimos eventos">
+				</ListSection>
 	            
 	        </ListView>
 		</View>

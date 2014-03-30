@@ -12,8 +12,10 @@
 	            <Templates>
 	
 	                <ItemTemplate name="templateVenues">
-	                    <ImageView bindId="pic" class="list1Icon" />
-	                    <Label bindId="name" class="list1Title" />
+	                	<View class="listItemContainer">
+	                		<ImageView bindId="pic" class="list1Icon" />
+	                    	<Label bindId="name" class="list1Title" />
+	                	</View>
 	                </ItemTemplate>
 	                
 	                <ItemTemplate name="messageTemplate">

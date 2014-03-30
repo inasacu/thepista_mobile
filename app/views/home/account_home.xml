@@ -1,7 +1,36 @@
 <Alloy>
-	<View id="account_home_win" class="container2">
-		<View top="0" layout="vertical">
-			<Require id="stateBar" type="view" src="includes/custom_state_bar" back="false" title="L('account_title')"/>
+	<Window class="container" layout="vertical">
+		<View id="subView" layout="vertical">
+			<Require id="stateBar" type="view" src="includes/custom_state_bar" reload="true" title="L('account')"/>
+			
+			<ScrollView class="containerScrollView" layout="vertical" showVerticalScrollIndicator="true">
+		        
+				<View class="viewVerticalContent">
+					<View class="labelDesc" top="10">
+						<Label class="regularLabel">Nombre</Label>
+						<Label class="regularLabelDesc" id="userName"></Label>
+					</View>
+					<View class="labelDesc" top="10">
+						<Label class="regularLabel">Correo Electronico</Label>
+						<Label class="regularLabelDesc" id="userEmail"></Label>
+					</View>
+					<View class="labelDesc" top="10">
+						<Label class="regularLabel">Teléfono</Label>
+						<Label class="regularLabelDesc" id="userPhone"></Label>
+					</View>
+					<View class="labelDesc" top="10">
+						<Label class="regularLabel">Whatsapp con este teléfono?</Label>
+						<Label class="regularLabelDesc" id="userWA"></Label>
+					</View>
+					<View class="buttonHolderContainer">
+						<View class="buttonHolderBody" width="45%">
+			        		<Require id="logOutButton" type="view" width="100%" 
+			        			isAccept="true" text="Cerrar Sesión" src="includes/custom_button"/>
+						</View>
+			        </View>
+				</View>
+			</ScrollView>
+			<View height="50"></View>
 		</View>
-	</View>
+	</Window>
 </Alloy>

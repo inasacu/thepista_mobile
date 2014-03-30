@@ -7,7 +7,6 @@ var Global = {};
 Global.eventModel = Alloy.createModel("event");
 Global.eventId;
 Global.userEventData = {};
-Global.args = {eventId: 427};
 Alloy.Globals.eventViewsControllers["event_info"] = $;
 
 // Constants
@@ -107,15 +106,15 @@ UI = function(){
 			}
 			else{
 				$.eventName.text = currentEvent.get("name");
-				$.eventGroup.text = currentEvent.get("groupName");
+				$.eventGroup.text = currentEvent.get("group").name;
 				$.eventDate.text = Alloy.Globals.longDateTimeFormat(
 								   currentEvent.get("weekDay"), 
 								   currentEvent.get("startDate"),
 						   		   currentEvent.get("startTime"));
-				$.eventPlace.text = 'CD Generico, Campo 1';
+				$.eventPlace.text = currentEvent.get("place").name;
 				$.eventFee.text = currentEvent.get("fee")+" \u20ac";
-				$.roosterGoing.text = 1;
-				$.roosterMissing.text = 14;
+				$.roosterGoing.text = currentEvent.get("peopleInfo").comming;
+				$.roosterMissing.text = currentEvent.get("peopleInfo").missing;
 			}
 		}
 	};
@@ -124,21 +123,26 @@ UI = function(){
 function init(initArgs){
 	if(!_.isEmpty(initArgs)){
 		Global.eventId = initArgs.eventId;
-		
-		Global.eventModel.getById(Global.eventId, {
-			success: function(event){
-				UI.setEventInfoView(event);
-			}
-		});
-		
-		Global.eventModel.getUserEventData(Global.eventId, Alloy.Globals.getLoggedUser().get("legacyId"), {
-			success: function(userData){
-				Global.userEventData = userData;
-				UI.setViewUserOptions();
-			}
-		});
-		
+		if(Global.eventId){
+			Global.eventModel.getById(Global.eventId, {
+				success: function(eventObj){
+					UI.setEventInfoView(eventObj);
+				}
+			});
+			
+			Global.eventModel.getUserEventData(Global.eventId, Alloy.Globals.getLoggedUser().get("legacyId"), {
+				success: function(userData){
+					Global.userEventData = userData;
+					UI.setViewUserOptions();
+				}
+			});	
+		}else{
+			alert("No se pudo obtener el evento");
+			Alloy.Globals.eventDetailparentWindow.close();
+		}
 	}else{
+		alert("No se pudo obtener el evento");
+		Alloy.Globals.eventDetailparentWindow.close();
 	}	
 }
 
@@ -156,4 +160,4 @@ $.stateTwoButton.buttonView.addEventListener("click", function(e){
 });
 
 // Initial call
-init(Global.args);
+init(Alloy.Globals.eventDetail);

@@ -107,6 +107,9 @@
 // ListView styles
 "ListView":{
 },
+"ItemTemplate":{
+	height: 70
+},
 ".itemInfoMessage":{
 	
 }
@@ -115,6 +118,9 @@
 },
 ".labelBodyInfoMessage":{
 	color: "#ccc"
+},
+".listItemContainer":{
+	height: Titanium.UI.SIZE
 },
 
 // Events listitem styles ------------
@@ -134,7 +140,7 @@
 ".list1Subtitle2" : {
     color: 'gray',
     font: { fontFamily:'Arial', fontSize: '12dp' },
-    left: '60dp', top: '30dp'
+    left: '60dp', top: '40dp'
 },
 
 // Body of a view

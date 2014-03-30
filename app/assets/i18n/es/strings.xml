@@ -17,6 +17,8 @@
 	<string name="home_title">Inicio</string>
 	<string name="events_title">Eventos</string>
 	<string name="groups_title">Grupos</string>
+	<string name="group">Grupo</string>
+	<string name="account">Mi cuenta</string>
 	<string name="installations_title">Instalaciones</string>
 	<string name="venues_title">Instalaciones</string>
 	<string name="messages_title">Mensajes</string>

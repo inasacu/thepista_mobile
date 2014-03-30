@@ -1,6 +1,6 @@
 // The current visible view
 var viewNumber = -1; 
-Alloy.Globals.parentWindow = $.tab_home;
+Alloy.Globals.homeTabWindow = $.tab_home;
 
 // Listeners for color changing for scrollview
 $.scrollableView.addEventListener("pageChanged",function(){

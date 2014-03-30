@@ -1,0 +1,29 @@
+".labelDesc":{
+	layout: "horizontal",
+	height: Titanium.UI.SIZE
+},
+".regularLabel":{
+	font:{fontWeight: "bold", fontSize:"14dp"},
+	width: "100%"
+},
+".regularLabelDesc":{
+	width: "100%"
+},
+".viewVerticalContent":{
+	layout: "vertical",
+	width:"90%"
+},
+
+// text colors
+".green":{
+	color: "#5da423"
+},
+".blue":{
+	color: "#2795b6"
+},
+".yellow":{
+	color: "#ff9933"
+},
+".red":{
+	color: "red"
+}

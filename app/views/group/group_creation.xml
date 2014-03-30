@@ -16,6 +16,14 @@
 		        	<Require id="cancelButton" type="view" isCancel="true" text="Cancelar" src="includes/custom_button"/>
 		        </View>
 		        
+		        <AlertDialog id="successDialog" onClick="successDialogClick"
+		            message="Creación exitosa, quieres crear un evento para este grupo?" cancel="1">
+		            <ButtonNames>
+		                <ButtonName>Si</ButtonName>
+		                <ButtonName>Despues</ButtonName>
+		            </ButtonNames>
+		        </AlertDialog>
+		        
 			</ScrollView>
 		</View>
 	</Window>

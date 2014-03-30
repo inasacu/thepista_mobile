@@ -13,9 +13,23 @@ exports.definition = {
            setFromJson: function(jsonObject){
            		this.set('legacyId', jsonObject.legacy_id);
            		this.set('name', jsonObject.name);
-           		this.set('sportId', jsonObject.sport_id);
-           		this.set('sportName', jsonObject.sport_desc);
-           		this.set('memberQ', jsonObject.number_of_members);	
+           		this.set('memberQ', jsonObject.number_of_members);
+           		this.set('secondTeamName', jsonObject.second_team);	
+           		this.set('conditions', jsonObject.conditions);	
+           		this.set('playerLimit', jsonObject.player_limit);
+           		this.set('eventsQ', jsonObject.number_of_events);	
+           		
+           		if(jsonObject.sport){
+           			this.set('sport', {id: jsonObject.sport.id, name: jsonObject.sport.name});
+           		}
+           		
+           		if(jsonObject.managers){
+           			tempManagers = [];
+           			_.each(jsonObject.managers, function(element, index, list){
+           				tempManagers.push({id: element.id, name: element.name});
+           			});
+           			this.set('managers', tempManagers);
+           		}
            },
            getStarred: function(extCallbacks){
            		var myCallbacks = {
@@ -65,7 +79,9 @@ exports.definition = {
            		
            		var myCallbacks = {
 					success: function(message){
-						Alloy.Globals.successCallback(extCallbacks,message);	
+						var tempGroup = Alloy.createModel("group");
+						tempGroup.setFromJson(message);
+						Alloy.Globals.successCallback(extCallbacks,tempGroup);	
 					},
 					error: function(verificationError){
 						Alloy.Globals.errorCallback(extCallbacks,verificationError);
@@ -87,23 +103,28 @@ exports.definition = {
            	
 	           	var myCallbacks = {
 					success: function(message){
-						Alloy.Globals.successCallback(extCallbacks,message);	
+						var tempGroup = Alloy.createModel("group");
+						tempGroup.setFromJson(message.group);
+						
+						var userGroupDataDTO = undefined;
+						if(message.user_data){
+							userGroupDataDTO = {
+								isMember: message.user_data.is_member,
+								isCreator: message.user_data.is_creator,
+								isManager: message.user_data.is_manager
+							};		
+						}
+						Alloy.Globals.successCallback(extCallbacks,{group: tempGroup, userGroupData: userGroupDataDTO});	
 					},
 					error: function(verificationError){
 						Alloy.Globals.errorCallback(extCallbacks,verificationError);
 					}
 				}; 
 				
-				var restDTO = {
-					group_name: groupInfo.name,
-					group_sport: groupInfo.sportId,
-					group_creator: groupInfo.creatorId
-				};
-	       		
 	       		var restProxy = require('RestProxy');
-	       		restProxy.post(this, 
-	       			Ti.App.Properties.getString('webappRestAPI')+'/group/create_new',
-	       			myCallbacks, restDTO);
+	       		restProxy.get(this, 
+	       			Ti.App.Properties.getString('webappRestAPI')+'/group/get_info/'+groupId+"/"+userId,
+	       			myCallbacks);
            	
            }
 		});

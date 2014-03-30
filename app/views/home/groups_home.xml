@@ -13,9 +13,11 @@
 	            <Templates>
 	
 	                <ItemTemplate name="templateGroups">
-	                    <ImageView bindId="gpic" class="list1Icon" />
-	                    <Label bindId="gname" class="list1Title" />
-	                    <Label bindId="gsize" class="list1Subtitle1" />
+	                	<View class="listItemContainer">
+	                		<ImageView bindId="gpic" class="list1Icon" />
+		                    <Label bindId="gname" class="list1Title" />
+		                    <Label bindId="gsize" class="list1Subtitle1" />
+	                	</View>
 	                </ItemTemplate>
 					
 					<ItemTemplate name="messageTemplate">

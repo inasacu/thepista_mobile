@@ -13,13 +13,13 @@ Global.validate = require('hdjs.validate');
 Global.validator = new Global.validate.FormValidator();
 
 // group info should come in args
-Global.args = arguments[0] || {group:{id: 123, name: "El grupo"}};
+Global.args = arguments[0] || {group:{id: 33, name: "AJA"}};
 
 UI = (function(){
 	return {
 		setEventFormInfo: function(){
 			if(Global.group){
-				Global.eventFormInfo.group = Global.group.id;	
+				Global.eventFormInfo.groupId = Global.group.id;	
 			}
 			Global.eventFormInfo.playerLimit = $.playerLimit.getValue();
 			Global.eventFormInfo.fee = $.eventFee.getValue();
@@ -66,9 +66,9 @@ UI = (function(){
 				alert("El campo Fecha de inicio es requerido");
 			}
 		},
-		initCall: function(){
-			Global.group = Global.args.group;
-	
+		initCall: function(initArgs){
+			Global.group = initArgs.group;
+		
 			// form
 			if(Global.group){
 				$.groupName.setText(Global.group.name);	
@@ -93,9 +93,11 @@ $.submitButton.buttonView.addEventListener("click", function(){
 	UI.validateForm(function(){
 		UI.setEventFormInfo();
 		Global.eventModel.create(Global.eventFormInfo, Alloy.Globals.getLoggedUser().get("legacyId"), {
-			success: function(){
+			success: function(newEvent){
 				alert("Evento creado");
-				//$.event_creation.close();
+				Alloy.Globals.eventDetail = {eventId: newEvent.get("legacyId")};
+				Alloy.Globals.openWindow($.event_creation, "event/event_detail");
+				$.event_creation.close();
 			},
 			error: function(error){
 				alert(error.message);
@@ -116,4 +118,4 @@ $.event_creation.addEventListener('android:back', function(){
 });
  
 // Init call
-UI.initCall();
+UI.initCall(Global.args);

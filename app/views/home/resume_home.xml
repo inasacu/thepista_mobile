@@ -7,10 +7,12 @@
 				<Templates>
 				
 				    <ItemTemplate name="templateResume">
-				        <ImageView bindId="pic" class="list1Icon" />
-				        <Label bindId="name" class="list1Title" />
-				        <Label bindId="group" class="list1Subtitle1" />
-				        <Label bindId="date" class="list1Subtitle2" />
+				    	<View class="listItemContainer">
+				    		<ImageView bindId="pic" class="list1Icon" />
+					        <Label bindId="name" class="list1Title" />
+					        <Label bindId="group" class="list1Subtitle1" />
+					        <Label bindId="date" class="list1Subtitle2" />
+				    	</View>
 				    </ItemTemplate>
 				    
 				    <ItemTemplate name="messageTemplate">

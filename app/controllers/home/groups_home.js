@@ -16,7 +16,8 @@ UI = function(){
 				var imageFile = tempGroup.get("imageURL") || Ti.App.Properties.getString('imageNA');
 				var temp = {gname: {text: tempGroup.get("name")},
 									gsize: {text: tempGroup.get("memberQ")+" Miembros"}, 
-								    gpic: {image: imageFile}};
+								    gpic: {image: imageFile},
+								    extData: {id: tempGroup.get("legacyId")}};
 				Global[collection].push(temp);
 			}
 			$[section].setItems(Global[collection]);
@@ -61,6 +62,21 @@ function userGroups(){
 }
 
 // listeners
+$.listViewGroups.addEventListener("itemclick", function(e){
+	switch(e.sectionIndex){
+		case 0:
+			temp = Global.myGroupsCollection[e.itemIndex];
+		break;
+		case 1:
+			temp = Global.starredGroupsCollection[e.itemIndex];
+		break;
+	}
+	var tempGroup = temp.extData;
+	if(!_.isEmpty(tempGroup) && !isNaN(tempGroup.id)){
+		Alloy.Globals.openWindow($.groups_home_win, "group/group_detail", {groupId: tempGroup.id});
+	}
+});
+
 $.stateBar.barRightButton.addEventListener("click", function(){
 	starredGroups();
 	userGroups();

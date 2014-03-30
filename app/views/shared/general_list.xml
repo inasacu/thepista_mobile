@@ -1,0 +1,36 @@
+<Alloy>
+	<Window class="container" layout="vertical">
+		<View id="subView" top="20" layout="vertical">
+			<Require id="stateBar" 
+				type="view" src="includes/custom_state_bar" 
+				reload="true" back="true" title="L('groups_title')"/>	
+			 
+			 <View class="buttonHolderContainer">
+				<Label id="introMessage"></Label>
+	         </View>	
+         	 
+         	 <ListView id="listViewElement" defaultItemTemplate="defaultTemplate">
+	
+	            <Templates>
+	
+	                <ItemTemplate name="defaultTemplate">
+	                	<View class="listItemContainer">
+	                		<ImageView bindId="gpic" class="list1Icon" />
+		                    <Label bindId="gname" class="list1Title" />
+		                    <Label bindId="gsize" class="list1Subtitle1" />
+	                	</View>
+	                </ItemTemplate>
+					
+					<ItemTemplate name="messageTemplate">
+	                    <Label bindId="info" />
+	                </ItemTemplate>
+	                
+	            </Templates>
+	
+	            <ListSection id="listSectionElement" headerTitle="Sección">
+	            </ListSection>
+	            
+	         </ListView>
+		</View>
+	</Window>
+</Alloy>

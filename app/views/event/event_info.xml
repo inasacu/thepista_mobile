@@ -19,7 +19,7 @@
 				</View>
 				<View class="labelDesc">
 					<Label class="regularLabel">Lugar</Label>
-					<Label class="regularLabelDesc" id="eventPlace">CD Generico, Campo 1</Label>
+					<Label class="regularLabelDesc" id="eventPlace"></Label>
 				</View>
 				<View class="labelDesc">
 					<Label class="regularLabel">Precio</Label>
@@ -27,14 +27,14 @@
 				</View>
 				<View class="labelDesc">
 					<Label class="regularLabel blue">Convocados</Label>
-					<Label class="regularLabelDesc" id="roosterGoing">1</Label>
+					<Label class="regularLabelDesc" id="roosterGoing"></Label>
 				</View>
 				<View class="labelDesc">
 					<Label class="regularLabel yellow">Faltan</Label>
-					<Label class="regularLabelDesc" id="roosterMissing">17</Label>
+					<Label class="regularLabelDesc" id="roosterMissing"></Label>
 				</View>
 				<View id="userEventStatusBar" top="10" class="statusInfo" backgroundColor="#5da423">
-					<Label id="userEventStatusLabel" class="statusInfoLabel">Estas convocado</Label>				
+					<Label id="userEventStatusLabel" class="statusInfoLabel"></Label>				
 				</View>
 				<View top="10" class="wrapperContainer" layout="horizontal">
 					<Require id="stateOneButton" type="view" isAccept="true" width="50%" src="includes/custom_button"/>

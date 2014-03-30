@@ -6,8 +6,8 @@
 				<View bottom="0">
 					<ScrollableView id="scrollableView" showPagingControl="false">
 			            <Require src="home/resume_home"></Require>
-			            <Require src="home/events_home"></Require>
 			            <Require src="home/groups_home"></Require>
+			            <Require src="home/events_home"></Require>
 			            <Require src="home/venues_home"></Require>
 			            <Require src="home/account_home"></Require>
 			        </ScrollableView>
@@ -16,10 +16,10 @@
 			        		<ImageView class="tabImage" image="/images/home.png"></ImageView>
 			        	</View>
 			        	<View id="tab2" class="tabButton">
-			        		<ImageView class="tabImage" image="/images/event.png"></ImageView>
+			        		<ImageView class="tabImage" image="/images/group.png"></ImageView>
 			        	</View>
 			        	<View id="tab3" class="tabButton">
-			        		<ImageView class="tabImage" image="/images/group.png"></ImageView>
+			        		<ImageView class="tabImage" image="/images/event.png"></ImageView>
 			        	</View>
 			        	<View id="tab4" class="tabButton">
 			        		<ImageView class="tabImage" image="/images/venue.png"></ImageView>
