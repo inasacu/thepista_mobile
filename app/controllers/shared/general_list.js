@@ -6,27 +6,64 @@ var Global = {};
 
 // Initial
 Global.groupModel = Alloy.createModel("group");
+Global.eventModel = Alloy.createModel("event");
+Global.venueModel = Alloy.createModel("venue");
 Global.myCollection = [];
 
 // constants
 Global.Constants = {};
 Global.Constants.GROUPS_EVENT_CREATION = 1;
+Global.Constants.GROUP_MEMBERS = 2;
+Global.Constants.GROUP_EVENTS = 3;
+Global.Constants.VENUE_EVENTS = 4;
 
-// If the view is reused to load of something other than groups
-// the index for initFunction should be recovered from arguments[0]
-Global.initFunction = 1;
+Global.args = arguments[0] || {};
 
-UI = function(){
+UI = function(initArgs){
+	var myArgs = initArgs;
 	return {
+		fillWithUsers: function(collection, section, data){
+			var tempUser = data[i];
+			var imageFile = tempUser.get("imageURL") || Ti.App.Properties.getString('imageNA');
+			var temp = {label1: {text: tempUser.get("name")},
+					    pic: {image: imageFile}};
+			Global[collection].push(temp);
+		},
+		fillWithGroups: function(collection, section, data){
+			var tempGroup = data[i];
+			var imageFile = tempGroup.get("imageURL") || Ti.App.Properties.getString('imageNA');
+			var temp = {label1: {text: tempGroup.get("name")},
+						label2: {text: tempGroup.get("memberQ")+" Miembros"}, 
+					    pic: {image: imageFile},
+					    extData: {group:{id: tempGroup.get("legacyId"), name: tempGroup.get("name")}} };
+			Global[collection].push(temp);
+		},
+		fillWithEvents: function(collection, section, data){
+			var tempEvent = data[i];
+			var imageFile = tempEvent.get("imageURL") || Ti.App.Properties.getString('imageNA');
+			var temp = {label1: {text: tempEvent.get("name")},
+						label2: {text: Alloy.Globals.longDateTimeFormat(tempEvent.get("weekDay"), 
+						    	 tempEvent.get("startDate"), tempEvent.get("startTime"))}, 
+					    pic: {image: imageFile},
+					    extData: {eventId: tempEvent.get("legacyId")} };
+			Global[collection].push(temp);
+		},
 		pushGroupDataIntoSection: function(collection, section, data){
 			for(i=0;i<data.length;i++){
-				var tempGroup = data[i];
-				var imageFile = tempGroup.get("imageURL") || Ti.App.Properties.getString('imageNA');
-				var temp = {gname: {text: tempGroup.get("name")},
-									gsize: {text: tempGroup.get("memberQ")+" Miembros"}, 
-								    gpic: {image: imageFile},
-								    extData: {group:{id: tempGroup.get("legacyId"), name: tempGroup.get("name")}} };
-				Global[collection].push(temp);
+				switch(myArgs.initOption){
+					case Global.Constants.GROUPS_EVENT_CREATION:
+						UI.fillWithGroups(collection, section, data);
+					break;
+					case Global.Constants.GROUP_MEMBERS:
+						UI.fillWithUsers(collection, section, data);
+					break;
+					case Global.Constants.GROUP_EVENTS:
+						UI.fillWithEvents(collection, section, data);
+					break;
+					case Global.Constants.VENUE_EVENTS:
+						UI.fillWithEvents(collection, section, data);
+					break;
+				}
 			}
 			$[section].setItems(Global[collection]);
 		},
@@ -38,14 +75,24 @@ UI = function(){
 			$.introMessage.setText(msg);
 		}
 	};
-}();
+}(Global.args);
 
-Control = function(){
+Control = function(initArgs){
+	var myArgs = initArgs;
 	return {
 		init: function(){
-			switch(Global.initFunction){
+			switch(myArgs.initOption){
 				case Global.Constants.GROUPS_EVENT_CREATION:
 					Control.groupsForEventCreationInit();
+				break;
+				case Global.Constants.GROUP_MEMBERS:
+					Control.groupMembersInit();
+				break;
+				case Global.Constants.GROUP_EVENTS:
+					Control.groupEventsInit();
+				break;
+				case Global.Constants.VENUE_EVENTS:
+					Control.venueEventsInit();
 				break;
 			}
 		},
@@ -71,20 +118,94 @@ Control = function(){
 					Global.myCollection = [];
 					if(_.isEmpty(data)){
 						UI.setIntroMessage("Para poder crear un evento debes ser administrador de un grupo");
-						UI.pushGroupDataIntoSection("listSectionElement", "No estas inscrito en ningún grupo");
+						UI.pushMessageIntoSection("listSectionElement", "No estas inscrito en ningún grupo");
 					}else{
 						UI.setIntroMessage("Escoge el grupo para al que quieres crear el evento");
 						UI.pushGroupDataIntoSection("myCollection", "listSectionElement", data);
 					}
 				},
 				error: function(data){
-					UI.pushMessageIntoSection("myGroupsListSection", "No se pudieron obtener tus grupos, intenta de nuevo");
+					UI.pushMessageIntoSection("listSectionElement", "No se pudieron obtener tus grupos, intenta de nuevo");
 				}
 			});	
+		},
+		groupMembersInit: function(){
+			$.stateBar.barTitle.setText("Miembros del grupo");
+			//$.listSectionElement.setHeaderTitle("Tus grupos");
+			
+			if(myArgs.groupId){
+				Global.groupModel.getGroupMembers(myArgs.groupId, {
+					success: function(users){
+						Global.myCollection = [];
+						if(_.isEmpty(users)){
+							UI.setIntroMessage("No hay ningún miembro en el grupo");
+							//UI.pushMessageIntoSection("listSectionElement", "No estas inscrito en ningún grupo");
+						}else{
+							//UI.setIntroMessage("Estos son los miembros del grupo");
+							UI.pushGroupDataIntoSection("myCollection", "listSectionElement", users);
+						}
+					},
+					error: function(data){
+						UI.pushMessageIntoSection("listSectionElement", "No se pudieron obtener tus grupos, intenta de nuevo");
+					}
+				});		
+			}else{
+				alert("No se pudo obtener la lista de miembros");
+				$.option_list.close();
+			}
+		},
+		groupEventsInit: function(){
+			$.stateBar.barTitle.setText("Eventos del grupo");
+			//$.listSectionElement.setHeaderTitle("Tus grupos");
+			
+			if(myArgs.groupId){
+				Global.groupModel.getGroupEvents(myArgs.groupId, {
+					success: function(events){
+						Global.myCollection = [];
+						if(_.isEmpty(events)){
+							UI.setIntroMessage("No hay ningún evento para el grupo");
+							//UI.pushMessageIntoSection("listSectionElement", "No estas inscrito en ningún grupo");
+						}else{
+							//UI.setIntroMessage("Estos son los eventos del grupo");
+							UI.pushGroupDataIntoSection("myCollection", "listSectionElement", events);
+						}
+					},
+					error: function(data){
+						UI.pushMessageIntoSection("listSectionElement", "No se pudieron obtener los eventos del grupos, intenta de nuevo");
+					}
+				});		
+			}else{
+				alert("No se pudo obtener la lista de eventos");
+				$.option_list.close();
+			}
+		},
+		venueEventsInit: function(){
+			$.stateBar.barTitle.setText("Eventos de la instalación");
+			//$.listSectionElement.setHeaderTitle("Tus grupos");
+			
+			if(myArgs.venueId){
+				Global.venueModel.getVenueEvents(myArgs.venueId, {
+					success: function(events){
+						Global.myCollection = [];
+						if(_.isEmpty(events)){
+							UI.setIntroMessage("No hay ningún evento para la instalación");
+							//UI.pushMessageIntoSection("listSectionElement", "No estas inscrito en ningún grupo");
+						}else{
+							//UI.setIntroMessage("Estos son los eventos del grupo");
+							UI.pushGroupDataIntoSection("myCollection", "listSectionElement", events);
+						}
+					},
+					error: function(data){
+						UI.pushMessageIntoSection("listSectionElement", "No se pudieron obtener los eventos de la instalación, intenta de nuevo");
+					}
+				});		
+			}else{
+				alert("No se pudo obtener la lista de eventos");
+				$.option_list.close();
+			}
 		}
 	};
-}();
-
+}(Global.args);
 
 // listeners
 $.stateBar.barRightButton.addEventListener("click", function(){

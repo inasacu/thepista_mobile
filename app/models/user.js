@@ -95,7 +95,7 @@ exports.definition = {
 	       			Ti.App.Properties.getString('webappRestAPI')+'/user/logout/'+userId,
 	       			myCallbacks);
            	
-           }
+          }
 		});
 
 		return Model;

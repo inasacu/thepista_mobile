@@ -2,7 +2,8 @@
 
 // The current visible view
 var viewNumber = -1; 
-Alloy.Globals.eventDetailparentWindow = $.tab_home;
+Alloy.Globals.eventDetailparentWindow = $.event_detail_win;
+
 
 // Listeners for color changing for scrollview
 $.scrollableView.addEventListener("pageChanged",function(){
@@ -40,11 +41,6 @@ _.each($.tabIndicator.getChildren(), function(tabIndexView, index, list){
 	});
 });
 
-$.event_detail_win.addEventListener('open', function() {
-    // Global args for the children views
-    Alloy.Globals.eventViewsControllers = {};
-});
-
 $.event_detail_win.addEventListener('close', function() {
     $.destroy();
     // Set global controllers for children views to blank
@@ -61,7 +57,7 @@ $.stateBar.barRightButton.addEventListener("click", function(){
 	var page = $.scrollableView.currentPage;
 	switch(page){
 		case 0:
-			Alloy.Globals.eventViewsControllers["event_info"].reload(args);
+			Alloy.Globals.eventViewsControllers["event_info"].reload(Alloy.Globals.eventDetail);
 		break;
 	}
 });

@@ -55,15 +55,17 @@ UI = function(){
 			};
 			Global.eventModel.changeUserState(Global.eventId, 
 				Global.userEventData.userId, newStatusCode, {
-					success: function(data){
-						if(data.userId){
-							Global.userEventData = data;
-							UI.setViewUserOptions();
-						}else{
-							alert(data.message);
-						}
+				success: function(data){
+					if(data.userEventData && data.eventObj){
+						Global.userEventData = data.userEventData;
+						UI.setViewUserOptions();
+						
+						UI.setEventInfoView(data.eventObj);
+					}else{
+						alert(data.message);
 					}
-				});	
+				}
+			});	
 		},
 		setViewUserOptions: function(){
 			var leftText = "";
@@ -99,6 +101,17 @@ UI = function(){
 			$.stateTwoButton.buttonViewLabel.text = rightText;
 			$.userEventStatusBar.backgroundColor = stateColor;
 			$.userEventStatusLabel.text = stateText;
+			
+			// evaluate if admin options should be shown
+			var adminOptions = $.adminOptionListView;
+			if(adminOptions){
+				if(Global.userEventData.isManager===true
+					|| Global.userEventData.isCreator===true){
+					$.adminOptionListView.show();
+				}else{
+					$.principalView.remove(adminOptions);
+				}
+			}
 		},
 		setEventInfoView: function(currentEvent){
 			if(_.isEmpty(currentEvent) || isNaN(currentEvent.get("legacyId"))){
@@ -121,21 +134,30 @@ UI = function(){
 }();
 
 function init(initArgs){
+	// Always hide the admin options
+	$.adminOptionListView.hide();
+	
 	if(!_.isEmpty(initArgs)){
 		Global.eventId = initArgs.eventId;
 		if(Global.eventId){
-			Global.eventModel.getById(Global.eventId, {
-				success: function(eventObj){
-					UI.setEventInfoView(eventObj);
+			
+			Global.eventModel.getUserAndEventData(Global.eventId, Alloy.Globals.getLoggedUser().get("legacyId"), {
+				success: function(respObj){
+					if(respObj.userEventData && respObj.eventObj){
+						UI.setEventInfoView(respObj.eventObj);
+						
+						Global.userEventData = respObj.userEventData;
+						UI.setViewUserOptions();
+					}else{
+						alert("No pudo ser obtenida la información del evento");
+						Alloy.Globals.eventDetailparentWindow.close();
+					}
+				},
+				error: function(errorObj){
+					alert("No pudo ser obtenida la información del evento");
+					Alloy.Globals.eventDetailparentWindow.close();
 				}
 			});
-			
-			Global.eventModel.getUserEventData(Global.eventId, Alloy.Globals.getLoggedUser().get("legacyId"), {
-				success: function(userData){
-					Global.userEventData = userData;
-					UI.setViewUserOptions();
-				}
-			});	
 		}else{
 			alert("No se pudo obtener el evento");
 			Alloy.Globals.eventDetailparentWindow.close();
@@ -157,6 +179,21 @@ $.stateOneButton.buttonView.addEventListener("click", function(e){
 
 $.stateTwoButton.buttonView.addEventListener("click", function(e){
 	UI.buttonActions(RIGHT_BUTTON);
+});
+
+$.adminOptionListView.addEventListener("itemclick", function(e){
+	if(Alloy.Globals.eventDetail){
+		switch(e.itemIndex){
+			case 0:
+				Alloy.Globals.openWindow($.event_info, "event/event_edition");
+			break;
+			case 1:
+				Alloy.Globals.openWindow($.event_info, "event/event_edition");
+			break;
+		}
+	}else{
+		// could not get the event id
+	}
 });
 
 // Initial call

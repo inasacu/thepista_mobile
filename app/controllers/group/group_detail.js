@@ -76,7 +76,7 @@ function init(initArgs){
 		
 		Global.groupModel.getGroupDetail(Global.groupId, Alloy.Globals.getLoggedUser().get("legacyId"), {
 			success: function(respObj){
-				if(respObj.group, respObj.userGroupData){
+				if(respObj.group && respObj.userGroupData){
 					Global.groupData = {id: respObj.group.get("legacyId"), name: respObj.group.get("name")};
 					UI.setGroupInfoView(respObj.group);	
 					
@@ -108,6 +108,20 @@ $.stateBar.barLeftButton.addEventListener("click", function(){
 
 $.group_detail.addEventListener('android:back', function(){
     $.group_detail.close();
+});
+
+$.optionListView.addEventListener("itemclick", function(e){
+	Titanium.API.info("OPTION "+JSON.stringify(e.itemIndex));
+	switch(e.itemIndex){
+		case 0:
+			// members
+			Alloy.Globals.openWindow($.group_detail, "shared/general_list", {initOption: 2, groupId: Global.groupId});
+		break;
+		case 1:
+			// events
+			Alloy.Globals.openWindow($.group_detail, "shared/general_list", {initOption: 3, groupId: Global.groupId});
+		break;
+	}
 });
 
 

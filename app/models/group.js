@@ -126,7 +126,55 @@ exports.definition = {
 	       			Ti.App.Properties.getString('webappRestAPI')+'/group/get_info/'+groupId+"/"+userId,
 	       			myCallbacks);
            	
-           }
+          },
+          getGroupMembers: function(groupId, extCallbacks){
+           	
+	           	var myCallbacks = {
+					success: function(message){	
+						var users = [];					
+						_.each(message, function(element, index, list){
+							var tempUser = Alloy.createModel("user");
+							tempUser.setFromJson(element);
+							users.push(tempUser);
+	           			});
+						
+						Alloy.Globals.successCallback(extCallbacks,users);	
+					},
+					error: function(verificationError){
+						Alloy.Globals.errorCallback(extCallbacks,verificationError);
+					}
+				}; 
+				
+	       		var restProxy = require('RestProxy');
+	       		restProxy.get(this, 
+	       			Ti.App.Properties.getString('webappRestAPI')+'/group/members/'+groupId,
+	       			myCallbacks);
+           	
+          },
+          getGroupEvents: function(groupId, extCallbacks){
+           	
+	           	var myCallbacks = {
+					success: function(message){	
+						var events = [];					
+						_.each(message, function(element, index, list){
+							var tempEvent = Alloy.createModel("event");
+							tempEvent.setFromJson(element);
+							events.push(tempEvent);
+	           			});
+						
+						Alloy.Globals.successCallback(extCallbacks,events);	
+					},
+					error: function(verificationError){
+						Alloy.Globals.errorCallback(extCallbacks,verificationError);
+					}
+				}; 
+				
+	       		var restProxy = require('RestProxy');
+	       		restProxy.get(this, 
+	       			Ti.App.Properties.getString('webappRestAPI')+'/group/events/'+groupId,
+	       			myCallbacks);
+           	
+          }
 		});
 
 		return Model;

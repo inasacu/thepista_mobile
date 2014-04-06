@@ -5,6 +5,11 @@ var requestMethod = function(type, model, url, callbacks, data){
 	requestOptions.url = url;
     requestOptions.data = (data || {});
     requestOptions.callbackFunctions = {};
+    
+    if(data && data.jsonContent===true){
+    	requestOptions.accepts = "application/json";
+    	requestOptions.contentType = "application/json";	
+    }
    
 	// checks callbacks content
 	callbacks = (callbacks || {});

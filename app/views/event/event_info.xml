@@ -1,9 +1,31 @@
 <Alloy>
 	<View class="container2">
-		<View top="0" layout="vertical">
+		<View id="principalView" top="0" layout="vertical">
 			<View class="viewSubtitle">
 				<Label class="viewSubtitleLabel" text="Información"></Label>
 			</View>
+			
+			<ListView id="adminOptionListView" borderColor="#ccc" top="10" height="70" defaultItemTemplate="options">
+		
+	            <Templates>
+	                <ItemTemplate height="35" name="options">
+				        <View left="10" top="5">
+				        	<View layout="horizontal" left="0" width="Titanium.UI.SIZE">
+				        		<Label left="0" color="#484848" bindId="pre"></Label>
+								<Label left="5" color="#484848" bindId="desc"></Label>
+				        	</View>
+							<Label right="10" color="#484848" bindId="icon"> > </Label>
+						</View>
+	                </ItemTemplate>
+	            </Templates>
+	
+	            <ListSection id="optionSection">
+	            	<ListItem desc:text="Editar evento"/>
+	            	<ListItem desc:text="Introducir resultados"/>
+	            </ListSection>
+	            
+	        </ListView>
+			
 			<View class="viewVerticalContent">
 				<View class="labelDesc" top="10">
 					<Label class="regularLabel">Nombre</Label>

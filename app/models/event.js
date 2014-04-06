@@ -13,12 +13,15 @@ exports.definition = {
            setFromJson: function(jsonObject){
            		this.set('legacyId', jsonObject.legacy_id);
            		this.set('name', jsonObject.name);
+           		this.set('startDateTimeMillis', jsonObject.start_datetime_millis);
            		this.set('startDate', jsonObject.start_date);
            		this.set('startTime', jsonObject.start_time);
+           		this.set('endDateTimeMillis', jsonObject.end_datetime_millis);
            		this.set('endDate', jsonObject.end_date);
            		this.set('endTime', jsonObject.end_time);
            		this.set('weekDay', jsonObject.week_day);
            		this.set('fee', jsonObject.fee);
+           		this.set('playerLimit', jsonObject.player_limit);
            		
            		if(jsonObject.group){
            			this.set('group', {id: jsonObject.group.id, 
@@ -35,7 +38,8 @@ exports.definition = {
            			this.set('place', {name: jsonObject.place.name,
 				           			  location: {latitude: jsonObject.place.latitude, 
 				           			  			longitude: jsonObject.place.longitude}});	
-           		}           		
+           		}       
+           		           		
            },
            getActiveByUserGroups: function(userId, extCallbacks){
            		var myCallbacks = {
@@ -131,10 +135,11 @@ exports.definition = {
            		var userEventData = {};
            		var myCallbacks = {
 					success: function(message){
-						userEventData = {eventId: message.event_id, 
-										userId: message.user_id,
-										status: message.user_event_state};
-						Alloy.Globals.successCallback(extCallbacks,userEventData);	
+						var userEventDataDTO = {userId: message.user_data.user_id,
+												status: message.user_data.user_event_state};
+						var tempEvent = Alloy.createModel("event");	
+						tempEvent.setFromJson(message.event);
+						Alloy.Globals.successCallback(extCallbacks,{userEventData: userEventDataDTO, eventObj: tempEvent});	
 					},
 					error: function(verificationError){
 						Alloy.Globals.errorCallback(extCallbacks,verificationError);
@@ -165,6 +170,29 @@ exports.definition = {
            			Ti.App.Properties.getString('webappRestAPI')+'/event/user_data/'+eventId+'/'+userId,
            			myCallbacks);
            },
+           getUserAndEventData: function(eventId, userId, extCallbacks){
+           		var userEventData = {};
+           		var myCallbacks = {
+					success: function(message){
+						var userEventDataDTO = {userId: message.user_data.user_id,
+												status: message.user_data.user_event_state,
+												isMember: message.user_data.is_member,
+												isManager: message.user_data.is_manager,
+												isCreator: message.user_data.is_creator};
+						var tempEvent = Alloy.createModel("event");	
+						tempEvent.setFromJson(message.event);
+						Alloy.Globals.successCallback(extCallbacks,{userEventData: userEventDataDTO, eventObj: tempEvent});
+					},
+					error: function(verificationError){
+						Alloy.Globals.errorCallback(extCallbacks,verificationError);
+					}
+				}; 
+           		
+           		var restProxy = require('RestProxy');
+           		restProxy.get(this, 
+           			Ti.App.Properties.getString('webappRestAPI')+'/event/get_info/'+eventId+'/'+userId,
+           			myCallbacks);
+           },
            create: function(eventInfo, userId, extCallbacks){
            		
            		var myCallbacks = {
@@ -191,6 +219,35 @@ exports.definition = {
            		var restProxy = require('RestProxy');
            		restProxy.post(this, 
            			Ti.App.Properties.getString('webappRestAPI')+'/event/create_new',
+           			myCallbacks, restDTO);
+           },
+           edit: function(eventInfo, userId, extCallbacks){
+           		
+           		var myCallbacks = {
+					success: function(message){
+						var tempEvent = Alloy.createModel("event");
+						tempEvent.setFromJson(message);
+						Alloy.Globals.successCallback(extCallbacks, tempEvent);	
+					},
+					error: function(verificationError){
+						Alloy.Globals.errorCallback(extCallbacks,verificationError);
+					}
+				}; 
+				
+				var restDTO = {
+					event_id: eventInfo.id,
+					event_name: eventInfo.name,
+					event_player_limit: eventInfo.playerLimit,
+					event_fee: eventInfo.fee,
+					event_date: eventInfo.date,
+					event_time: eventInfo.time,
+					event_group: eventInfo.groupId,
+					user_id: userId
+				};
+           		
+           		var restProxy = require('RestProxy');
+           		restProxy.post(this, 
+           			Ti.App.Properties.getString('webappRestAPI')+'/event/edit',
            			myCallbacks, restDTO);
            }
 		});

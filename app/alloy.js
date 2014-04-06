@@ -12,6 +12,8 @@
 
 // Global properties ---------------------------------------------
 
+Alloy.Globals.Map = require('ti.map');
+
 // Webapp
 //Ti.App.Properties.setString('webappURL', 'http://thepista.192.168.1.133.xip.io/');
 Ti.App.Properties.setString('webappURL', 'http://thepista.dev/');
@@ -170,7 +172,7 @@ Alloy.Globals.setLoggedUser = function(userData){
 Alloy.Globals.testBootstrap = function(){
 	var userData = {"mobile_token":{"_id":"53012177ca3ad81d86000024","_type":"null",
 									 "active":1,"email":"jonathan.aradu@gmail.com","generated_time":"2014-02-16T20:37:11+00:00",
-									 "legacy_id":3189,"name":"Jonathan Araujo GMAIL","token":"BlcsxjJmEePF-Mq5fQjY2g"}};
+									 "legacy_id":3188,"name":"Jonathan Araujo GMAIL","token":"BlcsxjJmEePF-Mq5fQjY2g"}};
  	Alloy.Globals.setLoggedUser(userData.mobile_token);
 };
 Alloy.Globals.testBootstrap();
@@ -212,6 +214,10 @@ Alloy.Globals.formatPickedDate = function(chosenDateTime, formatIndex){
 	var formatResult = "";
 	
 	switch(formatIndex){
+		case 1:
+			var datetime = new Date(chosenDateTime);
+			formatResult = datetime.customFormat("#DD#/#MM#/#YYYY# - #hh#:#mm# #ampm#");
+		break;
 		default:
 			formattedDate = date.customFormat("#DD#/#MM#/#YYYY#");
 		    formattedTime = time.customFormat("#hh#:#mm# #ampm#");

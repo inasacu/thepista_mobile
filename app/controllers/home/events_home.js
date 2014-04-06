@@ -55,7 +55,7 @@ $.stateBar.barRightButton.addEventListener("click", function(){
 });
 
 $.createEventButton.buttonView.addEventListener("click", function(){
-	Alloy.Globals.openWindow($.events_home_win, "shared/general_list");
+	Alloy.Globals.openWindow($.events_home_win, "shared/general_list", {initOption:1});
 });
 
 $.listViewHistoricalEvents.addEventListener("itemclick", function(e){

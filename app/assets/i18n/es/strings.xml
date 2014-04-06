@@ -21,6 +21,7 @@
 	<string name="account">Mi cuenta</string>
 	<string name="installations_title">Instalaciones</string>
 	<string name="venues_title">Instalaciones</string>
+	<string name="venue">Instalación</string>
 	<string name="messages_title">Mensajes</string>
 	<string name="account_title">Mi Cuenta</string>
 	<string name="signup_text">Solo unos pasos más para completar tu registro en HayPista</string>
@@ -48,6 +49,7 @@
     <string name="sport">Deporte</string>
     <string name="group_creation_title">Creación de grupo</string>
     <string name="event_creation_title">Creación de evento</string>
+    <string name="event_edition_title">Edición de evento</string>
     <string name="format_test">Your name is %s</string>
     <string name="ordered">Hi %1$s, my name is %2$s</string>
 </resources>

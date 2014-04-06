@@ -11,7 +11,7 @@
 			       </Picker>
 			        
 			        <Label top="10" class="formElement" text="Escoja una hora"></Label>
-					<Picker id="timePicker" type="Titanium.UI.PICKER_TYPE_TIME " selectionIndicator="true" useSpinner="true">
+					<Picker id="timePicker" minuteInterval="15" type="Titanium.UI.PICKER_TYPE_TIME " selectionIndicator="true" useSpinner="true">
 			        </Picker>
 			        
 			        <View layout="horizontal" height="Titanium.UI.SIZE" width="Titanium.UI.SIZE">

@@ -1,6 +1,6 @@
 <Alloy>
-	<Window class="container" layout="vertical">
-		<View id="subView" layout="vertical">
+	<Window class="container2" layout="vertical">
+		<View top="0" layout="vertical">
 			<Require id="stateBar" type="view" src="includes/custom_state_bar" reload="true" title="L('account')"/>
 			
 			<ScrollView class="containerScrollView" layout="vertical" showVerticalScrollIndicator="true">

@@ -3,7 +3,7 @@
 		<View id="subView" top="20" layout="vertical">
 			<Require id="stateBar" 
 				type="view" src="includes/custom_state_bar" 
-				reload="true" back="true" title="L('groups_title')"/>	
+				reload="true" back="true" title=""/>	
 			 
 			 <View class="buttonHolderContainer">
 				<Label id="introMessage"></Label>
@@ -15,9 +15,10 @@
 	
 	                <ItemTemplate name="defaultTemplate">
 	                	<View class="listItemContainer">
-	                		<ImageView bindId="gpic" class="list1Icon" />
-		                    <Label bindId="gname" class="list1Title" />
-		                    <Label bindId="gsize" class="list1Subtitle1" />
+	                		<ImageView bindId="pic" class="list1Icon" />
+		                    <Label bindId="label1" class="list1Title" />
+		                    <Label bindId="label2" class="list1Subtitle1" />
+		                    <Label bindId="label3" class="list1Subtitle2" />
 	                	</View>
 	                </ItemTemplate>
 					
@@ -27,7 +28,7 @@
 	                
 	            </Templates>
 	
-	            <ListSection id="listSectionElement" headerTitle="Sección">
+	            <ListSection id="listSectionElement">
 	            </ListSection>
 	            
 	         </ListView>

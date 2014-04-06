@@ -42,8 +42,8 @@ function init(initArgs){
 $.logOutButton.buttonView.addEventListener("click", function(){
 	Global.userModel.logout(Alloy.Globals.getLoggedUser().get("legacyId"), {
 		success: function(message){
-			Alloy.Globals.openWindow($.user_account, "index");
-			//Alloy.Globals.homeTabWindow.close();
+			Alloy.Globals.openWindow($.account_home, "index");
+			Alloy.Globals.homeTabWindow.close();
 		},
 		error: function(){
 			alert("No se pudo cerrar la sesión");
