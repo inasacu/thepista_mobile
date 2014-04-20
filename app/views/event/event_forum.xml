@@ -1,4 +1,62 @@
 <Alloy>
-	<View class="container2">
-	</View>
+	<Window class="container2">
+		<View id="principalView" top="0" layout="vertical">
+			<View class="viewSubtitle">
+				<Label class="viewSubtitleLabel" text="Foro"></Label>
+			</View>
+			
+			<View id="messageView" visible="false"
+				top="5" height="0" 
+				layout="vertical"
+				backgroundColor="#fff">
+				<TextArea id="messageTextArea"
+		        borderWidth="2" borderColor="#bbb" borderRadius="5"
+		        color="#888" textAlign="left"
+		        width="300" height="70" />
+		        <View class="buttonHolderContainer">
+					<View class="buttonHolderBody">
+						<Require id="sendMessageViewButton" 
+							type="view" isAccept="true" 
+							text="Enviar" width="50%" src="includes/custom_button"/>
+						<Require id="cancelMessageViewButton" 
+							type="view" isCancel="true" 
+							text="Cancelar" width="50%" src="includes/custom_button"/>
+					</View>
+		        </View>
+			</View>
+			
+			<View id="showMessageView" class="buttonHolderContainer">
+				<View class="buttonHolderBody">
+					<Require id="showMessageViewButton" 
+						type="view" isAccept="true" 
+						text="Nuevo mensaje" width="50%" src="includes/custom_button"/>
+				</View>
+	        </View>
+			
+			<ListView id="listViewComments" defaultItemTemplate="templateResume">
+				
+				<Templates>
+				
+				    <ItemTemplate name="templateResume">
+				    	<View layout="horizontal">
+				    		<View top="5" layout="vertical">
+				    			<Label bindId="name" left="10" class="list1Title" />
+				    			<Label left="10" bindId="message"></Label>
+				    		</View>
+				    	</View>
+				    </ItemTemplate>
+				    
+				    <ItemTemplate name="messageTemplate">
+				        <Label bindId="info" />
+				    </ItemTemplate>
+				    
+				</Templates>
+				
+				<ListSection id="messagesSection">
+					
+				</ListSection>
+			
+			</ListView>
+		</View>
+	</Window>
 </Alloy>

@@ -5,7 +5,7 @@ function InitAdapter(config) {
 function apiCall(_options) {
     if (Ti.Network.online) {
         var xhr = Ti.Network.createHTTPClient({
-            timeout : _options.timeout || 10000
+            timeout : _options.timeout || 90000
         });
 
         //Prepare the request

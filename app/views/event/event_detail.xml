@@ -30,10 +30,6 @@
 			    	</View>
 			    </View>
 				<ScrollableView id="scrollableView" showPagingControl="false">
-			        <Require src="event/event_info"></Require>
-			        <Require src="event/event_team"></Require>
-			        <Require src="event/event_forum"></Require>
-			        <Require src="event/event_people"></Require>
 			    </ScrollableView>
 			</View>
 		</View>

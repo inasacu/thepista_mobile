@@ -26,7 +26,7 @@
 	            
 	        </ListView>
 			
-			<View class="viewVerticalContent">
+			<View id="eventInfoBox" class="viewVerticalContent">
 				<View class="labelDesc" top="10">
 					<Label class="regularLabel">Nombre</Label>
 					<Label class="regularLabelDesc" id="eventName"></Label>
@@ -58,7 +58,7 @@
 				<View id="userEventStatusBar" top="10" class="statusInfo" backgroundColor="#5da423">
 					<Label id="userEventStatusLabel" class="statusInfoLabel"></Label>				
 				</View>
-				<View top="10" class="wrapperContainer" layout="horizontal">
+				<View id="changeStateButtonBox" top="10" class="wrapperContainer" layout="horizontal">
 					<Require id="stateOneButton" type="view" isAccept="true" width="50%" src="includes/custom_button"/>
 	        		<Require id="stateTwoButton" type="view" isAccept="true" width="50%" src="includes/custom_button"/>
 				</View>

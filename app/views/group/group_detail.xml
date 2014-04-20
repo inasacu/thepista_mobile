@@ -6,7 +6,7 @@
 			<ScrollView class="containerScrollView" layout="vertical" showVerticalScrollIndicator="true">
 		        
 		        <View class="buttonHolderContainer">
-					<View id="buttonsBody" class="buttonHolderBody" width="45%">
+					<View id="buttonsBody" class="buttonHolderBody" visible="false" width="45%">
 		        		<Require id="createEventButton" type="view" width="100%" isAccept="true" text="Crear evento" src="includes/custom_button"/>
 					</View>
 		        </View>

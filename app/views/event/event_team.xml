@@ -1,4 +1,37 @@
 <Alloy>
 	<View class="container2">
+		<View id="principalView" top="0" layout="vertical">
+			<View class="viewSubtitle">
+				<Label class="viewSubtitleLabel" text="Equipos"></Label>
+			</View>
+			
+			<ListView id="listViewTeams" defaultItemTemplate="templateResume">
+				
+				<Templates>
+				
+				    <ItemTemplate name="templateResume">
+				    	<View layout="horizontal">
+				    		<ImageView bindId="pic" class="list1Icon" />
+				    		<View top="10" layout="vertical">
+				    			<Label left="10" bindId="name" class="list1Title" />
+				    			<Label bindId="changeButton" left="10" text="Cambiar"></Label>
+				    		</View>
+				    	</View>
+				    </ItemTemplate>
+				    
+				    <ItemTemplate name="messageTemplate">
+				        <Label bindId="info" />
+				    </ItemTemplate>
+				    
+				</Templates>
+				
+				<ListSection id="localTeamSection" headerTitle="Equipo 1">
+				</ListSection>
+				
+				<ListSection id="visitorTeamSection" headerTitle="Equipo 2">
+				</ListSection>
+			
+			</ListView>
+		</View>
 	</View>
 </Alloy>

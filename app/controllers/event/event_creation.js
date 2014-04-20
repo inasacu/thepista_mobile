@@ -95,7 +95,7 @@ $.submitButton.buttonView.addEventListener("click", function(){
 		Global.eventModel.create(Global.eventFormInfo, Alloy.Globals.getLoggedUser().get("legacyId"), {
 			success: function(newEvent){
 				alert("Evento creado");
-				Alloy.Globals.eventDetail = {eventId: newEvent.get("legacyId")};
+				Alloy.Globals.selectedEventInfo = {eventId: tempEvent.id};
 				Alloy.Globals.openWindow($.event_creation, "event/event_detail");
 				$.event_creation.close();
 			},

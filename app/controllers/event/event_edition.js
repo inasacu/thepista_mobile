@@ -4,7 +4,6 @@ var Global = {};
 
 // variables and initialization
 Global.eventModel = Alloy.createModel('event');
-Global.eventEditModel = undefined;
 Global.eventFormInfo = {};
 Global.chosenDateTime = {};
 
@@ -15,10 +14,10 @@ Global.validator = new Global.validate.FormValidator();
 UI = (function(){
 	return {
 		setEventFormInfo: function(){
-			if(Global.eventEditModel.get("group")){
-				Global.eventFormInfo.groupId = Global.eventEditModel.get("group").id;	
+			if(Alloy.Globals.selectedEventObj.get("group")){
+				Global.eventFormInfo.groupId = Alloy.Globals.selectedEventObj.get("group").id;	
 			}
-			Global.eventFormInfo.id = Global.eventEditModel.get("legacyId");
+			Global.eventFormInfo.id = Alloy.Globals.selectedEventObj.get("legacyId");
 			Global.eventFormInfo.playerLimit = $.playerLimit.getValue();
 			Global.eventFormInfo.fee = $.eventFee.getValue();
 			Global.eventFormInfo.name = $.eventName.getValue();
@@ -26,18 +25,18 @@ UI = (function(){
 			Global.eventFormInfo.time = Global.chosenDateTime.pickedTime;
 		},
 		setEventInfoView: function(){
-			if(Global.eventEditModel){
+			if(Alloy.Globals.selectedEventObj){
 				// date
-				var tempDate = new Date(Global.eventEditModel.get("startDateTimeMillis"));
+				var tempDate = new Date(Alloy.Globals.selectedEventObj.get("startDateTimeMillis"));
 				Global.chosenDateTime.pickedDate = tempDate.getTime();
 				Global.chosenDateTime.pickedTime = tempDate.getTime();
 				
-				$.groupName.setText(Global.eventEditModel.get("group").name);
-				$.playerLimit.setValue(Global.eventEditModel.get("playerLimit"));
-				$.eventFee.setValue(Global.eventEditModel.get("fee"));
-				$.eventName.setValue(Global.eventEditModel.get("name"));
+				$.groupName.setText(Alloy.Globals.selectedEventObj.get("group").name);
+				$.playerLimit.setValue(Alloy.Globals.selectedEventObj.get("playerLimit"));
+				$.eventFee.setValue(Alloy.Globals.selectedEventObj.get("fee"));
+				$.eventName.setValue(Alloy.Globals.selectedEventObj.get("name"));
 				$.dateOptionButton1.buttonViewLabel.setText(
-					Alloy.Globals.formatPickedDate(Global.eventEditModel.get("startDateTimeMillis"), 1));
+					Alloy.Globals.formatPickedDate(Alloy.Globals.selectedEventObj.get("startDateTimeMillis"), 1));
 			}
 		},
 		validateForm: function(outerCallback){
@@ -79,16 +78,16 @@ UI = (function(){
 				alert("El campo Fecha de inicio es requerido");
 			}
 		},
-		initCall: function(initArgs){
+		initCall: function(){
 			
-			if(!_.isEmpty(initArgs)){
-				Global.eventId = initArgs.eventId;
-				if(Global.eventId){
+			if(!_.isEmpty(Alloy.Globals.selectedEventObj)){
+				if(Alloy.Globals.selectedEventObj.get("legacyId")){
 					
-					Global.eventModel.getUserAndEventData(Global.eventId, Alloy.Globals.getLoggedUser().get("legacyId"), {
+					Global.eventModel.getUserAndEventData(Alloy.Globals.selectedEventObj.get("legacyId"), 
+						Alloy.Globals.getLoggedUser().get("legacyId"), {
 						success: function(respObj){
 							if(respObj.eventObj){
-								Global.eventEditModel = respObj.eventObj;
+								Alloy.Globals.selectedEventObj = respObj.eventObj;
 								UI.setEventInfoView();
 							}else{
 								alert("No pudo ser obtenida la información del evento");
@@ -152,4 +151,4 @@ $.event_edition.addEventListener('android:back', function(){
 });
  
 // Init call
-UI.initCall(Alloy.Globals.eventDetail);
+UI.initCall();

@@ -151,6 +151,40 @@ exports.definition = {
            			Ti.App.Properties.getString('webappRestAPI')+'/event/change_user_state',
            			myCallbacks, {event_id: eventId, user_id: userId, new_state: newState});
            },
+           changeUserTeam: function(eventId, userId, extCallbacks){
+           		var userEventData = {};
+           		var myCallbacks = {
+					success: function(message){
+						var userTeamDataDTO = {success: message.success,
+											   isSecondTeam: message.is_second_team};
+						var localTeam = [];
+						var visitorTeam = [];
+						if(message.teams){
+							if(message.teams.local){
+								_.each(message.teams.local, function(localPlayer, index, list){
+									localTeam.push({id: localPlayer.legacy_id, name: localPlayer.name});
+								});
+							}
+							if(message.teams.visitor){
+								_.each(message.teams.visitor, function(visitorPlayer, index, list){
+									visitorTeam.push({id: visitorPlayer.legacy_id, name: visitorPlayer.name});
+								});		
+							}
+						}
+						
+						Alloy.Globals.successCallback(extCallbacks,
+							{userTeamData: userTeamDataDTO, localTeamArray: localTeam, visitorTeamArray: visitorTeam});	
+					},
+					error: function(verificationError){
+						Alloy.Globals.errorCallback(extCallbacks,verificationError);
+					}
+				}; 
+           		
+           		var restProxy = require('RestProxy');
+           		restProxy.post(this, 
+           			Ti.App.Properties.getString('webappRestAPI')+'/event/change_user_event_team',
+           			myCallbacks, {event_id: eventId, user_id: userId});
+           },
            getUserEventData: function(eventId, userId, extCallbacks){
            		var userEventData = {};
            		var myCallbacks = {
@@ -191,6 +225,40 @@ exports.definition = {
            		var restProxy = require('RestProxy');
            		restProxy.get(this, 
            			Ti.App.Properties.getString('webappRestAPI')+'/event/get_info/'+eventId+'/'+userId,
+           			myCallbacks);
+           },
+           getEventTeams: function(eventId, extCallbacks){
+           		var userEventData = {};
+           		var myCallbacks = {
+					success: function(message){
+						var userTeamDataDTO = {success: message.success,
+											   isSecondTeam: message.is_second_team};
+						var localTeam = [];
+						var visitorTeam = [];
+						if(message.teams){
+							if(message.teams.local){
+								_.each(message.teams.local, function(localPlayer, index, list){
+									localTeam.push({id: localPlayer.legacy_id, name: localPlayer.name});
+								});
+							}
+							if(message.teams.visitor){
+								_.each(message.teams.visitor, function(visitorPlayer, index, list){
+									visitorTeam.push({id: visitorPlayer.legacy_id, name: visitorPlayer.name});
+								});		
+							}
+						}
+						
+						Alloy.Globals.successCallback(extCallbacks,
+							{userTeamData: userTeamDataDTO, localTeamArray: localTeam, visitorTeamArray: visitorTeam});
+					},
+					error: function(verificationError){
+						Alloy.Globals.errorCallback(extCallbacks,verificationError);
+					}
+				}; 
+           		
+           		var restProxy = require('RestProxy');
+           		restProxy.get(this, 
+           			Ti.App.Properties.getString('webappRestAPI')+'/event/get_teams/'+eventId,
            			myCallbacks);
            },
            create: function(eventInfo, userId, extCallbacks){
@@ -249,6 +317,38 @@ exports.definition = {
            		restProxy.post(this, 
            			Ti.App.Properties.getString('webappRestAPI')+'/event/edit',
            			myCallbacks, restDTO);
+           },
+           addForumComment: function(eventId, userId, comment, extCallbacks){
+           		
+           		var myCallbacks = {
+					success: function(message){
+						Alloy.Globals.successCallback(extCallbacks, message);	
+					},
+					error: function(verificationError){
+						Alloy.Globals.errorCallback(extCallbacks,verificationError);
+					}
+				}; 
+				
+           		var restProxy = require('RestProxy');
+           		restProxy.post(this, 
+           			Ti.App.Properties.getString('webappRestAPI')+'/event/forum/add_comment',
+           			myCallbacks, {event_id: eventId, user_id:userId, message: comment});
+           },
+           getForumComments: function(eventId, extCallbacks){
+           		
+           		var myCallbacks = {
+					success: function(message){
+						Alloy.Globals.successCallback(extCallbacks, message);	
+					},
+					error: function(verificationError){
+						Alloy.Globals.errorCallback(extCallbacks,verificationError);
+					}
+				}; 
+				
+           		var restProxy = require('RestProxy');
+           		restProxy.get(this, 
+           			Ti.App.Properties.getString('webappRestAPI')+'/event/forum/get_comments/'+eventId,
+           			myCallbacks);
            }
 		});
 

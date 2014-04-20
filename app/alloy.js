@@ -172,7 +172,7 @@ Alloy.Globals.setLoggedUser = function(userData){
 Alloy.Globals.testBootstrap = function(){
 	var userData = {"mobile_token":{"_id":"53012177ca3ad81d86000024","_type":"null",
 									 "active":1,"email":"jonathan.aradu@gmail.com","generated_time":"2014-02-16T20:37:11+00:00",
-									 "legacy_id":3188,"name":"Jonathan Araujo GMAIL","token":"BlcsxjJmEePF-Mq5fQjY2g"}};
+									 "legacy_id":3189,"name":"Jonathan Araujo GMAIL","token":"BlcsxjJmEePF-Mq5fQjY2g"}};
  	Alloy.Globals.setLoggedUser(userData.mobile_token);
 };
 Alloy.Globals.testBootstrap();
@@ -240,6 +240,8 @@ Alloy.Globals.localeStrings = {};
 
 // Global for children event views
 Alloy.Globals.eventViewsControllers = {};
+
+Alloy.Globals.selectedEventInfo = {eventId: 432};
 
 // Global no-namespace functions - override
 function L(text) {

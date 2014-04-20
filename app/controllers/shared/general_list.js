@@ -108,7 +108,7 @@ Control = function(initArgs){
 				}
 				var tempGroup = temp.extData.group;
 				if(!_.isEmpty(tempGroup) && !isNaN(tempGroup.id)){
-					Alloy.Globals.openWindow($.group_list, "event/event_creation", {group: tempGroup});
+					Alloy.Globals.openWindow($.general_list, "event/event_creation", {group: tempGroup});
 					$.general_list.close();
 				}
 			});
@@ -151,7 +151,7 @@ Control = function(initArgs){
 				});		
 			}else{
 				alert("No se pudo obtener la lista de miembros");
-				$.option_list.close();
+				$.general_list.close();
 			}
 		},
 		groupEventsInit: function(){
@@ -173,10 +173,25 @@ Control = function(initArgs){
 					error: function(data){
 						UI.pushMessageIntoSection("listSectionElement", "No se pudieron obtener los eventos del grupos, intenta de nuevo");
 					}
-				});		
+				});	
+				
+				$.listViewElement.addEventListener("itemclick", function(e){
+					switch(e.sectionIndex){
+						case 0:
+							temp = Global.myCollection[e.itemIndex];
+						break;
+					}
+					var tempEvent = temp.extData;
+					if(!_.isEmpty(tempEvent) && !isNaN(tempEvent.eventId)){
+						Alloy.Globals.selectedEventInfo = {eventId: tempEvent.eventId};
+						Alloy.Globals.openWindow($.general_list, "event/event_detail");
+						$.general_list.close();
+					}
+				});
+					
 			}else{
 				alert("No se pudo obtener la lista de eventos");
-				$.option_list.close();
+				$.general_list.close();
 			}
 		},
 		venueEventsInit: function(){
@@ -201,7 +216,7 @@ Control = function(initArgs){
 				});		
 			}else{
 				alert("No se pudo obtener la lista de eventos");
-				$.option_list.close();
+				$.general_list.close();
 			}
 		}
 	};

@@ -66,7 +66,7 @@ $.listViewHistoricalEvents.addEventListener("itemclick", function(e){
 	}
 	var tempEvent = temp.extData;
 	if(!_.isEmpty(tempEvent) && !isNaN(tempEvent.id)){
-		Alloy.Globals.eventDetail = {eventId: tempEvent.id};
+		Alloy.Globals.selectedEventInfo = {eventId: tempEvent.id};
 		Alloy.Globals.openWindow($.events_home_win, "event/event_detail");
 	}
 });

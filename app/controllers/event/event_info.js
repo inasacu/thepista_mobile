@@ -1,12 +1,11 @@
 
-// Inner Modules
+// Inner Modules and namespaces
 var UI = {};
+var Control = {};
 var Global = {};
 
 // Initial
 Global.eventModel = Alloy.createModel("event");
-Global.eventId;
-Global.userEventData = {};
 Alloy.Globals.eventViewsControllers["event_info"] = $;
 
 // Constants
@@ -21,7 +20,7 @@ UI = function(){
 			var newStatusCode;
 			switch(buttonIndex){
 				case LEFT_BUTTON:
-					switch(Global.userEventData.status){
+					switch(Alloy.Globals.userEventData.status){
 						case Ti.App.Properties.getInt('UGOING'):
 						// ausente
 						newStatusCode = Ti.App.Properties.getInt('UMISSING');
@@ -37,7 +36,7 @@ UI = function(){
 					}
 				break;
 				case RIGHT_BUTTON:
-					switch(Global.userEventData.status){
+					switch(Alloy.Globals.userEventData.status){
 						case Ti.App.Properties.getInt('UGOING'):
 						// ultima
 						newStatusCode = Ti.App.Properties.getInt('ULAST');
@@ -53,14 +52,15 @@ UI = function(){
 					}
 				break;
 			};
-			Global.eventModel.changeUserState(Global.eventId, 
-				Global.userEventData.userId, newStatusCode, {
+			Global.eventModel.changeUserState(Alloy.Globals.selectedEventObj.get("legacyId"), 
+				Alloy.Globals.userEventData.userId, newStatusCode, {
 				success: function(data){
 					if(data.userEventData && data.eventObj){
-						Global.userEventData = data.userEventData;
-						UI.setViewUserOptions();
+						Alloy.Globals.userEventData = data.userEventData;
+						Alloy.Globals.selectedEventObj = data.eventObj;
 						
-						UI.setEventInfoView(data.eventObj);
+						UI.setViewUserOptions();
+						UI.setEventInfoView();
 					}else{
 						alert(data.message);
 					}
@@ -68,108 +68,107 @@ UI = function(){
 			});	
 		},
 		setViewUserOptions: function(){
-			var leftText = "";
-			var rightText = "";
-			var stateText = "";
-			var stateColor = "";
 			
-			switch(Global.userEventData.status){
-				case Ti.App.Properties.getInt('UGOING'):
-				// ausente - ultima
-					leftText = "Pasar a ausente";
-				 	rightText = "Pasar a ultima hora";
-				 	stateText = "Estas convocado";
-				 	stateColor = "#5da423";
-				break;
-				case Ti.App.Properties.getInt('UMISSING'):
-				// convocado - ultima
-					leftText = "Pasar a convocado";
-				 	rightText = "Pasar a ultima hora";
-				 	stateText = "Estas ausente";
-				 	stateColor = "red";
-				break;
-				case Ti.App.Properties.getInt('ULAST'):
-				// convocado - ausente
-					leftText = "Pasar a convocado";
-				 	rightText = "Pasar a ausente";
-				 	stateText = "Estas para ultima hora";
-				 	stateColor = "#ff9933";
-				break;
+			// Check if user is member
+			if(Alloy.Globals.userEventData.isMember===true){
+				var leftText = "";
+				var rightText = "";
+				var stateText = "";
+				var stateColor = "";
+				
+				switch(Alloy.Globals.userEventData.status){
+					case Ti.App.Properties.getInt('UGOING'):
+					// ausente - ultima
+						leftText = "Pasar a ausente";
+					 	rightText = "Pasar a ultima hora";
+					 	stateText = "Estas convocado";
+					 	stateColor = "#5da423";
+					break;
+					case Ti.App.Properties.getInt('UMISSING'):
+					// convocado - ultima
+						leftText = "Pasar a convocado";
+					 	rightText = "Pasar a ultima hora";
+					 	stateText = "Estas ausente";
+					 	stateColor = "red";
+					break;
+					case Ti.App.Properties.getInt('ULAST'):
+					// convocado - ausente
+						leftText = "Pasar a convocado";
+					 	rightText = "Pasar a ausente";
+					 	stateText = "Estas para ultima hora";
+					 	stateColor = "#ff9933";
+					break;
+				}
+				
+				$.stateOneButton.buttonViewLabel.text = leftText;
+				$.stateTwoButton.buttonViewLabel.text = rightText;
+				$.userEventStatusBar.backgroundColor = stateColor;
+				$.userEventStatusLabel.text = stateText;
+			}else{
+				$.eventInfoBox.remove($.userEventStatusBar);
+				$.eventInfoBox.remove($.changeStateButtonBox);
 			}
 			
-			$.stateOneButton.buttonViewLabel.text = leftText;
-			$.stateTwoButton.buttonViewLabel.text = rightText;
-			$.userEventStatusBar.backgroundColor = stateColor;
-			$.userEventStatusLabel.text = stateText;
 			
 			// evaluate if admin options should be shown
 			var adminOptions = $.adminOptionListView;
 			if(adminOptions){
-				if(Global.userEventData.isManager===true
-					|| Global.userEventData.isCreator===true){
+				if(Alloy.Globals.userEventData.isManager===true
+					|| Alloy.Globals.userEventData.isCreator===true){
 					$.adminOptionListView.show();
 				}else{
 					$.principalView.remove(adminOptions);
 				}
 			}
 		},
-		setEventInfoView: function(currentEvent){
-			if(_.isEmpty(currentEvent) || isNaN(currentEvent.get("legacyId"))){
+		setEventInfoView: function(){
+			if(_.isEmpty(Alloy.Globals.selectedEventObj) 
+				|| isNaN(Alloy.Globals.selectedEventObj.get("legacyId"))){
 				alert("No se pudo recuperar el evento ");
 			}
 			else{
-				$.eventName.text = currentEvent.get("name");
-				$.eventGroup.text = currentEvent.get("group").name;
+				$.eventName.text = Alloy.Globals.selectedEventObj.get("name");
+				$.eventGroup.text = Alloy.Globals.selectedEventObj.get("group").name;
 				$.eventDate.text = Alloy.Globals.longDateTimeFormat(
-								   currentEvent.get("weekDay"), 
-								   currentEvent.get("startDate"),
-						   		   currentEvent.get("startTime"));
-				$.eventPlace.text = currentEvent.get("place").name;
-				$.eventFee.text = currentEvent.get("fee")+" \u20ac";
-				$.roosterGoing.text = currentEvent.get("peopleInfo").comming;
-				$.roosterMissing.text = currentEvent.get("peopleInfo").missing;
+								   Alloy.Globals.selectedEventObj.get("weekDay"), 
+								   Alloy.Globals.selectedEventObj.get("startDate"),
+						   		   Alloy.Globals.selectedEventObj.get("startTime"));
+				$.eventPlace.text = Alloy.Globals.selectedEventObj.get("place").name;
+				$.eventFee.text = Alloy.Globals.selectedEventObj.get("fee")+" \u20ac";
+				$.roosterGoing.text = Alloy.Globals.selectedEventObj.get("peopleInfo").comming;
+				$.roosterMissing.text = Alloy.Globals.selectedEventObj.get("peopleInfo").missing;
 			}
 		}
 	};
 }();
 
-function init(initArgs){
-	// Always hide the admin options
-	$.adminOptionListView.hide();
-	
-	if(!_.isEmpty(initArgs)){
-		Global.eventId = initArgs.eventId;
-		if(Global.eventId){
+Control = function(){
+	return {
+		init: function(){
+			// Always hide the admin options
+			$.adminOptionListView.hide();
 			
-			Global.eventModel.getUserAndEventData(Global.eventId, Alloy.Globals.getLoggedUser().get("legacyId"), {
-				success: function(respObj){
-					if(respObj.userEventData && respObj.eventObj){
-						UI.setEventInfoView(respObj.eventObj);
-						
-						Global.userEventData = respObj.userEventData;
-						UI.setViewUserOptions();
-					}else{
-						alert("No pudo ser obtenida la información del evento");
-						Alloy.Globals.eventDetailparentWindow.close();
-					}
-				},
-				error: function(errorObj){
-					alert("No pudo ser obtenida la información del evento");
+			if(!_.isEmpty(Alloy.Globals.selectedEventObj)){
+				if(Alloy.Globals.selectedEventObj.get("legacyId")){
+					
+					UI.setEventInfoView();
+					UI.setViewUserOptions();
+					
+				}else{
+					alert("No se pudo obtener el evento");
 					Alloy.Globals.eventDetailparentWindow.close();
 				}
-			});
-		}else{
-			alert("No se pudo obtener el evento");
-			Alloy.Globals.eventDetailparentWindow.close();
+			}else{
+				alert("No se pudo obtener el evento");
+				Alloy.Globals.eventDetailparentWindow.close();
+			}	
 		}
-	}else{
-		alert("No se pudo obtener el evento");
-		Alloy.Globals.eventDetailparentWindow.close();
-	}	
-}
+	};
+}();
 
-exports.reload = function(reloadArgs){
-	init(reloadArgs);
+
+exports.reload = function(){
+	Control.init();
 };
 
 // Listeners
@@ -182,7 +181,7 @@ $.stateTwoButton.buttonView.addEventListener("click", function(e){
 });
 
 $.adminOptionListView.addEventListener("itemclick", function(e){
-	if(Alloy.Globals.eventDetail){
+	if(Alloy.Globals.selectedEventObj){
 		switch(e.itemIndex){
 			case 0:
 				Alloy.Globals.openWindow($.event_info, "event/event_edition");
@@ -197,4 +196,4 @@ $.adminOptionListView.addEventListener("itemclick", function(e){
 });
 
 // Initial call
-init(Alloy.Globals.eventDetail);
+Control.init();

@@ -84,6 +84,8 @@ function init(initArgs){
 					if(!respObj.userGroupData.isManager 
 						&& !respObj.userGroupData.isCreator){
 						$.buttonsBody.remove($.createEventButton.buttonView);
+					}else{
+						$.buttonsBody.show();	
 					}
 					
 				}else{
@@ -111,7 +113,6 @@ $.group_detail.addEventListener('android:back', function(){
 });
 
 $.optionListView.addEventListener("itemclick", function(e){
-	Titanium.API.info("OPTION "+JSON.stringify(e.itemIndex));
 	switch(e.itemIndex){
 		case 0:
 			// members
